@@ -36,7 +36,8 @@ folder. Read the `STATE:` line.
 | `upgrade-available` | Homebrew build, a newer release exists | Step 2, upgrade |
 | `not-installed` | Homebrew is there, adacli is not | Step 2, install |
 | `no-homebrew-no-adacli` | Neither is installed | Step 2, Homebrew first |
-| `installed-outside-homebrew` | adacli is on PATH but another tool put it there | Ask, see below |
+| `installed-outside-homebrew-current` | Another tool installed it, and it is the latest release | Nothing to fix. Go to step 3 |
+| `installed-outside-homebrew` | Another tool installed it, and it is older or unchecked | Ask, see below |
 | `version-unknown` | Could not reach GitHub | Step 2, upgrade check by hand |
 | `unsupported-platform` | Not macOS or Linux | Use the MCP route |
 
@@ -53,7 +54,8 @@ run and wait for a yes.
 After either one, run the check again and confirm `STATE: up-to-date`.
 
 If adacli came from somewhere other than Homebrew (a copy someone built or
-linked), do not remove it. Ask whether to keep it. If they switch to the
+linked), do not remove it, and do not say the skills need the Homebrew build:
+they work with any current adacli. Ask whether to keep it. If they switch to the
 Homebrew build, run `which -a adacli` and confirm the Homebrew one comes first.
 
 On macOS, a release tarball downloaded by hand can be blocked by Gatekeeper.

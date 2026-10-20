@@ -49,8 +49,13 @@ fi
 
 if [ "$via_brew" = 0 ]; then
   echo "installed by: not Homebrew"
-  echo "STATE: installed-outside-homebrew"
-  echo "NEXT: Ask the person. Keep it, or switch to the Homebrew build with: brew install adasupport/tap/adacli (then check 'which -a adacli' for the order on PATH)."
+  if [ -n "$latest" ] && [ "$installed" = "$latest" ]; then
+    echo "STATE: installed-outside-homebrew-current"
+    echo "NEXT: Nothing needed. This copy is the latest release and works as is. Homebrew is optional, and only makes later upgrades one command. Log in with: adacli <instance> login"
+  else
+    echo "STATE: installed-outside-homebrew"
+    echo "NEXT: Ask the person. Switch to the Homebrew build with: brew install adasupport/tap/adacli (then check 'which -a adacli' for the order on PATH), or update their current copy their usual way."
+  fi
   exit 0
 fi
 
