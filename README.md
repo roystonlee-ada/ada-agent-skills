@@ -33,8 +33,8 @@ MCP tools, and says where the MCP has no tool.
 
 - Homebrew installs adacli on macOS and Linux. Without a shell, use the Ada MCP.
 - Homebrew ships the adacli binary only. These skills come from this plugin.
-- Starting a test run and creating test cases have no Ada MCP tool yet. Over
-  MCP, Claude hands those steps to you.
+- No shell? The sibling plugin `ada-architect-skills-mcp` runs the same skills
+  over the Ada MCP alone, in Claude, ChatGPT and Codex.
 
 ## Update
 
