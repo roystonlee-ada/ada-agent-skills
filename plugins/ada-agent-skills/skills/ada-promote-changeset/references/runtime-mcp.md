@@ -1,4 +1,4 @@
-# promote-changeset over the Ada MCP
+# ada-promote-changeset over the Ada MCP
 
 For anyone connected to their AI agent's Ada MCP server. Your host may prefix
 the tool names.

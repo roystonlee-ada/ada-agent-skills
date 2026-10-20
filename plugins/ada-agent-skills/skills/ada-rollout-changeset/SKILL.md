@@ -1,11 +1,11 @@
 ---
-name: rollout-changeset
+name: ada-rollout-changeset
 description: >
   Ramp a tested changeset onto live traffic in steps (sampled rollout at 10%,
   20%, 50%), judge each step against the baseline, and recommend promote, hold
   or revert. Use when someone says "roll it out", "start on 10%", "ramp it",
   "step it up", "stop the rollout", "is the change hurting", or "should we
-  revert", or after promote-changeset picks the rollout path.
+  revert", or after ada-promote-changeset picks the rollout path.
 ---
 
 # Roll out a changeset in steps
@@ -27,7 +27,7 @@ check or the attribution table, and before recommending a revert.
 
 ## Preconditions
 
-- The changeset is `testing` and passed the checks in `promote-changeset` step 1.
+- The changeset is `testing` and passed the checks in `ada-promote-changeset` step 1.
 - Sampled rollouts on the instance add up to 100% or less. Read each active
   rollout's percentage from the changeset list.
 - The person asked for this step in chat. Starting or raising a rollout puts the
@@ -67,7 +67,7 @@ moment the cap is hit.
 
 ## At each stage
 
-1. List the sampled chats that have settled (`playbook-monitor-loop`,
+1. List the sampled chats that have settled (`ada-playbook-monitor-loop`,
    `references/finding-verification.md`). An unfinished chat reads as a dead end.
 2. Compute the changeset arm against the baseline arm, with 95% intervals
    (reference file).
@@ -93,4 +93,4 @@ baseline with intervals, then give a plain recommendation:
 - **Revert** only when the defect comes from a step the change touched and no
   quick forward fix exists. See the reference file.
 
-The person promotes or reverts. Promote through `promote-changeset`.
+The person promotes or reverts. Promote through `ada-promote-changeset`.

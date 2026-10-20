@@ -1,5 +1,5 @@
 ---
-name: playbook-monitor-loop
+name: ada-playbook-monitor-loop
 description: >
   Set up and run a monitoring and fix loop for a playbook: a test suite, a
   control set, a check of real chats that stays silent unless a verified
@@ -77,7 +77,7 @@ the first run.
 
 ## 4. Run it and keep the controls
 
-Create the cases and run them on live (draft and live runs are `promote-changeset`
+Create the cases and run them on live (draft and live runs are `ada-promote-changeset`
 step 1). Read each verdict from the test run, not by re-reading the transcript
 yourself. The cases that pass on live today are
 the **control set**. After any fix, a control that fails is a regression. A case
@@ -141,11 +141,11 @@ goes to step 7 as a design change, with the person's go-ahead.
    the verdict from the reasoning log, reproduce the original failure, and look
    for collateral damage. A fix that does not survive goes in the Fix log as a
    dead end. Do not argue down a refutation.
-6. **Test before traffic.** Follow `promote-changeset` step 1: the finding's chats
+6. **Test before traffic.** Follow `ada-promote-changeset` step 1: the finding's chats
    plus a regression sample, draft against live.
 7. **Hand over a fix, not a suspicion:** the finding, 2 or 3 chat URLs, the owning
    surface, the changeset and its diff, test numbers and control results.
-   The person promotes or rolls out (`promote-changeset`, `rollout-changeset`).
+   The person promotes or rolls out (`ada-promote-changeset`, `ada-rollout-changeset`).
 8. **Re-test live** with a fresh chat after promotion.
 9. **Stop guard.** If a case fails the same way after a fix, diagnose again with a
    different hypothesis. After 3 attempts on a cluster, or 2 cycles with no
@@ -155,7 +155,7 @@ goes to step 7 as a design change, with the person's go-ahead.
 ## 8. After a change is live
 
 Compare the changeset arm with the baseline and trace every loop or bad chat to
-the playbook that sent the line (`rollout-changeset`, `references/rollout-metrics.md`).
+the playbook that sent the line (`ada-rollout-changeset`, `references/rollout-metrics.md`).
 Recommend a revert only on the terms stated there. Monitoring reports. It never
 promotes or reverts.
 

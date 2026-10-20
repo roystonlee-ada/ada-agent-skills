@@ -1,4 +1,4 @@
-# playbook-monitor-loop on the command line
+# ada-playbook-monitor-loop on the command line
 
 For anyone with `adacli` logged in to the instance, and for Ada Architect. The
 instance comes first in every command, and there is no `--instance` flag.

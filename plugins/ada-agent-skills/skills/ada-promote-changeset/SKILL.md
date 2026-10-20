@@ -1,5 +1,5 @@
 ---
-name: promote-changeset
+name: ada-promote-changeset
 description: >
   Take a staged changeset from "tested" to "ready for the person to promote":
   check the test results, show the real diff, pick direct promote or a sampled
@@ -46,7 +46,7 @@ restage against the current live version and show the new diff.
 
 | Path | When it fits |
 |---|---|
-| Sampled rollout (`rollout-changeset`) | The change touches a high-volume use case, changes what customers are asked, or the test set is thin. |
+| Sampled rollout (`ada-rollout-changeset`) | The change touches a high-volume use case, changes what customers are asked, or the test set is thin. |
 | Direct promote | A wording fix or one-step bug fix, a passing test set with real conversations in it, and low volume. |
 
 Ask with a recommendation and a reason, in plain words. State the cost of each
@@ -66,7 +66,7 @@ exact error.
 ## 5. After it is live
 
 - Say in one sentence whether it went live, and when.
-- Start watching it with `playbook-monitor-loop`, which holds the arms and the
+- Start watching it with `ada-playbook-monitor-loop`, which holds the arms and the
   stop rule.
 - Record the changeset name, the promote time and the test numbers where this
   use case's notes live, or in your final message if nothing saves them.

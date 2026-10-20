@@ -1,4 +1,4 @@
-# rollout-changeset on the command line
+# ada-rollout-changeset on the command line
 
 For anyone with `adacli` logged in to the instance, and for Ada Architect. The
 instance comes first in every command, and there is no `--instance` flag.
@@ -23,4 +23,4 @@ triggered needs no second ask: run it, then report.
 ## Inside Ada Architect
 
 The same commands work. Architect's gateway may also show the rollout in the
-review panel. Promote stays with the person (`promote-changeset`).
+review panel. Promote stays with the person (`ada-promote-changeset`).
