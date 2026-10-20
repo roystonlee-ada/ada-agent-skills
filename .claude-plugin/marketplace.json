@@ -1,16 +1,16 @@
 {
-  "name": "ada-architect",
+  "name": "ada-agent-skills",
   "owner": {
     "name": "Ada Support"
   },
   "metadata": {
-    "description": "Ada Architect skills for Claude Code"
+    "description": "Skills for building and running an Ada AI Agent"
   },
   "plugins": [
     {
-      "name": "ada-architect-skills",
-      "source": "./ada-architect-skills",
-      "description": "Design, build, change and diagnose Ada AI Agent use cases, and review why conversations hand off. Works over the Ada MCP server or the command line, and sets up adacli with Homebrew."
+      "name": "ada-agent-skills",
+      "source": "./plugins/ada-agent-skills",
+      "description": "Design, build, change, roll out and monitor Ada AI Agent use cases. Works over the Ada command line (adacli) or the Ada MCP server, in Claude, ChatGPT and Codex."
     }
   ]
 }

@@ -36,7 +36,15 @@ Before you write a step:
    later customer turns, `good` (the scenario's `expect`) and `fail` (what
    would break it). Name each "<Use case>: <scenario>". Saved cases are the
    regression set for every later change, so they come before the playbook.
-3. Record the use case so the next session reuses it: its key, the playbook
+   Read `references/test-cases.md` before you write the wording. A case's
+   `good` and `fail` name something the judge can find in the conversation,
+   hold for one outcome, and the customer's turns let the agent reach it.
+   Add two or more controls from the nearest existing use cases, named
+   "(must not change)".
+3. Run every case on live only before you build. A target case that passes on
+   live is a wrong case or a wrong diagnosis: fix it now. If more than half
+   the targets already pass, stop and say so.
+4. Record the use case so the next session reuses it: its key, the playbook
    names once they exist, and the case ids. Record it again when the
    playbook names are known.
 
@@ -92,14 +100,22 @@ two things at once. I've made the time its own question instead."
    approved design is the reason for the change.
 2. Check routing for every case's opening message against the draft. Fix
    routing before running full cases.
-3. Run every case on the draft and on live. Show the results as the
-   required last message: one row per case, with live, draft, a one-line
-   note and a link to each conversation.
-4. Compare the draft conversations with the approved board. Say plainly where
+3. Pin test: run the plainest target case on the draft alone. If it fails the
+   way live did, the edit is not working. Find the step setting that decided
+   the outcome and fix it before you run anything else. Rule text in an
+   instruction does not override a saved value, a fallback, an
+   accepted-values list or a stay-in-playbook setting.
+4. Run every case on the draft and on live. Sort each failure with the table
+   in `references/test-cases.md`: got worse, same on live, case wrong, works
+   in part, not reached. Fix a wrong case by rewording it and rerunning that
+   case. Show the results as the required last message: one row per case,
+   with live, draft, a one-line note and a link to each conversation, plus
+   counts by kind ("targets fixed 4 of 6, controls worse 0 of 8").
+5. Compare the draft conversations with the approved board. Say plainly where
    a conversation differs from the design, even when the judge passed it.
    For a scenario that ends with a person, check the handoff's `reason_code`
    against why the design sends it there. Leave a handoff step's reason empty
    so Ada assigns one after save. Set `reason_code` and a one-line `reasoning`
    on the step only when the recorded reason is wrong, because Ada never
    overwrites a reason you set.
-5. Only then say what the evidence supports. The person decides on Promote.
+6. Only then say what the evidence supports. The person decides on Promote.

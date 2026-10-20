@@ -1,8 +1,0 @@
-{
-  "name": "ada-architect-skills",
-  "version": "2026.10.20",
-  "description": "Design, build, change and diagnose Ada AI Agent use cases, and review why conversations hand off. Works over the Ada MCP server or the command line, and sets up adacli with Homebrew.",
-  "author": {
-    "name": "Ada Support"
-  }
-}

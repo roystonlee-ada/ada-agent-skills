@@ -36,6 +36,10 @@ ends up patching a playbook nobody read.
 - Load the saved test cases and keep every one that touches this use case.
   These are the regression set. They come first because new cases replace
   nothing. Do not regenerate them.
+- Run the regression set on live before you change anything. Record which
+  pass. Those are the controls: if one fails after your change it got worse,
+  and if it already fails, it is not yours to chase. A case that already fails
+  because its wording contradicts the design goes back for review.
 - Read the use case's record if one exists: its goal, approved scenarios and
   test case ids.
 - If the change aims to cut handoffs, save the baseline count for that
@@ -66,8 +70,14 @@ After Approve, follow author-playbook from step 2, with these differences:
   ids for the rest, and update the use case's record.
 - Check old cases against the approved board before running.
   An out-of-date case goes back for review with `updated`, not into the run.
-- Run the whole set, old and new, on the draft and on live. An old case that
-  now fails is a finding to show, not to hide.
+- Name the step setting that decides the behaviour you are changing (accepted
+  values, re-asks, fallback, stay-in-playbook, branch) from a failing live
+  conversation, before you edit. A change that only adds rule text to an
+  instruction will not move a step whose saved value decides it.
+- Pin test the plainest new case on the draft first, then run the whole set,
+  old and new, on the draft and on live. Sort every failure with the table in
+  author-playbook's `references/test-cases.md`. An old case that now fails is
+  a finding to show, not to hide.
 - End with a table of every case, old and new: live result, draft result,
-  and a link to each conversation. This is the required last message. If you
-  could not run the cases, say that first and say why.
+  and a link to each conversation, plus counts by kind. This is the required
+  last message. If you could not run the cases, say that first and say why.
