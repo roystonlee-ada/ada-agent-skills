@@ -33,6 +33,7 @@ instance.
 | `revise-playbook` | Change an existing use case, with today's flow shown beside the proposed one |
 | `diagnose-conversation` | Find which part of the agent owns a bad conversation, with evidence |
 | `review-handoffs` | Count handoffs by the reason Ada recorded, with samples |
+| `ada-image-cards` | Show a per-customer picture card in chat, drawn by a code tool and hosted through Ada's File Upload |
 | `promote-changeset` | Check a staged change, show its real diff, and hand you the promote step |
 | `rollout-changeset` | Ramp a change onto live traffic in steps or at one percent you choose, and judge it against the baseline |
 | `playbook-monitor-loop` | Test a playbook, watch real chats for verified problems, and stage tested fixes |
