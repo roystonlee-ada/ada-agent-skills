@@ -69,6 +69,16 @@ Claude Code: `claude plugin marketplace update ada-agent-skills`, then
 `claude plugin update ada-agent-skills@ada-agent-skills`.
 Codex: `codex plugin marketplace upgrade ada-agent-skills`.
 
+How you hear about updates:
+
+- Claude Code tells you at session start when a newer version exists, at most
+  once a day. Restart after you update.
+- Every version has a [release](https://github.com/roystonlee-ada/ada-agent-skills/releases)
+  with notes, also listed in [CHANGELOG.md](CHANGELOG.md). To get an email for
+  each one, choose Watch, then Custom, then Releases on this repo.
+- Claude Code can also update the marketplace for you at startup. Run
+  `/plugin`, open Marketplaces, choose `ada-agent-skills` and turn on auto-update.
+
 ## Moving from the old names
 
 This repo was `ada-architect-skills`, and a sibling repo,
@@ -82,6 +92,8 @@ claude plugin uninstall ada-architect-skills-mcp@ada-architect-mcp
 
 ## Maintainers
 
-Built from Ada's internal Architect skills by `local/build_plugin.py`. Every
+Built from Ada's internal Architect skills by `local/build_plugin.py`. Bump
+`VERSION` there and add a `CHANGELOG.md` section for every change people should
+get, because Claude Code updates a plugin only when its version changes. Every
 skill must run over adacli or the Ada MCP without Architect. The build fails if
 a customer name, an id or an email is left in a skill.
