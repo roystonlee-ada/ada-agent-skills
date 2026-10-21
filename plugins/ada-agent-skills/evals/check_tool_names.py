@@ -34,7 +34,7 @@ def skill_names():
 
 def server_tools(url):
     proc = subprocess.Popen(
-        ["npx", "-y", "mcp-remote", url],
+        ["npx", "-y", "mcp-remote@0.1.38", url],
         stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True,
     )
 

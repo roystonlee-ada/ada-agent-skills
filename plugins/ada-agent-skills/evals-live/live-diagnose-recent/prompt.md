@@ -7,4 +7,4 @@ allowed_tools: ["Read", "Glob", "Grep", "Skill", "ToolSearch"]
 plugins: ["./plugin-under-test"]
 ---
 
-Pick one conversation from the last 7 days where our agent handed the customer to a person, and tell me why it handed off.
+Some conversations from the last 30 days didn't end resolved. Pick one and tell me why it went wrong.

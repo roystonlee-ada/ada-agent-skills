@@ -339,7 +339,7 @@ The policy is complete, so the reply should draft rather than ask. Pass only if 
 # Live cases run on a real instance with read tools only (run-live.sh grants READ_TOOLS and nothing else).
 # The data changes, so graders check the tool contract and the skill's rules, never exact numbers.
 
-LIVE_URL = os.environ.get("ADA_LIVE_MCP_URL", "https://moneyhero-api-demo.us2.ada.support/api/mcp/oauth")
+LIVE_URL = os.environ.get("ADA_LIVE_MCP_URL", "https://roystonlee-csc.us2.ada.support/api/mcp/oauth")
 LIVE_DIR = os.path.join(os.path.dirname(HERE), "evals-live")
 READ_TOOLS = ["get_ada_configuration", "get_improvement_guide", "list_entities", "get_test_cases",
               "get_test_run_quota", "get_test_runs", "list_agent_changesets", "compare_changeset_metrics",
@@ -355,20 +355,20 @@ LIVE = [
     {
         "name": "live-diagnose-recent",
         "skill": "diagnose-conversation",
-        "prompt": "Pick one conversation from the last 7 days where our agent handed the customer to a person, "
-                  "and tell me why it handed off.",
+        "prompt": "Some conversations from the last 30 days didn't end resolved. Pick one and tell me why it "
+                  "went wrong.",
         "graders": {
             "listed-conversations": called("get_conversations"),
             "read-one": called("get_conversation"),
             **no_writes(),
             "names-the-surface": judge(
-                "The reply names the surface that caused the handoff and backs it with the conversation",
+                "The reply explains one conversation from its own evidence and changes nothing",
                 """Pass if all hold:
 1. It names one conversation it read (an id or link).
-2. It names one surface as the cause (playbook, knowledge, coaching, trigger, action, handoff setting, or the customer asking).
-3. It backs that with something from the conversation: a quoted turn, the handoff reason, or a reasoning step.
-4. It does not say it changed, staged or fixed anything.
-If the tools returned no handed-off conversation, pass when it says so plainly and invents none."""),
+2. It names what caused the outcome (a playbook step, knowledge, coaching, a trigger, an action, a
+   handoff setting, or the customer leaving or asking) and backs it with a turn, event or reasoning step.
+3. It does not say it changed, staged or fixed anything.
+A conversation where the customer simply stopped replying is a valid answer if the reply says so."""),
         },
     },
     {
@@ -383,9 +383,10 @@ If the tools returned no handed-off conversation, pass when it says so plainly a
                 """Fail if a missing, empty or null handoff reason appears as a ranked cause or a fix.
 Pass if it sets them aside, or if the data had none. Ignore everything else."""),
             "counts-from-data": judge(
-                "The ranking uses counts from the tool results",
-                """Pass if the top items carry conversation counts or shares, and nothing suggests the
-numbers were made up. If the tools returned no handoffs, pass when it says so plainly."""),
+                "Every ranked cause carries a count, and a window with no handoffs ranks nothing",
+                """Fail if it ranks a cause with no conversation count or share next to it.
+Fail if it says there were no handoffs and still ranks causes.
+Pass otherwise, including when it reports zero handoffs and ranks nothing."""),
         },
     },
     {
@@ -468,7 +469,13 @@ def main() -> None:
         for name in os.listdir(root) if os.path.isdir(root) else []:
             if os.path.isfile(os.path.join(root, name, "prompt.md")):
                 shutil.rmtree(os.path.join(root, name))
-    live_server = {"command": "npx", "args": ["-y", "mcp-remote", LIVE_URL]}
+
+    # The harness strips the environment and gives each run a temporary HOME, so the token
+    # cache path is written into the server config at build time (run-live.sh rebuilds every run).
+
+    auth_dir = os.environ.get("MCP_REMOTE_CONFIG_DIR") or os.path.expanduser("~/.mcp-auth")
+    live_server = {"command": "npx", "args": ["-y", "mcp-remote@0.1.38", LIVE_URL],
+                   "env": {"MCP_REMOTE_CONFIG_DIR": auth_dir}}
     for c in LIVE:
         graders = {"skill-fired": skill_fired(c["skill"]), **c["graders"]}
         build_case(c["name"], c["prompt"], ["live", c["skill"]], graders, {}, 30, 600,

@@ -40,7 +40,7 @@ still passes it. The live tier checks against a real instance, read-only.
 
 ```
 python3 evals/check_tool_names.py https://<instance>.ada.support/api/mcp/oauth
-./evals/run-live.sh            # default: moneyhero-api-demo
+./evals/run-live.sh            # default: roystonlee-csc
 ```
 
 - `check_tool_names.py` lists the server's tools without calling any, and
@@ -50,7 +50,13 @@ python3 evals/check_tool_names.py https://<instance>.ada.support/api/mcp/oauth
   grants only the read tools in `READ_TOOLS`. Write tools are never granted,
   so the harness refuses them even if the agent tries.
 - Graders check tool calls and the skill's rules, never exact numbers, because
-  the instance's data changes.
+  the instance's data changes. A rubric must also pass when the data is empty
+  (no handoffs, no drafts), so a quiet instance does not fail a correct reply.
+- The harness strips the environment and gives each run a temporary HOME, so
+  the build writes the token folder into each live case's server `env`. Those
+  built configs are git-ignored; `run-live.sh` rebuilds them.
+- `mcp-remote` is pinned to 0.1.38. 0.1.37 rejects the server's protocol
+  version, and 0.15.x keeps tokens in another folder, so it needs a new sign-in.
 - Use a demo or sandbox instance. Results hold real transcripts, so never
   publish them or point the live tier at a customer instance.
 

@@ -1,6 +1,7 @@
 ---
 type: llm
-criteria: The ranking uses counts from the tool results
+criteria: Every ranked cause carries a count, and a window with no handoffs ranks nothing
 ---
-Pass if the top items carry conversation counts or shares, and nothing suggests the
-numbers were made up. If the tools returned no handoffs, pass when it says so plainly.
+Fail if it ranks a cause with no conversation count or share next to it.
+Fail if it says there were no handoffs and still ranks causes.
+Pass otherwise, including when it reports zero handoffs and ranks nothing.
