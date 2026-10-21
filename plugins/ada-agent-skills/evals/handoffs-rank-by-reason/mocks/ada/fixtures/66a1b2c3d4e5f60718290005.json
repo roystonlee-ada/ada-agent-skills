@@ -1,0 +1,19 @@
+{
+ "id": "66a1b2c3d4e5f60718290005",
+ "transcript": [
+  {
+   "role": "customer",
+   "text": "Add a wheelchair request to booking M3X9TR."
+  },
+  {
+   "role": "reasoning",
+   "text": "No tool can add special service requests."
+  },
+  {
+   "role": "event",
+   "type": "handoff",
+   "reason_code": "tool_unavailable",
+   "reasoning": "No tool can add special service requests."
+  }
+ ]
+}

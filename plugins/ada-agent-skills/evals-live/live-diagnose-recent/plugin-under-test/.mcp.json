@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "ada": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "mcp-remote",
+        "https://moneyhero-api-demo.us2.ada.support/api/mcp/oauth"
+      ]
+    }
+  }
+}

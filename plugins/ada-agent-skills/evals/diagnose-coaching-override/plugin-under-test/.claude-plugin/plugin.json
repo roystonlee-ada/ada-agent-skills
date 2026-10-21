@@ -1,0 +1,5 @@
+{
+  "name": "ada-agent-skills",
+  "version": "0.0.0-eval",
+  "description": "Test-only copy of this plugin plus a mocked Ada MCP server. Never install."
+}
