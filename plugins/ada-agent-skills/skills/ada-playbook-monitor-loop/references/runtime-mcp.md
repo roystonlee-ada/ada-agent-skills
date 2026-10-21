@@ -23,5 +23,6 @@ the tool names.
 - `edit_agent_config` previews every write. Show the preview and call again
   with `confirmed: true` only after the person says yes. The test run quota is
   shared, so say how many runs you are about to use.
-- No tool promotes or rolls out a change. Hand the person the changeset name
-  and point them to Changesets in the Ada dashboard.
+- Promote and rollout go through `ada-promote-changeset` and
+  `ada-rollout-changeset`, and only when the person asks. This loop stages and
+  tests fixes. It never promotes or starts a rollout.

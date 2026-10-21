@@ -29,6 +29,7 @@ both writes.
 ## What this route cannot do
 
 - It cannot compare live and draft runs for you, or repeat a run.
-- It cannot promote or roll out a change. Verification never does either.
+- Verification never promotes or rolls out a change, even though the MCP can.
+  Those steps belong to `ada-promote-changeset` and `ada-rollout-changeset`.
 
 Say plainly in the report which steps you could not run on this host.

@@ -37,6 +37,8 @@ instance.
 | `ada-rollout-changeset` | Ramp a change onto live traffic in steps or at one percent you choose, and judge it against the baseline |
 | `ada-playbook-monitor-loop` | Test a playbook, watch real chats for verified problems, and stage tested fixes |
 | `create-verification-skill` | Write a `verify-<subject>` skill that defines "works" for one use case, code tool or number, and re-runs the proof after every change |
+| `ada-custom-metrics-setup` | For an agent with no custom metrics: read its chats and topics, use your industry as a guide, interview you where the evidence is thin, and propose a scorecard |
+| `ada-custom-metrics-improve` | Review the custom metrics on an agent, separate real defects from a bad judge, rank them by impact, and fix them as a changeset |
 
 ## What each route can do
 
@@ -45,8 +47,8 @@ instance.
 | Read the agent, conversations and metrics | Yes | Yes |
 | Stage changes on a changeset | Yes | Yes |
 | Save test cases and run them | Yes | Yes, with your confirmation and the daily run quota |
-| Start, raise or stop a sampled rollout | Yes | No. The skill tells you the dashboard step |
-| Promote a changeset | Yes, after your go-ahead | No. The skill tells you the dashboard step |
+| Start, raise or stop a sampled rollout | Yes | Yes, when you ask for the step. If your permissions refuse it, the skill tells you the dashboard step |
+| Promote or revert a changeset | Yes, after your go-ahead | Yes, after your confirmation of a preview. If your permissions refuse it, the skill tells you the dashboard step |
 
 Nothing reaches live customers without you. Edits land on a changeset that is
 not live, and you approve every test run, rollout step and promote.

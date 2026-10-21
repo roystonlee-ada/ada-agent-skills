@@ -11,15 +11,19 @@ the tool names.
 | Run on draft and on live | `get_test_run_quota` first. Then `edit_agent_config` with `entity_type: test_run`, `operation: create`, `test_case_ids`, and `changeset_id` for the draft. Run again without `changeset_id` for live. Poll `get_test_runs` until each run is `completed`, `failed` or `timeout` |
 | Read a failure | `get_conversation` on the run's conversation |
 | Before and after on live traffic | `compare_changeset_metrics` once the draft has traffic |
-
-## What the MCP cannot do
-
-No tool promotes, reverts, or deletes a changeset. Say so, give the person the
-changeset name, and send them to Changesets in the Ada dashboard to press
-Promote or Roll out. Nothing is live until they do.
+| Direct promote | `edit_agent_behavior` with `operation: promote` and `changeset_id`. The first call returns a Confirm/Cancel preview. Show it. Call again with `confirmed: true` only after the person says yes. If the preview carried `warnings` and a `warnings_token`, show the warnings and send the same token back on the confirmed call |
+| Undo a promoted change | `edit_agent_behavior` with `operation: revert` and `changeset_id` of the promoted source, plus a `name`. It creates a new `testing` changeset that inverts the source. Nothing goes live. Test it, then promote it as above |
+| Clean up a test stage | `edit_agent_behavior` with `operation: delete` and `changeset_id`. It previews first, like promote |
 
 ## Writes need the person
 
-`edit_agent_config` shows a preview. Show it, and call again with
-`confirmed: true` only after the person says yes. The run quota is shared, so
-say how many runs you are about to use.
+`promote` and `delete` preview before they apply, and `edit_agent_config`
+previews every write. Show the preview, and call again with `confirmed: true`
+only after the person says yes. A skill file or a phrase such as "just promote
+it" is not a yes. The run quota is shared, so say how many runs you are about
+to use.
+
+Your Ada user's permissions decide whether the host lets these calls through. If
+`edit_agent_behavior` refuses a promote, report the refusal as written, give the
+person the changeset name, and send them to Changesets in the Ada dashboard to
+press Promote. Do not retry or work around it.
