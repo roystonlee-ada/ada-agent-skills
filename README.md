@@ -36,6 +36,7 @@ instance.
 | `ada-promote-changeset` | Check a staged change, show its real diff, and hand you the promote step |
 | `ada-rollout-changeset` | Ramp a change onto live traffic in steps or at one percent you choose, and judge it against the baseline |
 | `ada-playbook-monitor-loop` | Test a playbook, watch real chats for verified problems, and stage tested fixes |
+| `create-verification-skill` | Write a `verify-<subject>` skill that defines "works" for one use case, code tool or number, and re-runs the proof after every change |
 
 ## What each route can do
 
