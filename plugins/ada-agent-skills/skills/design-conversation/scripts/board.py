@@ -156,6 +156,11 @@ document.getElementById('copy').addEventListener('click',async()=>{
 LOGO = '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 439.11 447.37" fill="currentColor" role="img" aria-label="Ada">\n  <path d="M219.53-.08h0C73.31-.08-.05,130.39,0,216.37v231.02s99.19,0,99.19,0c0-121.48,240.87-121.2,240.87,0,0,0,99.05,0,99.05,0v-230.84C439.11,130.39,365.76-.08,219.53-.08ZM219.6,316.69c-58.42.04-105.79-47.33-105.75-105.75.04-57.44,48.15-105.56,105.6-105.6,58.42-.04,105.79,47.33,105.75,105.75-.04,57.44-48.15,105.56-105.6,105.6Z"/>\n</svg>'
 
 
+def js(value) -> str:
+    """JSON for an inline script: `<`, `>` and `&` escaped so text cannot close the tag."""
+    return json.dumps(value).replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026")
+
+
 def render(design: dict, warnings: list[str]) -> str:
     channels = design.get("channels") or ["Web chat"]
     social = any(c.lower().startswith(SOCIAL) for c in channels[:1])
@@ -179,7 +184,8 @@ def render(design: dict, warnings: list[str]) -> str:
             f"<textarea class='sc' data-k='scenario' placeholder='Write a comment'></textarea></div></div></section>")
     warn = ("<div class='warn'><b>Architect would reject or flag this board:</b><ul class='nl'>"
             + "".join(f"<li>{e(w)}</li>" for w in warnings) + "</ul></div>") if warnings else ""
-    work, rnd, title = design.get("work", ""), design.get("round", 1), design.get("title", "Design board")
+    work, title = design.get("work", ""), design.get("title", "Design board")
+    rnd = design["round"] if isinstance(design.get("round"), int) else 1
     overview = (
         f"<section class='pane on' id='tab-overview'><div class='wrap'>{warn}"
         f"<p class='lead'>{e(design.get('goal', ''))}</p>"
@@ -194,7 +200,7 @@ def render(design: dict, warnings: list[str]) -> str:
 <div class="bar"><div class="in"><nav class="tabs">{''.join(tabs)}</nav><span class="cnt" id="n">0 comments</span>
 <button id="copy" type="button">Copy comments</button></div></div>
 {overview}{''.join(panes)}
-<script>const WORK={json.dumps(work)},ROUND={json.dumps(rnd)},TITLE={json.dumps(title)};{JS}</script></body></html>"""
+<script>const WORK={js(work)},ROUND={js(rnd)},TITLE={js(title)};{JS}</script></body></html>"""
 
 
 def show(path: pathlib.Path) -> None:
@@ -261,7 +267,7 @@ def main() -> int:
     boards = HOME / instance / "boards"
     boards.mkdir(parents=True, exist_ok=True)
     page = render(design, warnings)
-    out = boards / f"{work}-r{design.get('round', 1)}.html"
+    out = boards / f"{work}-r{design['round'] if isinstance(design.get('round'), int) else 1}.html"
     out.write_text(page)
     latest = boards / f"{work}.html"
     latest.write_text(page)
