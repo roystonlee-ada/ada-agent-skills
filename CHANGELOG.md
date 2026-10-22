@@ -4,6 +4,13 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.22
+
+- `design-conversation` boards drawn in Claude Code now have a comment field on
+  every turn, every scenario and the whole board. A Copy button in the top bar
+  stays in view while you scroll and copies all comments for pasting into chat.
+- The board opens in your browser once, then reloads the same tab on each round.
+
 ## 2026.10.21.1
 
 - Claude Code now tells you at session start when a newer version exists, at

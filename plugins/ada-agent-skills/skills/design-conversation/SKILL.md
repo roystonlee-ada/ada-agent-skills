@@ -4,14 +4,11 @@ description: >
   Design a new use case as sample conversations the person reviews and approves
   before anything is built. Use it whenever someone wants the agent to handle
   something new ("I want the agent to handle refunds", "can we automate name
-  changes", "build a flow for X"), or says the agent hands a kind of request to
-  a person today and they want it automated ("it hands every damaged-item
-  refund to a person"), even if they never say "playbook" and even if a related
-  playbook exists. Load it before reading the agent's setup or proposing a
-  change. Also use it inside revise-playbook when the goal of a use case
-  changes. Produces a design of sample conversations, revised until the person
-  approves. Do not use it for a one-line wording or routing fix to an existing
-  playbook.
+  changes", "build a flow for X"), or when you notice that intent, even if they
+  never say "playbook". Also use it inside revise-playbook when the goal of a
+  use case changes. Produces an ADA-DESIGN block that the chat draws as a design
+  board, revised in place until the person presses Approve. Do not use it for a
+  one-line wording or routing fix to an existing playbook.
 ---
 
 # Design the conversation first
@@ -138,7 +135,8 @@ to two lines: what the board shows and what you need from them.
 ## 3. Revise in place until Approve
 
 Comments arrive as one message: notes on single turns and an overall note per
-scenario. Send the whole board again with the same `work`, `round` plus one,
+scenario. Outside Ada Architect the person types them into the board's comment
+fields and pastes what its Copy button gives. Send the whole board again with the same `work`, `round` plus one,
 and `changed` on each scenario you changed, saying what changed in one line.
 Answer a question in `notes`. Do not restate the board in chat.
 
