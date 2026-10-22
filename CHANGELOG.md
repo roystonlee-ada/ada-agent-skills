@@ -4,6 +4,11 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.22.1
+
+- The design board script now ships in the plugin, in `design-conversation/scripts/board.py`. Claude Code runs it from the plugin, so you no longer need Ada Architect's helpers to get the board.
+- The board has the same look as the project tracker pages, with one tab per scenario.
+
 ## 2026.10.22
 
 - `design-conversation` boards drawn in Claude Code now have a comment field on
