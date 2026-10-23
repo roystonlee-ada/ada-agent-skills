@@ -52,9 +52,11 @@ Before you write a step:
 
 Read the playbook authoring guide for platform detail (the runtime file
 says where it is). Then work from the design, not from the last comment:
-- Map each bot turn to one step. One ASK collects one fact. If the design has
-  a turn that collects two, the design is wrong; go back to the board rather
-  than writing a step that asks for both.
+- Map each bot turn to one step. One ASK collects one fact. When the board
+  has a turn that lists several facts in one question (the person chose it),
+  keep that wording in the first ASK and give each fact its own variable, so
+  a later ASK is skipped when the reply already filled it. Never write a
+  step that asks for facts the customer already gave.
 - Write each step's instruction for the turn it produces, in a few lines. No
   rule lists. A step that needs "also include X, unless Y, but if Z" is a sign
   the logic belongs in a code tool or a branch.
