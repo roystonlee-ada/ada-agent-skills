@@ -86,38 +86,19 @@ def build_card():
             + "".join(out) + LT + "/svg>")
 
 
-def utf8(s):
-    out = []
-    for ch in s:
-        c = ord(ch)
-        if c >= 0x80:
-            c = 63   # seed only: non-ASCII folded to '?'
-        out.append(c)
-    return out
-
-
 def key_for(seed):
-    # Anyone holding the S3 key can mint a fresh link, so use the runtime's random uuid4().
-    # The hash below runs only where uuid4 is missing, such as run_local.py.
+    # Anyone holding the S3 key can mint a fresh link, so the key must come from the runtime's
+    # random uuid4(). With no uuid4 the tool refuses to upload rather than derive a key from the data.
     try:
         return str(uuid4())
     except NameError:
-        pass
-    h1 = 0xCBF29CE484222325
-    h2 = 0x84222325CBF29CE4
-    for c in utf8(seed):
-        h1 = ((h1 ^ c) * 0x100000001B3) & 0xFFFFFFFFFFFFFFFF
-        h2 = ((h2 ^ (c * 31 + 7)) * 0x100000001B3) & 0xFFFFFFFFFFFFFFFF
-    hexd = "0123456789abcdef"
-    s = ""
-    for h in [h1, h2]:
-        for i in range(15, -1, -1):
-            s = s + hexd[(h >> (4 * i)) & 15]
-    return s[0:8] + "-" + s[8:12] + "-" + s[12:16] + "-" + s[16:20] + "-" + s[20:32]
+        return ""
 
 
 def upload(png, seed):
     key = key_for(seed)
+    if not key:
+        return "", "no secure key: uuid4 missing"
     # presign-post type-checks file_content: send real base64 (the first 3 KB is enough)
     r = fetch("POST", UPLOAD_API + "generate-presigned-post/invoke", headers={"Content-Type": "application/json"},
               body=json.dumps({"filename": key, "s3_key": key, "file_content": ints_b64(png[:3072])}), timeout=20)

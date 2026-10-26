@@ -264,7 +264,7 @@ Rules for the attachment:
 - The presign-post call **type-checks `file_content`**: empty or invalid content fails (415 or no
   `fields`). Send real base64; the first 3 KB of the PNG is enough.
 - **The S3 key must be unguessable and UUID-shaped.** Anyone holding a key can mint a fresh link
-  without auth. The template hashes the current time + input data into a UUID.
+  without auth. The template uses the runtime's random `uuid4()` and refuses to upload if it is missing. Never derive the key from the time or the card data.
 - **Lifetimes:** each link lasts 30 minutes. Files are deleted after about 7–8 days. There is no
   delete endpoint. The bucket is shared across Ada bots.
 - 🔒 **It's off-label.** The File Upload backend was built for customer uploads, not bot-generated

@@ -16,6 +16,10 @@ import json
 CAPTURED = []
 def log(*a):
     return None
+COUNTER = []
+def uuid4():
+    COUNTER.append(1)
+    return '00000000-0000-4000-8000-' + str(len(COUNTER)).zfill(12)
 def fetch(method, url, headers=None, body=None, timeout=None):
     if url.endswith("generate-presigned-post/invoke"):
         return {"status_code": 200, "headers": {}, "body": json.dumps({"url": "https://s3.example/", "fields": json.dumps({"key": "k"})})}
