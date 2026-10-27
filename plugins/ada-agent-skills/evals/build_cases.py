@@ -99,7 +99,7 @@ DEFAULT_MOCKS = {
 
 ADA_SKILLS = ("design-conversation|author-playbook|revise-playbook|diagnose-conversation|review-handoffs|"
               "ada-promote-changeset|ada-rollout-changeset|ada-playbook-monitor-loop|create-verification-skill|"
-              "setup-ada-mcp|setup-adacli|ada-custom-metrics-setup|ada-custom-metrics-improve")
+              "setup-ada-mcp|setup-adacli|ada-custom-metrics-setup|ada-custom-metrics-improve|ada-agent-guide")
 
 
 def skill_fired(name: str) -> dict:
@@ -143,6 +143,10 @@ ROUTING = [
     ("route-rollout", "Start the refund-photo changeset on 10%.", "ada-rollout-changeset"),
     ("route-monitor", "Set up monitoring for the baggage playbook.", "ada-playbook-monitor-loop"),
     ("route-verify", "How do we prove the refund use case still works after every change we make?", "create-verification-skill"),
+    ("route-vague-fix-chat", "Fix this chat.", "ada-agent-guide"),
+    ("route-vague-feels-off", "The refunds agent feels off lately, sort it out.", "ada-agent-guide"),
+    ("route-vague-get-live", "Get the refund use case live.", "ada-agent-guide"),
+    ("route-vague-where-are-we", "Where are we on the baggage use case?", "ada-agent-guide"),
 ]
 
 NEGATIVE = [
