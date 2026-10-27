@@ -39,6 +39,7 @@ instance.
 | `create-verification-skill` | Write a `verify-<subject>` skill that defines "works" for one use case, code tool or number, and re-runs the proof after every change |
 | `ada-custom-metrics-setup` | For an agent with no custom metrics: read its chats and topics, use your industry as a guide, interview you where the evidence is thin, and propose a scorecard |
 | `ada-custom-metrics-improve` | Review the custom metrics on an agent, separate real defects from a bad judge, rank them by impact, and fix them as a changeset |
+| `ada-custom-metrics-loop` | Run the improvement loop on one metric or all of them: measure, fix, ramp, re-measure against a target, and repeat |
 
 ## What each route can do
 

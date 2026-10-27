@@ -3,7 +3,7 @@
 Counts pass, fail and null verdicts over a window and flags metrics that cannot be trusted yet.
 Read-only. Needs a logged-in adacli session for the instance.
 
-    python3 metric_health.py <instance> --start 2026-10-07 --end 2026-10-21 [--json] [--fails-out DIR]
+    python3 metric_health.py <instance> --start 2026-10-07 --end 2026-10-21 [--metric ID_OR_NAME] [--json] [--fails-out DIR]
 """
 import argparse, json, os, re, subprocess, sys, time
 from concurrent.futures import ThreadPoolExecutor
@@ -35,9 +35,14 @@ def rows_of(payload):
     return []
 
 
-def active_metrics(inst, run=adacli):
+def active_metrics(inst, run=adacli, only=None):
     metrics = rows_of(json.loads(run(inst, "custom-metrics", "list", "--json") or "[]"))
-    return [m for m in metrics if str(m.get("state", "active")).lower() == "active"]
+    metrics = [m for m in metrics if str(m.get("state", "active")).lower() == "active"]
+    if only:
+        key = only.lower()
+        metrics = [m for m in metrics if key == str(m.get("id") or m.get("_id")).lower()
+                   or key in str(m.get("name") or "").lower()]
+    return metrics
 
 
 def flags(name, counts):
@@ -57,8 +62,8 @@ def flags(name, counts):
     return out
 
 
-def health(inst, start, end, run=adacli, fails_out=None):
-    metrics = active_metrics(inst, run)
+def health(inst, start, end, run=adacli, fails_out=None, only=None):
+    metrics = active_metrics(inst, run, only)
     jobs = [(m, r) for m in metrics for r in RESULTS]
 
     def one(job):
@@ -101,10 +106,11 @@ def main():
     ap.add_argument("--start", required=True)
     ap.add_argument("--end", required=True)
     ap.add_argument("--json", action="store_true")
+    ap.add_argument("--metric", help="limit to one metric: its id, or part of its name")
     ap.add_argument("--fails-out", help="directory to write one file of failing conversation IDs per metric")
     a = ap.parse_args()
     try:
-        table = health(a.instance, a.start, a.end, fails_out=a.fails_out)
+        table = health(a.instance, a.start, a.end, fails_out=a.fails_out, only=a.metric)
     except RuntimeError as e:
         print(e, file=sys.stderr)
         print("A 403 means custom-metrics-mvp is off. An auth error means log in first "
