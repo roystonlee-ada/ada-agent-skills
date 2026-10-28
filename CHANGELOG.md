@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.28.3
+
+- New skill `help-center-to-kb-playbooks`. It turns a help center into KB articles and playbooks. It sorts each article into fact, procedure, decision or action, merges articles that answer the same question, and flags articles that have not changed in 2 years. It decides what each image is for, and attaches the ones that show where to act to playbook send steps. It holds screenshots of partner products and flags images too tall for chat or that show personal data.
+- `scripts/extract_help_center.py` finds every article from an index page, downloads the articles and images, and writes a manifest with edit dates and image sizes. It warns when a page holds no readable text.
+- Images attach last, in the dashboard. A changeset cannot edit an attachment, and a playbook with an image cannot have its sections edited through a changeset.
+
 ## 2026.10.28.2
 
 - `ada-report` rebuilds each transcript link from checked parts. It refuses a URL with a backslash, whitespace, a control character, a user name, a password or a port, because a browser and the script's parser read those differently.

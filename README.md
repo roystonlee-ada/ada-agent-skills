@@ -41,6 +41,7 @@ instance.
 | `ada-custom-metrics-improve` | Review the custom metrics on an agent, separate real defects from a bad judge, rank them by impact, and fix them as a changeset |
 | `ada-custom-metrics-loop` | Run the improvement loop on one metric or all of them: measure, fix, ramp, re-measure against a target, and repeat |
 | `ada-agent-guide` | Pick the right skill when a request about your agent names no stage, such as "fix this chat" or "get this live" |
+| `help-center-to-kb-playbooks` | Turn a help center into KB articles and playbooks, and show screenshots in playbook steps |
 
 ## What each route can do
 
