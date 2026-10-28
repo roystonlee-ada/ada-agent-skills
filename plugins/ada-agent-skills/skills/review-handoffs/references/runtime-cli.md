@@ -1,6 +1,25 @@
 # review-handoffs on the command line
 
-For Ada Architect and anyone with `adacli` and the Architect helpers.
+For anyone with `adacli`. The plain route comes first and works anywhere. The
+Architect helpers (`ada-export`, `ada-convos`, `ada-why`) are optional
+shortcuts for Ada Architect sessions. Checked against `--help` and read-only
+runs on four real instances on 28/10/2026.
+
+## Plain adacli route
+
+| Step | Command |
+|---|---|
+| Count by reason | `adacli <instance> conversations handoff-reasons --start 2026-10-07 --end <today> --samples 3 --json` (add `--count` for numbers only) |
+| One count per code, when `handoff-reasons` is refused | `adacli <instance> conversations search --handoff --handoff-reason <code> --start <date> --end <date> --size 1 --json`, then read `total`. Repeat for each code |
+| Sample ids for one reason | `adacli <instance> conversations search --handoff --handoff-reason <code> --start <date> --end <date> --all --limit 20 --json` |
+| One conversation, with handoffs | `adacli <instance> conversations details <id> --json` (the `handoffs` array has target, status and reason code), then `conversations log <id>` for the reasoning |
+
+Use `--start` and `--end` with a date of 2026-10-07 or later. `--since 28d` can
+reach before the first day that handoff reasons are recorded. A search with
+zero matches prints plain text, not JSON, even with `--json`. `--limit` needs
+`--all`.
+
+## Architect helpers
 
 | Step | Command |
 |---|---|

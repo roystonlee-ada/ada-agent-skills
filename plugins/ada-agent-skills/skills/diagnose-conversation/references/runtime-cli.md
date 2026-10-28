@@ -10,7 +10,7 @@ Architect helpers (`tools/ada-architect/local/setup.py` installs them).
 | Turn the conversation into a test case | `adacli <instance> testing cases from-conversation <id>` |
 | Run it on the draft and on live | `ada-test <instance> --cases <ids> --changeset <id>` |
 | "File it with provide-feedback" | Send it to Ada through your usual support channel |
-| Links to conversations | `https://<instance>.ada.support/conversations/<id>` |
+| Links to conversations | `https://<instance>.ada.support/insights/conversations/<id>` |
 
 ## The diagnosis block
 

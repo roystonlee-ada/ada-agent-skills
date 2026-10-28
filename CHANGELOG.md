@@ -4,6 +4,23 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.28.5
+
+- Start with `/ada-agent-guide`. The README now opens with it and a diagram of where it sends each request. You do not need to remember the skill names.
+- New skill `onboard-agent`. It reads your agent and marks each setup stage done, partial or not started, with evidence. It asks only what the setup cannot show, then hands you to the skill for the next stage. It lists what each channel needs.
+- New skill `test-and-fix`. It runs a use case's saved tests, sends each failure to `diagnose-conversation`, fixes it on a changeset and runs every case again. It stops when all pass, after three rounds, or when a fix changes the design. It never promotes, and it holds any case that could reach a live queue.
+- New skill `improve-agent`. It ranks improvements across the whole agent by how much each moves handoffs, containment, CSAT and custom metrics. Each recommendation names its situation, its size, the mechanism, two or more conversations and the next skill.
+- New skill `configure-handoff`. It sets up and fixes handoff to Zendesk, Salesforce, Gladly, email and the other platforms in Ada's docs. It checks the chain in order, from trigger to return path, with one reference file per platform.
+- New skill `troubleshoot`. It answers Ada platform and account questions from a library of runbooks. Every answer gives the steps, the downtime risk, how to verify, the rollback and its source.
+- `ada-agent-guide` routes to the five new skills. A "why did it" question goes to `diagnose-conversation`, and a "fix it and prove it" request goes to `test-and-fix`.
+- `diagnose-conversation`, `author-playbook`, `revise-playbook` and `test-and-fix` link each conversation as `/insights/conversations/<id>`, the address the dashboard uses.
+- `author-playbook` lists the real adacli test case fields: `name`, `user_message`, `scenario`, `success_criteria` and `language`.
+- `configure-handoff` treats every handoff and integration change as live, because neither sits on a changeset. It backs up first and asks before each write. When every link checks out and the handoff still fails, it tells you to raise it with Ada support and what stays broken until then.
+- `troubleshoot` ends every answer with the same escalation step, and has a runbook for a playbook editor that will not load.
+- After runs on real agents: `onboard-agent` reads your setup in one call and states what it finds instead of asking. `configure-handoff` checks your off-hours text against the schedule, expired holidays, handoffs that do not count in metrics, and more than five live handoffs. `improve-agent` checks containment against real handoffs per channel before it ranks anything. `review-handoffs` gives plain adacli commands.
+- `test-and-fix` still diagnoses a failure from an earlier run while a case waits on a tool or handoff check. It stages no fix until that case runs.
+- The eval suite gives `onboard-agent` and `configure-handoff` a reply per setup area and puts each judge's pass condition in the line the judge reads.
+
 ## 2026.10.28.4
 
 - `help-center-to-kb-playbooks` fetches only http and https URLs, including redirects and image links. A page can no longer make the script read a local file with a `file://` link. It refuses hosts on private, loopback or link-local addresses unless you pass `--allow-private`. It names each saved image from a fixed list of image types, not from the server's header.

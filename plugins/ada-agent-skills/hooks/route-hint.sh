@@ -10,4 +10,4 @@ if [ -z "$has_ada" ]; then
 fi
 [ -n "$has_ada" ] || exit 0
 
-printf '%s\n' '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"For an Ada agent ask that names no stage (\"fix this chat\", \"get this live\", \"where are we\"), load the ada-agent-guide skill first."}}'
+printf '%s\n' '{"hookSpecificOutput":{"hookEventName":"SessionStart","additionalContext":"For an Ada agent ask that names no stage (\"fix this chat\", \"get this live\", \"set up a new agent\", \"what should we improve\", \"where are we\"), start with /ada-agent-guide: load the ada-agent-guide skill, which picks the stage skill. When the ask names a stage or a skill, load that skill directly."}}'

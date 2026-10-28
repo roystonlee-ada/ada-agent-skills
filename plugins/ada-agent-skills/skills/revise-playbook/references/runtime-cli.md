@@ -14,7 +14,7 @@ the last column replaces those pieces.
 | Send the board again | Send the ADA-DESIGN block with the same `work`. The chat draws it | Write the block to `~/.ada-architect/<instance>/boards/<work>-r<round>.design.txt` and run `python3 "${CLAUDE_SKILL_DIR}/../design-conversation/scripts/board.py" <instance> <that file>` (`ada-board` is the same script where the Architect helpers are installed), as in design-conversation's runtime file |
 | Wait for Approve | The chat sends DESIGN-APPROVED | Wait for the person to write "approved", "approve" or "build it" in chat |
 | Check old cases against the board (testing step 0) | Before a run, check each old case's `says` and `good` against the approved board. A case the board no longer matches goes back for review with `updated` | A case the board no longer matches goes to the person with the change you would make, not into the run |
-| Run the whole set on draft and live | `ada-test <instance> --cases <ids> --changeset <id>`, then the test cases block with `results` | the same command, then the table: case, live, draft, a one-line note, links as `https://<instance>.ada.support/conversations/<id>` |
+| Run the whole set on draft and live | `ada-test <instance> --cases <ids> --changeset <id>`, then the test cases block with `results` | the same command, then the table: case, live, draft, a one-line note, links as `https://<instance>.ada.support/insights/conversations/<id>` |
 | The updated use-case record | Emit the ADA-USE-CASE block, as in author-playbook's runtime file | Rewrite `~/.ada-architect/<instance>/use-cases/<use_case>.md` |
 
 The one-step wording change still needs no board. Everything else waits for

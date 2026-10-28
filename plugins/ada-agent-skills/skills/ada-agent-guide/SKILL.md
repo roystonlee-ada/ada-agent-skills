@@ -18,11 +18,16 @@ restate its steps here.
 
 | The request is about | Load |
 | --- | --- |
+| Setting up a new agent, or how far its setup has got | `onboard-agent` |
+| Connecting or debugging a handoff platform (Zendesk, Salesforce, Gladly, email): chats not reaching agents, wrong queue, missing transcript | `configure-handoff` |
+| An Ada platform or account question with no conversation behind it (swap an email address, SSO, roles, API keys, a sync) | `troubleshoot` |
 | A new use case the agent can't do yet | `design-conversation` |
 | An approved design board (DESIGN-APPROVED) | `author-playbook` |
 | Changing or fixing an existing playbook | `revise-playbook` |
-| A conversation link, a wrong answer, a loop, an odd handoff, a failing test case | `diagnose-conversation` |
-| Why conversations hand off, and what to fix first | `review-handoffs` |
+| Why one conversation went wrong: a link, a wrong answer, a loop, an odd handoff | `diagnose-conversation` |
+| Failing tests, or a bad conversation to fix and retest until the use case passes | `test-and-fix` |
+| What to improve across the whole agent: handoffs, containment, CSAT and custom metrics together | `improve-agent` |
+| Why conversations hand off, counted by the recorded reason | `review-handoffs` |
 | A tested changeset that should go live | `ada-promote-changeset` |
 | Ramping a change on live traffic, or "should we revert" | `ada-rollout-changeset` |
 | Watching a playbook after launch, alert noise, a control set | `ada-playbook-monitor-loop` |
@@ -34,9 +39,14 @@ restate its steps here.
 
 ## 2. Rules for the pick
 
-- Start fix requests at `diagnose-conversation`, never at an edit. A trace
-  makes the playbook look guilty even when knowledge, coaching or a trigger
-  owns the problem.
+- Never start a fix request at an edit. A trace makes the playbook look
+  guilty even when knowledge, coaching or a trigger owns the problem. A "why"
+  question goes to `diagnose-conversation`. A request to fix and prove it goes
+  to `test-and-fix`, which diagnoses each failure before changing anything.
+- A question about the Ada platform itself goes to `troubleshoot`, not to a
+  conversation skill. A handoff that never reaches the helpdesk is
+  `configure-handoff`. A handoff the agent chose to make is `review-handoffs`
+  or `diagnose-conversation`.
 - When two stages fit, take the earlier one. "Make it live" with no passing
   tests starts at the test run, not at promote.
 - For "where are we", read the agent's playbooks, changesets and test runs,

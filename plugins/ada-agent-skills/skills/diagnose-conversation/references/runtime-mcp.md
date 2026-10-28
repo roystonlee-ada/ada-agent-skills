@@ -14,7 +14,7 @@ live tool definitions on 20/10/2026. Your host may prefix the tool names.
 | Where a fix belongs | `get_improvement_guide`, once per session |
 | Turn it into a test case | `edit_agent_config` with `entity_type: test_case`, `operation: create`. Call it with no `fields` first. Copy the customer's first message word for word, swap each personal detail and credential for a fake of the same shape, and state the outcome the customer wanted in `success_criteria` |
 | Run it on the draft and on live | `get_test_run_quota`, then `edit_agent_config` with `entity_type: test_run`, `operation: create`, `test_case_ids`, and `changeset_id` for the draft. Run again without it for live. Poll `get_test_runs` |
-| Links to conversations | `https://<instance>.ada.support/conversations/<id>`. `get_conversations` with `SUMMARY` also returns each dashboard URL |
+| Links to conversations | `https://<instance>.ada.support/insights/conversations/<id>`. `get_conversations` with `SUMMARY` also returns each dashboard URL |
 
 `edit_agent_config` shows a preview. Show it to the person and call again with
 `confirmed: true` only after they say yes.

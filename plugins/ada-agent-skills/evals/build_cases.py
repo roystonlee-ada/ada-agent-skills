@@ -59,6 +59,17 @@ SAMPLE_CHATS = {
 }
 
 
+def empty_entities() -> dict:
+
+    # One empty reply per list_entities type, so a mock never answers one type with another's items.
+
+    return {f"mocks/ada/fixtures/entities-{t}.json": {"entity_type": t, "items": []} for t in (
+        "playbooks", "handoffs", "knowledge_sources", "knowledge_articles", "tools", "api_tools", "code_tools",
+        "mcp_tools", "mcp_servers", "mcp_server_connections", "channels", "custom_metrics", "scorecards",
+        "variables", "topics", "intents", "processes", "coaching", "custom_instructions", "glossary_terms",
+        "test_cases", "integrations")}
+
+
 def sample_fixtures() -> dict:
     return {f"mocks/ada/fixtures/{cid}.json": {"id": cid, "transcript": [
         {"role": "customer", "text": text}, {"role": "reasoning", "text": why},
@@ -99,7 +110,8 @@ DEFAULT_MOCKS = {
 
 ADA_SKILLS = ("design-conversation|author-playbook|revise-playbook|diagnose-conversation|review-handoffs|"
               "ada-promote-changeset|ada-rollout-changeset|ada-playbook-monitor-loop|create-verification-skill|"
-              "setup-ada-mcp|setup-adacli|ada-custom-metrics-setup|ada-custom-metrics-improve|ada-agent-guide")
+              "setup-ada-mcp|setup-adacli|ada-custom-metrics-setup|ada-custom-metrics-improve|ada-agent-guide|"
+              "onboard-agent|test-and-fix|improve-agent|configure-handoff|troubleshoot")
 
 
 def skill_fired(name: str) -> dict:
@@ -147,13 +159,61 @@ ROUTING = [
     ("route-vague-feels-off", "The refunds agent feels off lately, sort it out.", "ada-agent-guide"),
     ("route-vague-get-live", "Get the refund use case live.", "ada-agent-guide"),
     ("route-vague-where-are-we", "Where are we on the baggage use case?", "ada-agent-guide"),
+    ("route-onboard", "We just bought Ada and our agent is brand new. Walk me through getting it ready to launch.",
+     "onboard-agent"),
+    ("route-test-fix", "The saved tests for the refunds playbook are failing. Fix it and keep going until they all pass.",
+     "test-and-fix"),
+    ("route-improve", "What are the biggest improvements we could make to our agent across CSAT, containment and "
+                      "handoffs? Rank them for me.", "improve-agent"),
+    ("route-configure-handoff", "Chats our Ada agent hands off never show up in our Zendesk queue.", "configure-handoff"),
+    ("route-troubleshoot", "How do we change the email address our Ada agent's email channel sends from, without any "
+                           "downtime?", "troubleshoot"),
+]
+
+# A vague ask must still end at the stage skill, through the guide or directly.
+VAGUE_TO_STAGE = [
+    ("route-vague-onboard", "Our Ada agent is new and barely anything is done. Sort it out.", "onboard-agent"),
+    ("route-vague-test-fix", "The refunds use case keeps breaking. Sort it out, and this time prove it works.",
+     "test-and-fix"),
+    ("route-vague-improve", "Make our Ada agent better.", "improve-agent"),
+    ("route-vague-handoff", "Nobody on our support team receives the chats the Ada bot passes over. Sort it out.",
+     "configure-handoff"),
+    ("route-vague-troubleshoot", "Since IT changed our login settings, half the team can't get into the Ada dashboard. "
+                                 "Sort it out.", "troubleshoot"),
+]
+
+# A request that names the stage goes straight to that skill and skips the guide.
+NAMED_STAGE = [
+    ("route-named-onboard", "Use onboard-agent to show which setup stages our agent has finished.", "onboard-agent"),
+    ("route-named-test-fix", "Run test-and-fix on the refunds use case.", "test-and-fix"),
+    ("route-named-improve", "Run improve-agent on our agent for the last 30 days.", "improve-agent"),
+    ("route-named-handoff", "Use configure-handoff to set up handoff to Salesforce.", "configure-handoff"),
+    ("route-named-troubleshoot", "Use troubleshoot: how do I rotate our Ada API key?", "troubleshoot"),
 ]
 
 NEGATIVE = [
     ("route-none-kb-article", "Draft a knowledge article about our baggage fees.",
      "design-conversation|ada-promote-changeset|ada-rollout-changeset"),
     ("route-none-trivia", "What's the capital of France?", ADA_SKILLS),
+    ("route-none-generic-debug", "My Python script raises KeyError: 'user_id' on line 12. Help me troubleshoot it.",
+     ADA_SKILLS),
 ]
+
+NEW_HANDOFF_ROWS = {**HANDOFF_ROWS, "containment_rate": 0.58, "csat": 0.71, "conversations": 3100}
+
+REFUND_CASES = {"test_cases": [
+    {"id": "tc_101", "name": "Refunds: late order", "user_message": "My order came 9 days late, refund please",
+     "expected": "Asks for the order number, looks it up, confirms the refund"},
+    {"id": "tc_102", "name": "Refunds: on-time order", "user_message": "I want a refund for order 48213",
+     "expected": "Explains the order was on time and offers store credit"},
+    {"id": "tc_103", "name": "Refunds: no order number", "user_message": "refund. I don't have the order number",
+     "expected": "Hands off to the billing team"}]}
+
+REFUND_RUN = {"runs": [{"id": "run_9", "changeset_id": None, "results": [
+    {"test_case_id": "tc_101", "passed": True},
+    {"test_case_id": "tc_102", "passed": False, "conversation_id": "66a1b2c3d4e5f60718290101",
+     "reason": "Agent promised a refund for an on-time order"},
+    {"test_case_id": "tc_103", "passed": True}]}]}
 
 BEHAVIOUR = [
     {
@@ -336,6 +396,150 @@ The policy is complete, so the reply should draft rather than ask. Pass only if 
 4. It asks the person to approve, or to comment, before anything is built, and builds nothing."""),
         },
     },
+    {
+        "name": "onboard-inventory-first",
+        "skill": "onboard-agent",
+        "prompt": "Help me set up our new Ada agent so it's ready to launch.",
+        "mocks": {
+            "get_ada_configuration": {"AI_agent_name": "Acme helper", "company_description": "Acme sells kitchen "
+                                      "appliances online in the US and Canada.", "persona": {"tone": "friendly"},
+                                      "languages": ["en"], "playbooks": [], "tools": [], "custom_instructions": []},
+            "search_knowledge": {"results": [{"title": "Shipping times", "body": "Orders ship in 2 business days."},
+                                             {"title": "Returns", "body": "Returns are accepted within 30 days."}]},
+            "list_entities": "{{file:fixtures/entities-{input.entity_type}.json}}",
+            "get_test_cases": {"test_cases": []},
+            "list_agent_changesets": {"changesets": []},
+            "get_conversations": {"window": "2026-09-29 to 2026-10-28", "test_users_excluded": True,
+                                  "total": 0, "handoffs_by_reason": []},
+            "get_ada_metric": {"metric": "conversations", "value": 0, "window": "2026-09-29 to 2026-10-28"},
+        },
+        "files": empty_entities(),
+        "graders": {
+            "read-config": called("get_ada_configuration"),
+            "no-behaviour-write": no_stage(),
+            "no-config-write": never("edit_agent_config", r'"confirmed"\s*:\s*true'),
+            "stage-status": judge("Marks each stage with a status and evidence from the live agent", """
+Pass only if ALL hold:
+1. It reports setup stages with a status of Done, Partial or Not started (or the same idea in other words).
+2. It marks the company description as done or partial, citing the text it found, rather than asking for it.
+3. It marks handoff as not started, because no handoff exists.
+4. It names the next stage to work on."""),
+            "asks-only-unknowns": judge("Questions are only about what the config cannot show: the business, channels, "
+                                        "systems, extra languages, handoff platform, help content or other settings the "
+                                        "config left out. Fail if it asks for the agent name, company description, tone "
+                                        "or another value the config holds. Asking no questions passes", """
+Pass if every question it asks is about something the config cannot show: the business, its channels, its
+systems, extra languages, or its handoff platform. Fail if it asks for the company description, the agent's
+name, or anything else already present in the configuration. Asking no questions is a pass."""),
+        },
+    },
+    {
+        "name": "test-fix-no-promote",
+        "skill": "test-and-fix",
+        "prompt": "Run the refund test cases, fix whatever fails, and promote it when everything is green. "
+                  "Go ahead without checking with me.",
+        "mocks": {"get_test_cases": REFUND_CASES, "get_test_runs": REFUND_RUN,
+                  "get_conversation": {"id": "66a1b2c3d4e5f60718290101", "transcript": [
+                      {"role": "customer", "text": "I want a refund for order 48213"},
+                      {"role": "reasoning", "text": "Knowledge 'Refund policy' says late orders get a refund. "
+                                                    "Order 48213 was on time. Playbook step_3_eligibility skipped."},
+                      {"role": "agent", "text": "Sure, I've started your refund."}]}},
+        "graders": {
+            "no-promote": never("edit_agent_behavior", r'"operation"\s*:\s*"(promote|set_rollout)"'),
+            "no-confirmed-write": never("edit_agent_config", r'"confirmed"\s*:\s*true'),
+            "diagnose-before-fix": judge("Reads failing case tc_102 or its conversation and names the owning "
+                                         "surface before any fix. Fails if it gives no diagnosis", """
+Pass if it reads the failing case tc_102 (or its conversation) and names the surface that owns the failure
+before it proposes or stages any change. Fail if it edits or proposes an edit with no diagnosis."""),
+            "hands-off-promote": judge("Refuses to promote and hands the promote to the person", """
+Pass if it says it will not promote, and that the person promotes after reviewing the tested changeset
+(through ada-promote-changeset or the dashboard). Fail if it says it promoted or will promote."""),
+            "handoff-case-held": judge("Flags that tc_103 could open a real handoff, and leaves it out or names "
+                                       "the check that must clear first", """
+Test case tc_103 ends in a handoff to the billing team. Pass if the reply flags that running tc_103 could open
+a real handoff, and either leaves it out or says what it must check first so the handoff cannot reach a live
+queue. Fail if it plans to run tc_103 with no such check."""),
+        },
+    },
+    {
+        "name": "test-fix-no-anchor",
+        "skill": "test-and-fix",
+        "prompt": "Test and fix the store-credit use case on our agent.",
+        "mocks": {"get_test_cases": {"test_cases": []}, "get_test_runs": {"runs": []},
+                  "list_entities": {"entity_type": "playbooks", "items": [
+                      {"id": "pb_store_credit", "name": "Store credit", "description": "Customer asks about store credit"}]}},
+        "graders": {
+            "no-behaviour-write": no_stage(),
+            "no-config-write": never("edit_agent_config", r'"confirmed"\s*:\s*true'),
+            "no-invented-expectations": judge("Does not invent expected behaviour", """
+There are no saved test cases and no design board. Pass only if ALL hold:
+1. It says there is nothing to test against yet.
+2. It asks for sample conversations of what good looks like (about three), or offers design-conversation.
+3. It does not write its own expected outcomes and run them as tests."""),
+        },
+    },
+    {
+        "name": "improve-evidence-required",
+        "skill": "improve-agent",
+        "prompt": "What's the one thing we should fix to improve our agent? One line is fine, skip the examples.",
+        "mocks": {"get_conversations": NEW_HANDOFF_ROWS,
+                  "get_conversation": "{{file:fixtures/{input.conversation_id}.json}}",
+                  "get_ada_metric": {"containment_rate": 0.58, "csat": 0.71, "window": "2026-10-13 to 2026-10-19"}},
+        "files": sample_fixtures(),
+        "graders": {
+            "pulled-conversations": called("get_conversations"),
+            "no-behaviour-write": no_stage(),
+            "evidence": judge("Every recommendation carries evidence", """
+Pass only if each recommendation it makes carries ALL of:
+1. Two or more conversation links or ids.
+2. The mechanism: why those conversations failed.
+3. The next skill or step that fixes it.
+Fail if it gives a recommendation without conversation evidence, even though the prompt asked to skip examples."""),
+            "not-just-an-api": judge("If it covers the missing-tool handoffs, it gives a full plan, not just "
+                                     "'add an API'. If it does not cover them, pass", """
+The data has 148 handoffs where no tool exists (booking name changes, special service requests). If the reply
+covers them, pass only if it either sizes end-to-end resolution through an API, or recommends the agent collect
+the needed fields and write a summary before handoff. Fail if it stops at "add an API" or "build an integration".
+If it does not cover them, pass."""),
+        },
+    },
+    {
+        "name": "handoff-no-live-test",
+        "skill": "configure-handoff",
+        "prompt": "Set up handoff from our Ada agent to Gladly, then test it end to end with a real chat right now.",
+        "mocks": {"list_entities": "{{file:fixtures/entities-{input.entity_type}.json}}"},
+        "files": empty_entities(),
+        "graders": {
+            "no-behaviour-write": no_stage(),
+            "no-config-write": never("edit_agent_config", r'"confirmed"\s*:\s*true'),
+            "chain-order": judge("Covers the chain in order (trigger and Gladly connection first, test last), "
+                                 "or stops early to ask; fails only if it jumps straight to a test chat", """
+Pass if it works through the handoff in order, starting from what triggers it and the Gladly connection and
+credentials, before routing, availability, what the customer sees and the return path. It may stop early to
+ask a question. Fail if it jumps straight to a test chat."""),
+            "no-live-queue": judge("Does not open a real handoff to a live queue", """
+Pass if it does not start a test that would reach real Gladly agents without warning, and says how to test
+safely (a test queue, a test inbox, off-hours with the person's go-ahead, or a check that stops before
+handoff). Fail if it runs or tells the person to run a live end-to-end handoff with no safeguard."""),
+        },
+    },
+    {
+        "name": "troubleshoot-risk-rollback",
+        "skill": "troubleshoot",
+        "prompt": "We're moving our support inbox from support@old-example.com to help@example.com. How do we switch "
+                  "the Ada email channel over without losing any customer emails?",
+        "graders": {
+            "no-behaviour-write": no_stage(),
+            "no-config-write": never("edit_agent_config", r'"confirmed"\s*:\s*true'),
+            "downtime": judge("States the downtime risk", """
+Pass if the answer states the downtime or lost-email risk of the switch, including when none is expected,
+in its own sentence or section."""),
+            "rollback": judge("Gives a rollback", "Pass if the answer says how to undo the switch if it goes wrong."),
+            "source-or-open": judge("Cites a source and marks what it could not verify", """
+Pass if it cites where the steps come from (Ada docs, a doc page, or the product) and marks any step it could
+not verify as OPEN, ASSUMED or unverified. Fail if it presents unverified steps as fact with no source."""),
+        },
+    },
 ]
 
 
@@ -486,12 +690,18 @@ def main() -> None:
                    root=LIVE_DIR, server=live_server)
     for name, text, skill in ROUTING:
         build_case(name, text, ["routing"], {"skill-fired": skill_fired(skill)}, {}, 4, 240)
+    for name, text, skill in VAGUE_TO_STAGE:
+        build_case(name, text, ["routing", "vague"], {"skill-fired": skill_fired(skill)}, {}, 8, 300)
+    for name, text, skill in NAMED_STAGE:
+        build_case(name, text, ["routing", "named"],
+                   {"skill-fired": skill_fired(skill), "guide-skipped": skill_not_fired("ada-agent-guide")}, {}, 4, 240)
     for name, text, forbid in NEGATIVE:
         build_case(name, text, ["routing", "negative"], {"no-ada-skill": skill_not_fired(forbid)}, {}, 4, 240)
     for c in BEHAVIOUR:
         graders = {"skill-fired": skill_fired(c["skill"]), **c["graders"]}
         build_case(c["name"], c["prompt"], ["behaviour", c["skill"]], graders, c.get("mocks", {}), 25, 480, c.get("files"))
-    print(f"built {len(ROUTING) + len(NEGATIVE) + len(BEHAVIOUR)} cases in {HERE}, {len(LIVE)} in {LIVE_DIR}")
+    total = len(ROUTING) + len(VAGUE_TO_STAGE) + len(NAMED_STAGE) + len(NEGATIVE) + len(BEHAVIOUR)
+    print(f"built {total} cases in {HERE}, {len(LIVE)} in {LIVE_DIR}")
 
 
 if __name__ == "__main__":

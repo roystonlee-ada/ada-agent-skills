@@ -1,0 +1,89 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1148" height="492" viewBox="0 0 1148 492" role="img" aria-labelledby="t d">
+<title id="t">How /ada-agent-guide routes a request</title>
+<desc id="d">A request about your Ada agent enters /ada-agent-guide, which sends it to one stage skill in five groups: set up, build, fix, improve and operate. A request that already names a stage goes straight to that skill.</desc>
+<style>
+    .box { fill: #f4f5f7; stroke: #2b2d33; stroke-width: 1.5; }
+    .head { fill: #eef1ff; stroke: #4655d4; stroke-width: 1.5; }
+    .pill { fill: #ffffff; stroke: #c7cad1; stroke-width: 1; }
+    .new { fill: #ffffff; stroke: #4655d4; stroke-width: 2; }
+    .line { stroke: #2b2d33; stroke-width: 1.5; fill: none; }
+    .dash { stroke: #7a7f8a; stroke-width: 1.5; fill: none; stroke-dasharray: 5 4; }
+    .t { font-family: -apple-system, "Segoe UI", Helvetica, Arial, sans-serif; fill: #1d1f24; }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 11px; fill: #1d1f24; }
+    .small { font-size: 12px; fill: #50545e; }
+</style>
+<defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b2d33"/></marker><marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a7f8a"/></marker></defs>
+<rect x="0" y="0" width="1148" height="492" fill="#ffffff"/>
+<rect class="box" x="444" y="16" width="260" height="48" rx="10"/>
+<text class="t" x="574" y="37" text-anchor="middle" font-size="15" font-weight="600">Your request</text>
+<text class="t small" x="574" y="55" text-anchor="middle">"fix this chat", "set up a new agent"</text>
+<path class="line" d="M574,64 L574,100" marker-end="url(#a)"/>
+<rect x="444" y="102" width="260" height="48" rx="10" fill="#1d1f24"/>
+<text class="t" x="574" y="124" text-anchor="middle" font-size="15" font-weight="700" style="fill:#ffffff">/ada-agent-guide</text>
+<text class="t" x="574" y="141" text-anchor="middle" font-size="12" style="fill:#d6d9e0">picks the stage, loads its skill</text>
+<path class="dash" d="M704,40 L1128,40 L1128,184" marker-end="url(#g)"/>
+<text class="t small" x="916" y="32" text-anchor="middle">Names a stage? It goes straight to that skill</text>
+<path class="line" d="M574,150 L574,186"/>
+<path class="line" d="M118,186 L1128,186"/>
+<path class="line" d="M118,186 L118,214" marker-end="url(#a)"/>
+<rect class="head" x="12" y="216" width="212" height="36" rx="8"/>
+<text class="t" x="118" y="239" text-anchor="middle" font-size="14" font-weight="700">Set up</text>
+<rect class="new" x="12" y="266" width="212" height="26" rx="13"/>
+<text class="mono" x="118" y="283" text-anchor="middle">onboard-agent</text>
+<rect class="new" x="12" y="300" width="212" height="26" rx="13"/>
+<text class="mono" x="118" y="317" text-anchor="middle">configure-handoff</text>
+<rect class="pill" x="12" y="334" width="212" height="26" rx="13"/>
+<text class="mono" x="118" y="351" text-anchor="middle">ada-custom-metrics-setup</text>
+<rect class="pill" x="12" y="368" width="212" height="26" rx="13"/>
+<text class="mono" x="118" y="385" text-anchor="middle">setup-adacli</text>
+<rect class="pill" x="12" y="402" width="212" height="26" rx="13"/>
+<text class="mono" x="118" y="419" text-anchor="middle">setup-ada-mcp</text>
+<path class="line" d="M346,186 L346,214" marker-end="url(#a)"/>
+<rect class="head" x="240" y="216" width="212" height="36" rx="8"/>
+<text class="t" x="346" y="239" text-anchor="middle" font-size="14" font-weight="700">Build</text>
+<rect class="pill" x="240" y="266" width="212" height="26" rx="13"/>
+<text class="mono" x="346" y="283" text-anchor="middle">design-conversation</text>
+<rect class="pill" x="240" y="300" width="212" height="26" rx="13"/>
+<text class="mono" x="346" y="317" text-anchor="middle">author-playbook</text>
+<rect class="pill" x="240" y="334" width="212" height="26" rx="13"/>
+<text class="mono" x="346" y="351" text-anchor="middle">help-center-to-kb-playbooks</text>
+<rect class="pill" x="240" y="368" width="212" height="26" rx="13"/>
+<text class="mono" x="346" y="385" text-anchor="middle">ada-image-cards</text>
+<rect class="pill" x="240" y="402" width="212" height="26" rx="13"/>
+<text class="mono" x="346" y="419" text-anchor="middle">create-verification-skill</text>
+<path class="line" d="M574,186 L574,214" marker-end="url(#a)"/>
+<rect class="head" x="468" y="216" width="212" height="36" rx="8"/>
+<text class="t" x="574" y="239" text-anchor="middle" font-size="14" font-weight="700">Fix</text>
+<rect class="pill" x="468" y="266" width="212" height="26" rx="13"/>
+<text class="mono" x="574" y="283" text-anchor="middle">diagnose-conversation</text>
+<rect class="new" x="468" y="300" width="212" height="26" rx="13"/>
+<text class="mono" x="574" y="317" text-anchor="middle">test-and-fix</text>
+<rect class="pill" x="468" y="334" width="212" height="26" rx="13"/>
+<text class="mono" x="574" y="351" text-anchor="middle">revise-playbook</text>
+<path class="line" d="M802,186 L802,214" marker-end="url(#a)"/>
+<rect class="head" x="696" y="216" width="212" height="36" rx="8"/>
+<text class="t" x="802" y="239" text-anchor="middle" font-size="14" font-weight="700">Improve</text>
+<rect class="new" x="696" y="266" width="212" height="26" rx="13"/>
+<text class="mono" x="802" y="283" text-anchor="middle">improve-agent</text>
+<rect class="pill" x="696" y="300" width="212" height="26" rx="13"/>
+<text class="mono" x="802" y="317" text-anchor="middle">review-handoffs</text>
+<rect class="pill" x="696" y="334" width="212" height="26" rx="13"/>
+<text class="mono" x="802" y="351" text-anchor="middle">ada-custom-metrics-improve</text>
+<rect class="pill" x="696" y="368" width="212" height="26" rx="13"/>
+<text class="mono" x="802" y="385" text-anchor="middle">ada-custom-metrics-loop</text>
+<path class="line" d="M1030,186 L1030,214" marker-end="url(#a)"/>
+<rect class="head" x="924" y="216" width="212" height="36" rx="8"/>
+<text class="t" x="1030" y="239" text-anchor="middle" font-size="14" font-weight="700">Operate</text>
+<rect class="pill" x="924" y="266" width="212" height="26" rx="13"/>
+<text class="mono" x="1030" y="283" text-anchor="middle">ada-promote-changeset</text>
+<rect class="pill" x="924" y="300" width="212" height="26" rx="13"/>
+<text class="mono" x="1030" y="317" text-anchor="middle">ada-rollout-changeset</text>
+<rect class="pill" x="924" y="334" width="212" height="26" rx="13"/>
+<text class="mono" x="1030" y="351" text-anchor="middle">ada-playbook-monitor-loop</text>
+<rect class="pill" x="924" y="368" width="212" height="26" rx="13"/>
+<text class="mono" x="1030" y="385" text-anchor="middle">ada-report</text>
+<rect class="new" x="924" y="402" width="212" height="26" rx="13"/>
+<text class="mono" x="1030" y="419" text-anchor="middle">troubleshoot</text>
+<rect class="new" x="12" y="456" width="40" height="20" rx="10"/>
+<text class="t small" x="60" y="471">New in this release</text>
+</svg>

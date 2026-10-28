@@ -1,5 +1,23 @@
 # Ada Agent Skills
 
+**Start here: `/ada-agent-guide`.** Describe what you want in your own words.
+The guide picks the right skill, so you do not need to remember the skills.
+
+![A request enters /ada-agent-guide, which sends it to a stage skill](images/ada-agent-guide-routing.svg)
+
+| Stage | Skills the guide sends you to |
+|---|---|
+| Set up | `onboard-agent`, `configure-handoff`, `ada-custom-metrics-setup`, `setup-adacli`, `setup-ada-mcp` |
+| Build | `design-conversation`, `author-playbook`, `help-center-to-kb-playbooks`, `ada-image-cards`, `create-verification-skill` |
+| Fix | `diagnose-conversation`, `test-and-fix`, `revise-playbook` |
+| Improve | `improve-agent`, `review-handoffs`, `ada-custom-metrics-improve`, `ada-custom-metrics-loop` |
+| Operate | `ada-promote-changeset`, `ada-rollout-changeset`, `ada-playbook-monitor-loop`, `ada-report`, `troubleshoot` |
+
+If your request already names a stage or a skill, the guide steps aside and
+that skill runs directly.
+
+## About
+
 Skills for designing, building, changing, rolling out and monitoring an Ada AI
 Agent. Anyone who can reach their agent through the Ada command line (adacli)
 or the Ada MCP server can use them. You do not need Ada Architect.
@@ -28,6 +46,11 @@ instance.
 |---|---|
 | `setup-adacli` | Check adacli, install or upgrade it with Homebrew, log in |
 | `setup-ada-mcp` | Connect your assistant to your Ada instance over MCP and check it works |
+| `onboard-agent` | Set up a new agent stage by stage. It reads what is done and resumes where you stopped |
+| `configure-handoff` | Set up or fix handoff to Zendesk, Salesforce, Gladly, email and other platforms, one link of the chain at a time |
+| `test-and-fix` | Run a use case's tests, fix each failure on a changeset, and retest until all pass |
+| `improve-agent` | Rank improvements across the agent by how much each moves handoffs, containment, CSAT and custom metrics |
+| `troubleshoot` | Answer an Ada platform or account question with steps, downtime risk, rollback and a source |
 | `design-conversation` | Design a new use case as sample conversations you approve before anything is built |
 | `author-playbook` | Build the approved design into a playbook, save its scenarios as tests, run them |
 | `revise-playbook` | Change an existing use case, with today's flow shown beside the proposed one |
@@ -42,6 +65,8 @@ instance.
 | `ada-custom-metrics-loop` | Run the improvement loop on one metric or all of them: measure, fix, ramp, re-measure against a target, and repeat |
 | `ada-agent-guide` | Pick the right skill when a request about your agent names no stage, such as "fix this chat" or "get this live" |
 | `help-center-to-kb-playbooks` | Turn a help center into KB articles and playbooks, and show screenshots in playbook steps |
+| `ada-image-cards` | Show a picture built from live data, such as a status card, in a playbook step |
+| `ada-report` | Build a branded report on how your agent performs, from real metrics and conversations |
 
 ## What each route can do
 
