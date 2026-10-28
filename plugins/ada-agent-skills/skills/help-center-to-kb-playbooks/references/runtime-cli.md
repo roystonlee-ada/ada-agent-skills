@@ -7,6 +7,7 @@ the review and approval steps for you. Outside it, you show them in chat.
 |---|---|
 | Find articles | `python3 -I <skill folder>/scripts/extract_help_center.py --discover <index url> --out <folder>/raw`. It writes `urls.txt` and `manifest.json` |
 | Extract a known list | the same script with `--urls urls.txt` instead of `--discover` |
+| Extract a staging help center | add `--allow-private`. By default the script fetches only http and https, and refuses hosts on private, loopback or link-local addresses, for the page and for every image and redirect |
 | List existing KB articles | `adacli <instance> knowledge list --limit 100 --json`. The default page is 25, so pass `--limit` or you will think the KB is nearly empty |
 | Add a few articles | `adacli <instance> knowledge create --title "<title>" --file <article>.md`. New articles start enabled |
 | Add many articles | The Knowledge API: `POST https://<handle>.ada.support/api/v2/knowledge/bulk/articles/` with `Authorization: Bearer <key>` and a raw JSON array of `{id, name, content, knowledge_source_id, language, url}`. Create the source first with `POST /api/v2/knowledge/sources/` and a client-supplied `id`. Re-posting the same `id` updates in place. Create a key with `adacli <instance> api-keys create --key-only` and keep it in an environment variable, never in a file |

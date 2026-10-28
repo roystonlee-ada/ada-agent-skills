@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.28.4
+
+- `help-center-to-kb-playbooks` fetches only http and https URLs, including redirects and image links. A page can no longer make the script read a local file with a `file://` link. It refuses hosts on private, loopback or link-local addresses unless you pass `--allow-private`. It names each saved image from a fixed list of image types, not from the server's header.
+
 ## 2026.10.28.3
 
 - New skill `help-center-to-kb-playbooks`. It turns a help center into KB articles and playbooks. It sorts each article into fact, procedure, decision or action, merges articles that answer the same question, and flags articles that have not changed in 2 years. It decides what each image is for, and attaches the ones that show where to act to playbook send steps. It holds screenshots of partner products and flags images too tall for chat or that show personal data.

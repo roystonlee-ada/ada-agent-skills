@@ -8,8 +8,10 @@ index page (category, folder, article) and collects article URLs. Standard libra
 
 import argparse
 import hashlib
+import ipaddress
 import json
 import re
+import socket
 import struct
 import sys
 import urllib.parse
@@ -20,6 +22,16 @@ from pathlib import Path
 UA = {"User-Agent": "Mozilla/5.0 (help-center-import)"}
 SKIP_TAGS = {"script", "style", "nav", "footer", "header", "aside", "form", "noscript", "svg"}
 MIN_IMAGE_PX = 48
+MAX_BYTES = 30_000_000
+IMAGE_EXT = {
+    "image/png": "png",
+    "image/jpeg": "jpg",
+    "image/jpg": "jpg",
+    "image/gif": "gif",
+    "image/webp": "webp",
+    "image/svg+xml": "svg",
+}
+ALLOW_PRIVATE = False
 
 
 def image_size(data):
@@ -66,10 +78,40 @@ def discover(index_url, max_pages=200):
     return articles
 
 
+def check_url(url):
+    parts = urllib.parse.urlsplit(url)
+    if parts.scheme not in ("http", "https") or not parts.hostname:
+        raise ValueError(f"blocked URL, only http and https are allowed: {url}")
+    if ALLOW_PRIVATE:
+        return
+    for info in socket.getaddrinfo(parts.hostname, parts.port or 443):
+        ip = ipaddress.ip_address(info[4][0])
+        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
+            raise ValueError(f"blocked URL, {parts.hostname} resolves to a non-public address (use --allow-private for a staging site)")
+
+
+class CheckedRedirect(urllib.request.HTTPRedirectHandler):
+    def redirect_request(self, req, fp, code, msg, headers, newurl):
+        check_url(urllib.parse.urljoin(req.full_url, newurl))
+        return super().redirect_request(req, fp, code, msg, headers, newurl)
+
+
+OPENER = urllib.request.OpenerDirector()
+for handler in (
+    urllib.request.HTTPHandler,
+    urllib.request.HTTPSHandler,
+    CheckedRedirect,
+    urllib.request.HTTPDefaultErrorHandler,
+    urllib.request.HTTPErrorProcessor,
+):
+    OPENER.add_handler(handler())
+
+
 def fetch(url):
+    check_url(url)
     req = urllib.request.Request(url, headers=UA)
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        return resp.read(), resp.headers.get("Content-Type", "")
+    with OPENER.open(req, timeout=30) as resp:
+        return resp.read(MAX_BYTES), resp.headers.get("Content-Type", "")
 
 
 class Extractor(HTMLParser):
@@ -188,7 +230,7 @@ def process(url, out):
         except Exception as exc:
             img["error"] = str(exc)
             continue
-        ext = (ct.split(";")[0].split("/")[-1] or "bin").replace("jpeg", "jpg").replace("svg+xml", "svg")
+        ext = IMAGE_EXT.get(ct.split(";")[0].strip().lower(), "bin")
         name = f"{img['n']:02d}-{hashlib.sha1(data).hexdigest()[:8]}.{ext}"
         (folder / "images" / name).write_bytes(data)
         img["file"] = f"images/{name}"
@@ -223,7 +265,10 @@ def main():
     src.add_argument("--urls")
     src.add_argument("--discover")
     ap.add_argument("--out", required=True)
+    ap.add_argument("--allow-private", action="store_true", help="allow hosts on private or loopback addresses, for a staging help center")
     args = ap.parse_args()
+    global ALLOW_PRIVATE
+    ALLOW_PRIVATE = args.allow_private
     out = Path(args.out)
     out.mkdir(parents=True, exist_ok=True)
     if args.discover:
