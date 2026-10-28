@@ -27,6 +27,24 @@ Each step below names what to do, not a command. Read one file for how:
 No `/mnt/memory` folder means you are outside Ada Architect. Then the runtime
 file says what replaces the board, Approve and the memory notes.
 
+## Unattended mode
+
+This applies when `/mnt/memory` is mounted and a scheduled loop started you, with
+no person in the chat. The loop's first message and an ask ledger script in its
+tools folder are the signs. Then:
+
+- Never wait for a board, Approve or a person. The approval is the ask's answer in
+  the ledger: a row in stage `answered` with the chosen option. Change what that
+  option says and nothing wider. If there is no such row, stop and record why.
+- If the use case's goal would change, do not redesign it alone. Set the ask's
+  stage to `cause_known` so the loop asks the person, and stop that item.
+- Write today's flow next to the proposed one in the loop's work folder, stage the
+  change as a draft, and re-run the saved tests. Record the build and the test run
+  in the ledger as done, waived with a written reason, or not_testable_yet with a
+  reason.
+- Never promote, revert, delete or ramp. The loop's own rules beat this skill
+  wherever they differ.
+
 ## 1. Load what is already known
 
 Do these first, before you propose anything. Skipping them is how a revision

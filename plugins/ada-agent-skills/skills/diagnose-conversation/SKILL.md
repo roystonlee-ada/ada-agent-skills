@@ -28,6 +28,25 @@ Each step below names what to do, not a command. Read one file for how:
 No `/mnt/memory` folder means you are outside Ada Architect. Then the runtime
 file holds the diagnosis block's format.
 
+## Unattended mode
+
+This applies when `/mnt/memory` is mounted and a scheduled loop started you, with
+no person in the chat. The loop's first message and an ask ledger script in its
+tools folder are the signs. Then:
+
+- Never wait for a person, a board, an Approve button or a reply. A step that says
+  to ask in chat does not apply. Decide from the evidence, mark the call ASSUMED,
+  and go on.
+- Write the diagnosis block to the loop's work folder, not to chat. If the cause
+  needs a decision only a person can make, say so in the block, set the ask's stage
+  to `cause_known` in the ledger, and stop that item. The loop's ask skill takes it
+  from there.
+- Never promote, revert, delete or ramp, and do not load a skill that does. The
+  loop's own rules beat this skill wherever they differ.
+- Record each step's outcome in the ledger as done, waived with a written reason,
+  or not_testable_yet with a reason. A blank step blocks a later promote.
+- Re-testing the same case still happens, on the draft only.
+
 ## 1. Read the conversation and its log
 
 - Read the transcript.

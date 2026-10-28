@@ -1,0 +1,62 @@
+{
+  "knowledge": {
+    "name": "Answers from your knowledge",
+    "what": "Ada searches your knowledge base and writes the reply from the articles it finds, so the answer matches your own policy.",
+    "why": "Update one article and every future answer on that topic changes with it.",
+    "try": "Tighten or add an article for the topics where customers ask the most."
+  },
+  "playbook": {
+    "name": "Step-by-step guidance",
+    "what": "A playbook is a set of instructions for one task, such as a refund or a rebooking. Ada follows it step by step and adapts to what the customer says.",
+    "why": "The customer is walked to an outcome in the chat, not sent a link to read.",
+    "try": "Turn your most common how-to question into a playbook."
+  },
+  "action": {
+    "name": "Doing things in your systems",
+    "what": "An action lets Ada look something up or change it in your order, booking or account system during the chat, and use the result in its reply.",
+    "why": "The customer gets an answer about their own order, not a generic one.",
+    "try": "Connect the one lookup this topic needs most."
+  },
+  "handoff": {
+    "name": "Handing off with context",
+    "what": "When a person needs to step in, Ada passes the conversation across with what it has already collected.",
+    "why": "Your team starts from the answer, not from asking the customer to repeat themselves.",
+    "try": "Review what Ada collects before a handoff, and add anything your team always asks next."
+  },
+  "coaching": {
+    "name": "Coaching",
+    "what": "You review a past conversation and tell Ada what it should have done. Ada applies that in similar situations from then on.",
+    "why": "One correction improves the whole pattern, with no rewrite of a playbook.",
+    "try": "Review five conversations from one topic and coach the ones that missed."
+  },
+  "guidance": {
+    "name": "Standing instructions",
+    "what": "Short rules that apply to every conversation, such as tone, or things Ada should never promise.",
+    "why": "Every reply stays consistent with how your brand speaks.",
+    "try": "Write down the three things your best agents always do and check that Ada does them."
+  },
+  "image": {
+    "name": "Reading photos and screenshots",
+    "what": "When a customer sends a picture on messaging or email, Ada reads what it shows, including visible text, and uses that in the conversation.",
+    "why": "The customer skips typing out an order number or describing damage.",
+    "try": "Pick one topic where a photo saves the customer three questions."
+  },
+  "topics": {
+    "name": "Topics",
+    "what": "Ada sorts every conversation into a topic on its own, so you can see what customers ask and how each topic resolves.",
+    "why": "You find the biggest opportunity by volume, not by guessing.",
+    "try": "Sort topics by volume, then look at the ones with the lowest resolution."
+  },
+  "custom-metric": {
+    "name": "Your own quality measures",
+    "what": "A custom metric scores each conversation against a standard you set, such as whether the agent confirmed the refund amount.",
+    "why": "You track what matters to your business, not only generic scores.",
+    "try": "Add one measure for the outcome you most want to improve."
+  },
+  "code-tool": {
+    "name": "Small pieces of logic",
+    "what": "A code tool is a short routine Ada runs mid-chat to work something out, such as a date, a total, or a reshaped answer from your system.",
+    "why": "Rules that are easy to state but hard to write in prose are applied the same way every time.",
+    "try": "List the sums and date rules your team does by hand during these chats."
+  }
+}

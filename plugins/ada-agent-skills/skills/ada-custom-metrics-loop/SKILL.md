@@ -29,6 +29,25 @@ Each step names what to do, not a command. Read one file for how:
 - `adacli` on the path, or you are inside Ada Architect →
   `references/runtime-cli.md`
 
+## Unattended mode
+
+This applies when `/mnt/memory` is mounted and a scheduled loop started you, with
+no person in the chat. The loop's first message and an ask ledger script in its
+tools folder are the signs. Then:
+
+- Never wait for a person. Take the scope the loop names, use the recommended
+  target and window, and mark each ASSUMED in the run notes.
+- Steps 1 to 5 (scope, check, measure, calibrate, cluster) and step 7 (re-measure)
+  are allowed.
+- In step 6, the "Ramp it" path and the rule that the person promotes are **not
+  allowed** here. Only "Fix now" (stage and test a draft) and "Report only" are
+  open. The loop owns every ramp and every promote, through its own guarded steps.
+- Step 8's next cycle starts only in a later run, never in the same one.
+- Never promote, revert, delete or ramp, and do not load a skill that does. The
+  loop's own rules beat this skill wherever they differ.
+- Record each step's outcome in the ledger as done, waived with a written reason,
+  or not_testable_yet with a reason. Write the report to the loop's work folder.
+
 ## 1. Set the scope
 
 Ask with a recommendation and a reason. Take what the person already said.
@@ -91,6 +110,8 @@ Ask the person which path, with a recommendation and a reason.
 | Fix now | A cluster is ready and they want a changeset this session | `revise-playbook` or `ada-playbook-monitor-loop` to stage and test the fix |
 | Ramp it | A tested fix should meet live traffic | `ada-rollout-changeset`, then judge it on the metric rates |
 | Report only | They want findings and a plan | Stop after step 5 and report |
+
+In unattended mode, "Ramp it" and the promote rule below are not allowed.
 
 Rules that stay fixed:
 - Every fix lands as a changeset. Never edit the live agent.

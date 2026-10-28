@@ -4,6 +4,16 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.28
+
+- New skill `ada-report`. It builds an Ada-branded report on how an AI Agent is performing, from real metrics and conversations. If the person has not said who reads it, for which period or what to focus on, it asks up to three questions with a recommended answer for each.
+- The report draws real chat transcripts as bubbles. Where a conversation shows Ada using a feature (a playbook, an action, a knowledge answer, a handoff), a small note under the reply opens into a plain-language explanation. The report ends with the notes it used and a next step for each opportunity.
+- `scripts/report.py` renders one self-contained HTML file in Ada's brand, masks emails, phone numbers and long numbers in transcripts, and warns about internal terms, blame wording and too many notes.
+
+## 2026.10.27.2
+
+- `diagnose-conversation`, `author-playbook`, `revise-playbook`, `ada-custom-metrics-improve` and `ada-custom-metrics-loop` each gain an "Unattended mode" section. It says how to behave when `/mnt/memory` is mounted and no person is in the chat: never wait for a board or a person, record each step's outcome, and never promote, revert, delete or ramp. In `ada-custom-metrics-loop` the ramp and promote steps are marked not allowed in that mode.
+
 ## 2026.10.27.1
 
 - New skill `ada-agent-guide`. When a request about an Ada agent names no stage, such as "fix this chat" or "get this use case live", it picks the stage and loads that skill. It skips requests that already say what to build or change.

@@ -28,6 +28,23 @@ Each step names what to do, not a command. Read one file for how:
 - `adacli` on the path, or you are inside Ada Architect →
   `references/runtime-cli.md`
 
+## Unattended mode
+
+This applies when `/mnt/memory` is mounted and a scheduled loop started you, with
+no person in the chat. The loop's first message and an ask ledger script in its
+tools folder are the signs. Then:
+
+- Never wait for a person. Where a step says to ask with a recommendation, take your
+  recommendation, mark it ASSUMED in the run notes, and go on.
+- Step 5's "Ramp it" path and its promote rule are not allowed. Only "Fix now"
+  (stage and test a draft) and "Review only" are open, and "Review only" when the
+  loop says the lane is report only.
+- Never promote, revert, delete or ramp, and do not load a skill that does. The
+  loop's own rules beat this skill wherever they differ.
+- Write the report to the loop's work folder, not to chat. Record each step's
+  outcome in the ledger as done, waived with a written reason, or not_testable_yet
+  with a reason.
+
 ## 1. Check the agent has metrics
 
 List the custom metrics and scorecards.

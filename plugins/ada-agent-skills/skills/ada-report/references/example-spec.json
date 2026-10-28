@@ -1,0 +1,75 @@
+{
+  "title": "Northwind Outfitters: October performance review",
+  "customer": "Northwind Outfitters",
+  "period": "1 to 31 October 2026",
+  "headline": "Ada resolved 6 in 10 conversations on its own in October, and order changes are the next big win.",
+  "lead": "Customers asked mostly about where their order was. Ada answered those from live order data. The next gain is *changing* an order, which still goes to your team.",
+  "metrics": [
+    {"label": "Automated resolution", "value": "61%", "delta": "+4 pts", "good": true, "note": "Conversations Ada resolved with no person."},
+    {"label": "Conversations", "value": "12,480", "delta": "+9%", "good": true, "note": "Customers who chatted with Ada."},
+    {"label": "Customer satisfaction", "value": "88%", "delta": "+1 pt", "good": true, "note": "Of customers who answered the survey."},
+    {"label": "Passed to your team", "value": "19%", "delta": "-2 pts", "good": true, "note": "Conversations a person picked up."}
+  ],
+  "sections": [
+    {
+      "title": "What customers asked about",
+      "intro": "Four topics make up most of the volume. Order status is already well automated; order changes are not.",
+      "chart": {"type": "bars", "title": "Share of conversations by topic", "unit": "%", "rows": [
+        {"label": "Order status", "value": 34, "note": "78% resolved by Ada"},
+        {"label": "Returns", "value": 22, "note": "64% resolved by Ada"},
+        {"label": "Change an order", "value": 15, "note": "21% resolved by Ada"},
+        {"label": "Sizing and fit", "value": 11, "note": "83% resolved by Ada"}
+      ]}
+    },
+    {
+      "title": "Resolution over the month",
+      "chart": {"type": "line", "title": "Weekly automated resolution", "unit": "%", "points": [
+        {"label": "Wk 1", "value": 57}, {"label": "Wk 2", "value": 60}, {"label": "Wk 3", "value": 62}, {"label": "Wk 4", "value": 63}
+      ]}
+    },
+    {
+      "title": "Ada in your customers' words",
+      "intro": "Two real conversations, lightly masked: one that went well, and one that shows the next opportunity.",
+      "transcripts": [
+        {
+          "title": "Where is my order?",
+          "outcome": "Resolved by Ada",
+          "why_shown": "Shows a lookup answered with the customer's *own* order data.",
+          "channel": "Web chat",
+          "turns": [
+            {"who": "customer", "text": "hey where's my jacket, ordered last week"},
+            {"who": "bot", "text": "Happy to check. What's your order number?"},
+            {"who": "customer", "text": "NW-48213"},
+            {"who": "bot", "text": "Thanks. Your jacket left our warehouse yesterday and should arrive by Thursday. Want the tracking link?", "options": ["Yes please", "No thanks"],
+             "moment": {"kind": "action", "label": "Checked the order in your system", "tip": "action"}},
+            {"who": "customer", "text": "Yes please"},
+            {"who": "bot", "text": "Here you go: the tracking page shows each stop. Anything else I can help with?",
+             "moment": {"kind": "knowledge", "label": "Answered from your shipping article", "tip": "knowledge"}}
+          ]
+        },
+        {
+          "title": "Change my delivery address",
+          "outcome": "Passed to your team",
+          "why_shown": "A change Ada could handle with one more connection.",
+          "channel": "Web chat",
+          "turns": [
+            {"who": "customer", "text": "I need to change the address on my order, I'm moving"},
+            {"who": "bot", "text": "I can see order NW-51002 hasn't shipped yet. I'll pass you to a teammate who can update the address, with your order details so you don't repeat yourself."},
+            {"who": "bot", "text": "You're now with Priya on our team.", "moment": {"kind": "handoff", "label": "Passed to a person with the details", "tip": "handoff"}}
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Where to go next",
+      "opportunities": [
+        {"title": "Let Ada change an order's address", "why": "15% of conversations are order changes and Ada resolves 21% of them. Most start before the order ships, so Ada can finish them end to end.", "effort": "Medium", "tip": "playbook"},
+        {"title": "Show return labels in the chat", "why": "Returns are 22% of volume. Customers ask for the label and then wait for a person to send it.", "effort": "Low", "tip": "action"}
+      ]
+    }
+  ],
+  "next_steps": [
+    "Agree which order changes Ada should finish alone, such as address and size swaps.",
+    "Review ten *Change an order* conversations together to confirm the rules."
+  ]
+}

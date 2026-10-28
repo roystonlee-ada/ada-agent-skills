@@ -27,6 +27,26 @@ Each step below names what to do, not a command. Read one file for how:
 No `/mnt/memory` folder means you are outside Ada Architect. Then the runtime
 file says what replaces Approve, the changeset card and the chat blocks.
 
+## Unattended mode
+
+This applies when `/mnt/memory` is mounted and a scheduled loop started you, with
+no person in the chat. The loop's first message and an ask ledger script in its
+tools folder are the signs. Then:
+
+- Never wait for a design board, `DESIGN-APPROVED`, an Approve button or a person.
+  The approval is the ask's answer in the ledger: a row in stage `answered` with
+  the chosen option. Build what that option says and nothing wider. If there is no
+  such row, stop and record why.
+- Do not run `design-conversation`. Take the scenarios from the ask's evidence and
+  save them as test cases first, as in step 1.
+- Stage the playbook as a draft and run every saved case. Record the build and the
+  test run in the ledger as done, waived with a written reason, or not_testable_yet
+  with a reason.
+- Never promote, revert, delete or ramp. Promote is a guarded step the loop owns,
+  and only after the ledger gate clears it. The loop's own rules beat this skill
+  wherever they differ.
+- Report in the loop's work folder, not in chat.
+
 ## 1. Save the scenarios as test cases, first
 
 Before you write a step:
