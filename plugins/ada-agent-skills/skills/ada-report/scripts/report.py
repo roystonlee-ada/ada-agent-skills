@@ -16,6 +16,7 @@ import json
 import pathlib
 import re
 import sys
+import urllib.parse
 import webbrowser
 
 HERE = pathlib.Path(__file__).resolve().parent
@@ -28,6 +29,7 @@ MASKS = [
 ]
 JARGON = re.compile(r"\b(LLM|URE|ClickHouse|generative_|reasoning engine|prompt|token|JSON|API call|endpoint|webhook)\b", re.I)
 HARSH = re.compile(r"\b(fail(ed|ure|s)?|broken|bad|poor|wrong)\b", re.I)
+LINK_HOSTS = ("ada.support", "ada.cx")
 MAX_TIPS = 4
 MAX_TRANSCRIPTS = 4
 
@@ -37,6 +39,17 @@ def mask(text: str, counter: list[int]) -> str:
         text, n = pattern.subn(label, text)
         counter[0] += n
     return text
+
+
+def safe_url(url: str) -> str:
+    """Return the URL only if it is https on an Ada host, else an empty string."""
+    try:
+        u = urllib.parse.urlparse(str(url))
+    except ValueError:
+        return ""
+    host = (u.hostname or "").lower()
+    ok = u.scheme == "https" and any(host == h or host.endswith("." + h) for h in LINK_HOSTS)
+    return u.geturl() if ok else ""
 
 
 def rich(text: str) -> str:
@@ -84,6 +97,8 @@ def problems(spec: dict) -> list[str]:
             if not o.get("why"):
                 out.append(f"opportunity `{o.get('title')}` has no `why`")
         for t in s.get("transcripts") or []:
+            if t.get("url") and not safe_url(t["url"]):
+                out.append(f"transcript `{t.get('title')}`: `url` must be https on an Ada host; the link is dropped")
             if not t.get("outcome") or not t.get("why_shown"):
                 out.append(f"transcript `{t.get('title')}` needs `outcome` and `why_shown`")
             for turn in t.get("turns") or []:
@@ -170,13 +185,13 @@ def bubble(turn: dict, counter: list[int]) -> str:
     if turn.get("text"):
         parts.append(e(mask(turn["text"], counter)).replace("\n", "<br>"))
     if turn.get("image"):
-        parts.append(f"<div class='img'>Photo: {e(turn['image'])}</div>")
+        parts.append(f"<div class='img'>Photo: {e(mask(turn['image'], counter))}</div>")
     if turn.get("options"):
-        parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in turn["options"]) + "</div>")
+        parts.append("<div class='opts'>" + "".join(f"<span>{e(mask(o, counter))}</span>" for o in turn["options"]) + "</div>")
     moment = ""
     m = turn.get("moment")
     if m:
-        moment = (f"<details class='moment'><summary>{e(m.get('label', ''))}</summary>"
+        moment = (f"<details class='moment'><summary>{e(mask(m.get('label', ''), counter))}</summary>"
                   f"<div class='mb'>{tip_body(m.get('tip', ''))}</div></details>")
     return (f"<div class='t {e(who)}'><div class='col'><div class='who'>{'Customer' if who == 'customer' else 'Ada'}</div>"
             f"<div class='bub'>{''.join(parts)}</div>{moment}</div></div>")
@@ -184,10 +199,11 @@ def bubble(turn: dict, counter: list[int]) -> str:
 
 def transcript(t: dict, counter: list[int]) -> str:
     turns = "".join(bubble(x, counter) for x in t.get("turns") or [])
-    link = f" · <a href='{e(t['url'])}'>Open in dashboard</a>" if t.get("url") else ""
-    return (f"<article class='card convo'><div class='sh'><h3>{e(t.get('title', ''))}</h3>"
+    url = safe_url(t.get("url", "")) if t.get("url") else ""
+    link = f" · <a href='{e(url)}' rel='noopener noreferrer'>Open in dashboard</a>" if url else ""
+    return (f"<article class='card convo'><div class='sh'><h3>{e(mask(t.get('title', ''), counter))}</h3>"
             f"<span class='b'>{e(t.get('outcome', ''))}</span></div>"
-            f"<p class='mute'>{rich(t.get('why_shown', ''))} · {e(t.get('channel', 'Web chat'))}{link}</p>"
+            f"<p class='mute'>{rich(mask(t.get('why_shown', ''), counter))} · {e(t.get('channel', 'Web chat'))}{link}</p>"
             f"<div class='chat'>{turns}</div></article>")
 
 
@@ -287,7 +303,7 @@ def render(spec: dict, warnings: list[str], counter: list[int]) -> str:
     sections = [section(s, counter) for s in spec.get("sections") or []]
     toc = "".join(f"<a href='#{re.sub(r'[^a-z0-9]+', '-', s.get('title', '').lower()).strip('-')}'>{e(s.get('title', ''))}</a>"
                   for s in spec.get("sections") or [])
-    warn = ("<div class='warnbox'><em>Fix before sharing:</em><ul class='nl'>" + "".join(f"<li>{e(w)}</li>" for w in warnings) + "</ul></div>") if warnings else ""
+    warn = ("<div class='warnbox'><em>Fix before sharing:</em><ul class='nl'>" + "".join(f"<li>{e(mask(w, counter))}</li>" for w in warnings) + "</ul></div>") if warnings else ""
     steps = ""
     if spec.get("next_steps"):
         steps = "<section id='next-steps'><h2>Next steps</h2><ul class='nl'>" + "".join(f"<li>{rich(s)}</li>" for s in spec["next_steps"]) + "</ul></section>"

@@ -1,6 +1,6 @@
 {
   "name": "ada-agent-skills",
-  "version": "2026.10.28",
+  "version": "2026.10.28.1",
   "description": "Design, build, change, roll out and monitor Ada AI Agent use cases. Works over the Ada command line (adacli) or the Ada MCP server, in Claude, ChatGPT and Codex.",
   "author": {
     "name": "Ada Support"

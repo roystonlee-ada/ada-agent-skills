@@ -73,6 +73,7 @@ Each section has a `title` and any of these parts, rendered in this order:
 - An internal term in visible text (for example "LLM", "prompt", "endpoint").
 - Blame wording ("failed", "broken", "bad", "poor", "wrong").
 - A bot turn with more than one question mark. Check the quote is exact.
+- A transcript `url` that is not https on an Ada host (`ada.support` or `ada.cx`). The script drops the link.
 
 The script also masks emails, phone numbers and long digit runs in transcript
-text and says how many it masked.
+titles, turns, option labels, photo descriptions and note labels, and says how many it masked.
