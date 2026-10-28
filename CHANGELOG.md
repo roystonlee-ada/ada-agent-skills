@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.28.2
+
+- `ada-report` rebuilds each transcript link from checked parts. It refuses a URL with a backslash, whitespace, a control character, a user name, a password or a port, because a browser and the script's parser read those differently.
+
 ## 2026.10.28.1
 
 - `ada-report` drops a transcript link unless it is https on an Ada host, and adds `rel="noopener noreferrer"` to the links it keeps. It now masks emails, phone numbers and long numbers in transcript titles, option labels, photo descriptions, note labels and the on-page warnings, not only in message text.

@@ -42,14 +42,25 @@ def mask(text: str, counter: list[int]) -> str:
 
 
 def safe_url(url: str) -> str:
-    """Return the URL only if it is https on an Ada host, else an empty string."""
+    """Return a rebuilt https URL on an Ada host, or an empty string.
+
+    Backslashes, whitespace, control characters, userinfo and ports are refused
+    because browsers and Python's parser read them differently.
+    """
+    raw = str(url)
+    if "\\" in raw or any(c.isspace() or ord(c) < 32 or ord(c) == 127 for c in raw):
+        return ""
     try:
-        u = urllib.parse.urlparse(str(url))
+        u = urllib.parse.urlparse(raw)
+        port = u.port
     except ValueError:
         return ""
     host = (u.hostname or "").lower()
-    ok = u.scheme == "https" and any(host == h or host.endswith("." + h) for h in LINK_HOSTS)
-    return u.geturl() if ok else ""
+    if u.scheme != "https" or u.username or u.password or port or "@" in u.netloc:
+        return ""
+    if not any(host == h or host.endswith("." + h) for h in LINK_HOSTS):
+        return ""
+    return urllib.parse.urlunparse(("https", host, u.path, "", u.query, ""))
 
 
 def rich(text: str) -> str:
