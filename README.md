@@ -11,7 +11,7 @@ The guide picks the right skill, so you do not need to remember the skills.
 | Build | `design-conversation`, `author-playbook`, `help-center-to-kb-playbooks`, `ada-image-cards`, `create-verification-skill` |
 | Fix | `diagnose-conversation`, `test-and-fix`, `revise-playbook` |
 | Improve | `improve-agent`, `review-handoffs`, `ada-custom-metrics-improve`, `ada-custom-metrics-loop` |
-| Operate | `ada-promote-changeset`, `ada-rollout-changeset`, `ada-playbook-monitor-loop`, `ada-report`, `troubleshoot`, `ada-reasoning-level` |
+| Operate | `ada-promote-changeset`, `ada-rollout-changeset`, `ada-playbook-monitor-loop`, `ada-report`, `troubleshoot`, `ada-tune-reasoning-level` |
 
 If your request already names a stage or a skill, the guide steps aside and
 that skill runs directly.
@@ -51,7 +51,7 @@ instance.
 | `test-and-fix` | Run a use case's tests, fix each failure on a changeset, and retest until all pass |
 | `improve-agent` | Rank improvements across the agent by how much each moves handoffs, containment, CSAT and custom metrics |
 | `troubleshoot` | Answer an Ada platform or account question with steps, downtime risk, rollback and a source |
-| `ada-reasoning-level` | Choose which SET and ASK steps run at Reasoning level High, test each on its own inputs, and stage the change |
+| `ada-tune-reasoning-level` | Choose which SET and ASK steps run at Reasoning level High, test each on its own inputs, and stage the change |
 | `design-conversation` | Design a new use case as sample conversations you approve before anything is built |
 | `author-playbook` | Build the approved design into a playbook, save its scenarios as tests, run them |
 | `revise-playbook` | Change an existing use case, with today's flow shown beside the proposed one |

@@ -1,4 +1,4 @@
-# ada-reasoning-level with the Ada MCP
+# ada-tune-reasoning-level with the Ada MCP
 
 For a session with the Ada MCP tools (`get_ada_configuration`, `list_entities`, `edit_agent_behavior`).
 

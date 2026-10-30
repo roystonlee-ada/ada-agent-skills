@@ -1,5 +1,5 @@
 ---
-name: ada-reasoning-level
+name: ada-tune-reasoning-level
 description: >
   Decide which Playbook SET and ASK steps should run at Reasoning level High,
   prove it on real inputs, and stage the change. Finds the steps that extract

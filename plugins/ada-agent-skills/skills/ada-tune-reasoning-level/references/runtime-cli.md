@@ -1,4 +1,4 @@
-# ada-reasoning-level on the command line
+# ada-tune-reasoning-level on the command line
 
 For Claude Code or any shell with `adacli`. Replace `<instance>` with the agent's handle.
 
