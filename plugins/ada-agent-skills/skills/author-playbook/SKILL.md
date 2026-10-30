@@ -61,6 +61,12 @@ Before you write a step:
    hold for one outcome, and the customer's turns let the agent reach it.
    Add two or more controls from the nearest existing use cases, named
    "(must not change)".
+   For every open ask in the flow, add a case that enters through the menu
+   button and answers the ask with free text. Use 3 paraphrases, including
+   words that overlap a button label ("show", "yes", "ok"). A scripted tester
+   types a clean opener, so only these cases reach the paths a human takes.
+   Write criteria for the turn after the ask, and name the surface that must
+   answer (playbook step or router, not a custom instruction).
 3. Run every case on live only before you build. A target case that passes on
    live is a wrong case or a wrong diagnosis: fix it now. If more than half
    the targets already pass, stop and say so.

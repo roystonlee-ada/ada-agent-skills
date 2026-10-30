@@ -1,7 +1,7 @@
 ---
 name: create-verification-skill
 description: >
-  Generate a project-local verification skill (verify-<subject>) that defines
+  Generate a project-local verification skill (named verify- plus the subject) that defines
   what "this works" means for one Ada agent use case, code tool, config change
   or reported number, and a repeatable way to prove it. Use for "create a
   verification skill", "how do we verify X", "define done for this build",
@@ -49,6 +49,11 @@ conversations. Ask only what you cannot observe.
 
 - **Done:** what outcome would the customer call a success? If no one wrote it
   down, mark it OPEN. Do not invent it.
+- **Expected:** when a customer or reviewer will grade the case, quote their
+  expected-result text and its source in each criterion. A criterion built from
+  our own reading of a spec can pass while the grader's expectation fails. If
+  the design deviates from their wording, log an assumption and show them the
+  gap before the case reaches their grading page.
 - **Stage:** where does the change live before customers see it? A changeset
   draft, never live. A change that cannot be staged cannot be verified here.
   An instance often holds several drafts. List them, read each one's diff, and

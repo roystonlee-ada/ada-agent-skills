@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.30.1
+
+- Fix for Codex and other hosts outside Claude. The `create-verification-skill` description held an XML-style tag, which their skill loaders flag. It now uses plain words. The build now fails if any skill's frontmatter holds a tag.
+
 ## 2026.10.28.5
 
 - Start with `/ada-agent-guide`. The README now opens with it and a diagram of where it sends each request. You do not need to remember the skill names.
