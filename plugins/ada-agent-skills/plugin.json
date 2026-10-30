@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "ada-agent-skills",
-  "version": "2026.10.30.3",
+  "version": "2026.10.30.4",
   "description": "Design, build, change, roll out and monitor Ada AI Agent use cases. Works over the Ada command line (adacli) or the Ada MCP server, in Claude, ChatGPT and Codex.",
   "author": {
     "name": "Ada Support"

@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.30.4
+
+- New skill `refresh-intent-taxonomy`. It reads your agent's Topics and Intents, checks the AI-recommended intents against real conversations (test chats counted apart), flags active intents that have drifted, and writes a proposal. It applies only what you approve, then saves a taxonomy snapshot as a markdown file you choose. Later analysis loads the snapshot and treats it as stale after 45 days. Neither adacli nor the MCP can list or approve recommendations, so the skill sends those steps to Analytics > Topics & Intents in the dashboard. The CLI route needs adacli 1.1.0 or later.
+
 ## 2026.10.30.3
 
 - Renamed `ada-reasoning-level` to `ada-tune-reasoning-level`, so the name says what the skill does. Nothing else changed. If you installed the old name, update the plugin and use the new one.
