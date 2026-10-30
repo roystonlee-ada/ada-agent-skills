@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.10.30.2
+
+- New skill `ada-reasoning-level`. It finds the SET and ASK steps worth running at Reasoning level High, tests each one on its own inputs, and stages the change on a changeset. In our sandbox runs High fixed date and weekday arithmetic (17 of 17 right, against 18 of 34 at Normal) and gained nothing on most other tasks, so the skill tests step by step and moves High steps that gain nothing back to Normal. It never promotes.
+
 ## 2026.10.30.1
 
 - Fix for Codex and other hosts outside Claude. The `create-verification-skill` description held an XML-style tag, which their skill loaders flag. It now uses plain words. The build now fails if any skill's frontmatter holds a tag.
