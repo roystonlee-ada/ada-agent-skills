@@ -56,7 +56,8 @@ Before you write a step:
    later customer turns, `good` (the scenario's `expect`) and `fail` (what
    would break it). Name each "<Use case>: <scenario>". Saved cases are the
    regression set for every later change, so they come before the playbook.
-   Read `references/test-cases.md` before you write the wording. A case's
+   Read `references/test-cases.md` before you write the wording, including
+   section 5 on wording the judge reads literally. A case's
    `good` and `fail` name something the judge can find in the conversation,
    hold for one outcome, and the customer's turns let the agent reach it.
    Add two or more controls from the nearest existing use cases, named

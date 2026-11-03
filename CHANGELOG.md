@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.03.1
+
+- `author-playbook` test-case guide has a new section on wording the judge reads literally. An audit of a 44-case suite found that two shared criteria ("asks at most one question", "does not ask for what the customer already gave") caused a quarter of all failed checks, and about half of those were the judge misreading a fair reply. The section says how to define the unit, allow the first ask, drop "may", split compound criteria, ask for the claim and not an exact reason, check each target against the real tool, and check a suite before you trust it. `revise-playbook` uses the same guide.
+
 ## 2026.10.30.4
 
 - New skill `refresh-intent-taxonomy`. It reads your agent's Topics and Intents, checks the AI-recommended intents against real conversations (test chats counted apart), flags active intents that have drifted, and writes a proposal. It applies only what you approve, then saves a taxonomy snapshot as a markdown file you choose. Later analysis loads the snapshot and treats it as stale after 45 days. Neither adacli nor the MCP can list or approve recommendations, so the skill sends those steps to Analytics > Topics & Intents in the dashboard. The CLI route needs adacli 1.1.0 or later.

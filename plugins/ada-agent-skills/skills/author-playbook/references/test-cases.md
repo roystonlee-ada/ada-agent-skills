@@ -75,3 +75,58 @@ about half the time. One run is not proof either way.
   the transcript. Change config only after the same failure shows twice.
 - **Report counts by kind:** "targets fixed 4 of 6, controls worse 0 of 8,
   2 cases reworded". A bare "5 of 14 pass" hides which failures are yours.
+
+## 5. Wording the judge reads literally
+
+The judge applies the words of a criterion, not the intent behind them. In an
+audit of a 44-case suite, 2 criteria shared by about 30 cases caused a quarter
+of all failed checks, and by a hand read about half of those were the judge
+misreading a fair bot reply. Write each criterion so a literal reader agrees
+with you.
+
+- **Define the unit.** "Asks at most one question" failed a bot that asked
+  "from where to where?", because the judge counted two questions. Say what
+  counts as one ("a route, from and to, is one detail") and what does not ("a
+  closing 'anything else?' is not a question for this check").
+- **Allow the first ask.** "Does not ask for what the customer already gave"
+  failed the first, legitimate ask for a detail the customer had not stated.
+  Write "never asks again for a detail the customer stated or said they do not
+  know. The first ask for a missing detail is fine."
+- **Write shared criteria once, carefully.** A check copied onto every case
+  turns one misreading into dozens of failures, and it makes the whole suite
+  look worse than the playbook is. Do not paste a design principle
+  ("no re-asks", "one question a turn") into every case verbatim. Put it on
+  the cases where it is at stake, and word it as a test.
+- **Cut "may".** A judge grades an optional behaviour as required. Drop it,
+  or write it as a condition: "if it asks, it asks once".
+- **One criterion, one fact.** "Says A, but also B, because C" fails without
+  saying which part broke. Split it. Two criteria that check the same fact
+  pass and fail together, so one miss counts twice. Merge them.
+- **Ask for the claim, not the exact reason.** Demanding a given phrase fails
+  a correct answer worded differently. Write "says X, and gives the reason in
+  its own words (the first flight that...)".
+- **Check each target against the real source.** Run the tool or read the
+  table before you write a figure, a total or a link into a criterion. A
+  criterion that asks for "a total" fails when the source holds a per-piece
+  rate, and one that asks for two links fails when one link already is both.
+- **Agree with the playbook and with its sibling criteria.** If the playbook
+  quotes both options and a criterion demands asking first, no run can pass.
+  Where the design leaves a choice open, accept both behaviours until the
+  owner decides.
+- **Condition what the customer only gives when asked.** If a scenario holds
+  back a detail, write "if the customer has given X, then...", so a bot that
+  never asks is not failed for a comparison it could not make.
+
+Before you trust a suite, check it:
+
+1. Compare per-criterion pass rates on live and draft. A criterion that fails
+   on both in every run is suspect. One that fails on many cases in the same
+   way is wording.
+2. Read the transcripts behind the failures of each shared criterion, not only
+   the judge's reason.
+3. Do not settle it with a second automated grader or a triage label alone.
+   Both leaned the wrong way in this audit: one called almost every failure a
+   real defect, the other called half of them met, including a bot that fell
+   back to a topic menu three times. Use them to find what to read.
+4. Report two counts: failures that are real defects, and failures from
+   wording. Reword first, rerun, then judge the playbook.
