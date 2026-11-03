@@ -130,3 +130,9 @@ Before you trust a suite, check it:
    back to a topic menu three times. Use them to find what to read.
 4. Report two counts: failures that are real defects, and failures from
    wording. Reword first, rerun, then judge the playbook.
+5. Measure a wording fix by the failed checks on the criteria you edited, not
+   by the number of runs that pass. In the audit, those criteria fell from 14
+   to 4 failed checks of 22 on the draft, yet runs passing stayed at 58 of 88:
+   a fresh run resamples the bot and the judge, and the remaining failures
+   were scattered real defects. A forecast of the new pass count from the old
+   runs was an upper bound and came out wrong.

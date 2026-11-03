@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.03.2
+
+- `author-playbook` test-case guide: after you reword criteria, measure the fix by the failed checks on the edited criteria, not by how many runs pass. In the audit they fell from 14 to 4 of 22 while runs passing stayed flat, because a fresh run resamples the bot and the judge and the remaining failures are scattered real defects. Do not forecast a new pass count from old runs.
+
 ## 2026.11.03.1
 
 - `author-playbook` test-case guide has a new section on wording the judge reads literally. An audit of a 44-case suite found that two shared criteria ("asks at most one question", "does not ask for what the customer already gave") caused a quarter of all failed checks, and about half of those were the judge misreading a fair reply. The section says how to define the unit, allow the first ask, drop "may", split compound criteria, ask for the claim and not an exact reason, check each target against the real tool, and check a suite before you trust it. `revise-playbook` uses the same guide.
