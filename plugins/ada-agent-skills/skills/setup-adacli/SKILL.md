@@ -5,8 +5,9 @@ description: >
   Homebrew, and log in to an Ada instance. Use it first, before any other
   Ada Architect skill that runs adacli, and whenever the person says "set up
   adacli", "install adacli", "upgrade adacli", "update adacli", "adacli not
-  found", "which adacli version", "log in to Ada", or an adacli command fails
-  with "command not found" or a login error. Also covers the Ada MCP route
+  found", "which adacli version", "log in to Ada", "make adacli read-only",
+  "stop adacli changing my agent", or an adacli command fails with "command
+  not found", a login error, or exit code 7. Also covers the Ada MCP route
   for people with no shell.
 ---
 
@@ -83,7 +84,57 @@ approves the code. Then `status` should report a healthy session.
   person type it in their own terminal.
 - A person who uses single sign-on must use the device code route.
 
-## 4. MCP route
+## 4. Read-only or read-write
+
+Read-only mode makes adacli refuse every write to an instance before it sends
+a request. Reads, `login`, `logout` and `status` still work. Offer it for a
+live customer agent or an audit. Ask once: "Should adacli be able to change
+this agent, or only read it?" Skip the question if the person has said.
+
+If they choose read-only:
+
+1. Read the full domain from `adacli <instance> status --json`, the
+   `instance` field, for example `acme-corp.ada.support`. Use that value. A
+   short handle such as `acme-corp` matches nothing, and adacli does not warn.
+   A regional instance keeps its region, for example `acme-corp.us2.ada.support`.
+2. Show the exact line you will add and wait for a yes:
+   `read_only=acme-corp.ada.support`.
+3. Edit `~/.adacli/config`. Create it if it is missing. If a `read_only=`
+   line exists, add the domain to it with a comma. Keep every other line. Do
+   not rewrite the file from scratch.
+4. Run `adacli <instance> status`. The Read-only row must say `yes`. With
+   `--json` it has `"read_only": true`. The change applies to the next
+   command, with no new login.
+
+Run the check script again. It lists the `read_only` entries and warns about
+any entry with no domain.
+
+Tell the person:
+
+- It is a safety setting, not a permission. It sits in a file on this
+  computer, the Ada server does not know about it, and anyone with the file can
+  remove it. To stop a person from changing an agent, give them a dashboard
+  role with less access.
+- It belongs to the instance, not the session. Log out and in, and it stays.
+- It applies to one computer. Each person, and each machine that runs an
+  agent, needs its own line. There is no command-line flag.
+- It also blocks test runs and simulations, because they create records. A
+  read-only instance cannot prove a fix. To build and test, use a second
+  instance that is not read-only.
+
+To turn it off, the person removes the instance from the `read_only` line, or
+deletes the line.
+
+### If a command exits with code 7
+
+Exit code 7 means the instance is read-only. With `--json` the error category
+is `read_only`. Stop. Say which change you were about to make, and that it is
+blocked on purpose. Offer two ways forward: a writable instance, or the
+person removes the instance from `read_only` themselves. Never edit
+`~/.adacli/config` to get past a block, and never retry the command, even if
+the person asked for the change. The person decides whether to lift it.
+
+## 5. MCP route
 
 Use this when the person has no shell, is on Windows, or prefers it. The Ada
 MCP server signs in with OAuth, with no API key.
@@ -95,9 +146,16 @@ MCP server signs in with OAuth, with no API key.
 - Each skill in this plugin has a `references/runtime-mcp.md` that maps its
   steps to MCP tools, and says where the MCP has no tool and what to do
   instead.
+- The MCP route has no `read_only` file. The same safety comes from the
+  person's role: Agent and Read Only roles get only the read tools, and an
+  Owner can limit tools under Config > PLATFORM > MCP server. Unlike adacli's
+  setting, the Ada server enforces it. If the person wants a look-only
+  connection, connect with a Read Only user. If a write tool is refused, stop
+  and tell the person, as for exit code 7.
 
-## 5. Report
+## 6. Report
 
 Tell the person in two or three lines which route is working (adacli or MCP),
-the adacli version, and the instance they are logged in to. Then hand over to
+the adacli version, the instance they are logged in to, and whether it is
+read-only. Then hand over to
 the skill they came for.

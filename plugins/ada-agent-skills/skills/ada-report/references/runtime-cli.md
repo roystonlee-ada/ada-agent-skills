@@ -27,6 +27,10 @@ Notes:
 - No command draws the report. `scripts/report.py` renders the HTML, and the
   person prints it to PDF from the browser.
 
+## On a read-only instance
+
+This skill only reads, so it works on a read-only instance.
+
 ## Inside Ada Architect
 
 No Architect-only steps. The report is a local file, so give the person its path.

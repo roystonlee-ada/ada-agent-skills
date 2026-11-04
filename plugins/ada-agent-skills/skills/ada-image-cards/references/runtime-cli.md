@@ -20,6 +20,14 @@ already give the commands. This file adds the checks around them.
 - Show the picture. `chat talk` prints text only, so open the conversation in
   the dashboard to see the card.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 Use the same commands. Architect's `ada-test` helper can stand in for a test

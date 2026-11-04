@@ -20,6 +20,14 @@ Run the preview and show it. Apply only after the person says yes in chat, then
 use the token from that same preview. If a second call asks for confirmation
 again, live config moved between the two calls: stop and show the new diff.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 Architect has helpers: `ada-test <instance> --cases <ids> --changeset <id>` for

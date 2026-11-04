@@ -22,6 +22,14 @@ Run each case with `testing runs create`. Use `adacli <instance> chat talk`
 only for a case a test run cannot express, such as a session that needs a real
 one-time code.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 Architect's helpers make the same reads shorter: `ada-playbook` for a playbook

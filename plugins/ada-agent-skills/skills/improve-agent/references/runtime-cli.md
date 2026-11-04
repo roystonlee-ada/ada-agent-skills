@@ -117,6 +117,14 @@ If a handed-off conversation has no agent message after the handoff, follow
 The dashboard has the Reports pages for these. Give the person the page and the
 filter to open.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 Architect has helpers beside the plain commands: `ada-export <instance> --since

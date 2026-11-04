@@ -42,6 +42,26 @@ fi
 installed="$(adacli --version 2>/dev/null | head -1 | tr -d '[:space:]')"
 echo "adacli: ${path} (version ${installed:-unknown})"
 
+# Read-only instances come from ~/.adacli/config. adacli matches the full domain
+# exactly, so an entry with no dot (a short handle) protects nothing.
+cfg="${HOME}/.adacli/config"
+ro_line=""
+[ -f "$cfg" ] && ro_line="$(sed -n 's/^[[:space:]]*read_only[[:space:]]*=[[:space:]]*//p' "$cfg" | tail -1)"
+if [ -z "$ro_line" ]; then
+  echo "read_only: none listed"
+else
+  echo "read_only: ${ro_line}"
+  IFS=',' read -r -a ro_entries <<< "$ro_line"
+  for entry in "${ro_entries[@]}"; do
+    entry="$(echo "$entry" | tr -d '[:space:]')"
+    case "$entry" in
+      "") ;;
+      *.*|localhost*|*:*) ;;
+      *) echo "READ_ONLY_WARN: '${entry}' has no domain, so it matches no instance. Write the full domain, for example ${entry}.ada.support" ;;
+    esac
+  done
+fi
+
 via_brew=0
 if [ "$have_brew" = 1 ] && brew list --versions adacli >/dev/null 2>&1; then
   via_brew=1

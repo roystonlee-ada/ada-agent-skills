@@ -36,3 +36,10 @@ confidence: high
   conversation id.
 - No gateway checks the block before a change outside Ada Architect, so a fix
   without one is on you.
+
+## On a read-only instance
+
+Diagnosis only reads, so it works. The re-test step creates a test run, which
+a read-only instance refuses with exit code 7. Report the diagnosis and the
+proposed fix as untested, and say a writable instance is needed to prove it.
+Leave `~/.adacli/config` alone. `setup-adacli` has the full rule.

@@ -4,6 +4,15 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.04.1
+
+- adacli read-only mode is now part of setup. `setup-adacli` has a new step, "Read-only or read-write": it reads the instance's full domain from `adacli status --json`, shows the `read_only=` line, adds it to `~/.adacli/config` after your yes, and confirms with `status`. It uses the full domain because a short handle matches nothing and adacli gives no warning. The check script now lists the `read_only` entries and warns about any entry with no domain.
+- Exit code 7 means the instance is read-only. Every skill that writes now checks `status --json` for `read_only` before it plans a change. On exit 7 it stops, names the change it was about to make, and leaves `~/.adacli/config` alone, so the person decides whether to lift the setting.
+- `setup-ada-mcp` explains the MCP equivalent: the Agent and Read Only roles get read tools only, and the Ada server enforces them.
+- `ada-agent-guide` sends a read-only instance to the skills that only read: `diagnose-conversation` (untested), `review-handoffs`, `ada-report`, `improve-agent` (ranking only) and `troubleshoot`.
+- The monitor and custom-metrics loops split watch ticks, which only read and can run read-only, from fix ticks, which stage changesets and run tests.
+- Read-only blocks test runs and simulations, so a read-only instance cannot prove a fix. Build and test on a second instance that is not read-only.
+
 ## 2026.11.03.2
 
 - `author-playbook` test-case guide: after you reword criteria, measure the fix by the failed checks on the edited criteria, not by how many runs pass. In the audit they fell from 14 to 4 of 22 while runs passing stayed flat, because a fresh run resamples the bot and the judge and the remaining failures are scattered real defects. Do not forecast a new pass count from old runs.

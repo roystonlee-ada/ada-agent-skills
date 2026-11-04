@@ -104,6 +104,14 @@ These have no adacli command. Give the dashboard path from the runbook.
   key, and `conversations export` above is not the Data Export API.
 - Region and instance lookup.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 Skip this section outside Ada Architect. Architect sessions run on a

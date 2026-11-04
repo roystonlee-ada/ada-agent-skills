@@ -32,6 +32,14 @@ Command shapes checked against adacli `main` on 21/10/2026. Replace
 - A zero from `analytics summary` is not proof of a quiet window. A failed read
   can return the same zeroed payload. Check the window against a second read.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 The helper `ada-test <instance> --cases <ids> --changeset <id>` runs the same

@@ -49,6 +49,11 @@ restate its steps here.
   or `diagnose-conversation`.
 - When two stages fit, take the earlier one. "Make it live" with no passing
   tests starts at the test run, not at promote.
+- If `adacli <instance> status --json` shows `read_only: true`, or a write
+  just exited with code 7, route to the skills that only read:
+  `diagnose-conversation` (untested), `review-handoffs`, `ada-report`,
+  `improve-agent` (ranking only), `troubleshoot`. Say that building and
+  testing need a writable instance.
 - For "where are we", read the agent's playbooks, changesets and test runs,
   then name the current stage and the next skill.
 - When the stage is still unclear, ask one question and offer the two likeliest

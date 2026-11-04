@@ -58,7 +58,27 @@ If either call fails, read the error. An authentication error means the
 sign-in did not finish, so repeat step 3. Never ask for a password or a key in
 chat.
 
-## 5. Hand over
+## 5. Look only, or look and change
+
+Ask once whether this connection may change the agent. Skip it if the person
+has said. The MCP route has no `read_only` file. Access follows the signed-in
+user's role:
+
+- Agent and Read Only roles get only the read tools. `edit_agent_behavior` and
+  `edit_agent_config` are not in the list. To look without changing, sign in
+  as a user with one of those roles.
+- Owner and Admin get every tool, including both write tools. An Owner can
+  limit tools under Config > PLATFORM > MCP server.
+- The Ada server enforces the role, so unlike adacli's `read_only` setting it
+  cannot be removed from a file on this computer. A role change applies on the
+  next call.
+
+If a write tool is refused, or is missing from the list, stop. Say which change
+you were about to make and that the connection cannot make it. Do not look for
+another way round. The person changes their role, or uses a connection with a
+writable role.
+
+## 6. Hand over
 
 Name the skill that fits what they came for: `design-conversation` for a new
 use case, `author-playbook` to build an approved design, `revise-playbook` to

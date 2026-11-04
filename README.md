@@ -44,7 +44,7 @@ instance.
 
 | Skill | Use it to |
 |---|---|
-| `setup-adacli` | Check adacli, install or upgrade it with Homebrew, log in |
+| `setup-adacli` | Check adacli, install or upgrade it with Homebrew, log in, and make an instance read-only if you only want to look |
 | `setup-ada-mcp` | Connect your assistant to your Ada instance over MCP and check it works |
 | `onboard-agent` | Set up a new agent stage by stage. It reads what is done and resumes where you stopped |
 | `configure-handoff` | Set up or fix handoff to Zendesk, Salesforce, Gladly, email and other platforms, one link of the chain at a time |
@@ -78,6 +78,7 @@ instance.
 | Save test cases and run them | Yes | Yes, with your confirmation and the daily run quota |
 | Start, raise or stop a sampled rollout | Yes | Yes, when you ask for the step. If your permissions refuse it, the skill tells you the dashboard step |
 | Promote or revert a changeset | Yes, after your go-ahead | Yes, after your confirmation of a preview. If your permissions refuse it, the skill tells you the dashboard step |
+| Look only, no changes | `read_only` in `~/.adacli/config`, set by `setup-adacli`. It is a safety setting on one computer. It also blocks test runs | The Read Only role. The Ada server enforces it |
 
 Nothing reaches live customers without you. Edits land on a changeset that is
 not live, and you approve every test run, rollout step and promote.

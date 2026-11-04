@@ -23,3 +23,11 @@ the review and approval steps for you. Outside it, you show them in chat.
   whole. Stage in batches and leave that playbook out.
 - Never promote. The person does it.
 - Images attach in the dashboard. See `attach-images.md`.
+
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.

@@ -60,6 +60,14 @@ no simulation setting for code tools or MCP tools (`code-tools update --help`
 and `mcp tools update --help` list none), so the person sets "Block in
 simulations" on the Tools page of the dashboard.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 Where the Architect helpers are installed, `ada-test <instance> --cases <ids>

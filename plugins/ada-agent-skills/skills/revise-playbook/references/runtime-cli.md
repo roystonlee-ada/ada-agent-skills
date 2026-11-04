@@ -21,3 +21,11 @@ The one-step wording change still needs no board. Everything else waits for
 approval in chat outside Ada Architect, because no gateway holds the build
 there. Never promote: the person does it, and the workspace's changeset-guard
 hook checks every promote.
+
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.

@@ -20,6 +20,14 @@ instance comes first in every command, and there is no `--instance` flag.
 when the person has asked for that step in chat. A stop that the stop check
 triggered needs no second ask: run it, then report.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 The same commands work. Architect's gateway may also show the rollout in the

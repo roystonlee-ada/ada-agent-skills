@@ -37,6 +37,14 @@ Use this when no saved case reaches the step.
 6. Run each input at least 4 times. Count a chat that did not reach the step as a missed run, not as a pass.
 7. Deactivate the scratch playbooks when done, so the router does not pick them.
 
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
+
 ## Inside Ada Architect
 
 Run the same commands. Do not promote: the person does it.

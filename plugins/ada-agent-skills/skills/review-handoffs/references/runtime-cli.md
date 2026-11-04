@@ -42,3 +42,7 @@ reasoning: count it, but read the conversation to explain it.
 
 The export stops at 20,000 conversations, newest first, and says on stderr
 which dates it covered. Quote those dates.
+
+## On a read-only instance
+
+This skill only reads, so it works on a read-only instance.

@@ -14,7 +14,7 @@ Make every call read-only.
 
 | Evidence | Command | What to read |
 |---|---|---|
-| Connection works | `adacli <instance> status --json` | `status` is anything but `not_logged_in`. Otherwise `setup-adacli` |
+| Connection works | `adacli <instance> status --json` | `status` is anything but `not_logged_in`. Otherwise `setup-adacli`. Also read `read_only`: `true` means every write step below is refused, so onboarding can only report |
 | Foundation, languages, redactions, channels (read first) | `adacli <instance> client show --json` (`client info` is an alias) | One call returns these keys, seen on real instances: `bot_persona`, `language`, `translated_languages`, `auto_translation`, `redactions`, `custom_redactions`, `image_redactions`, `platforms`, `scheduled_block_schedules`. What each key holds is inferred from its name (ASSUMED). The output also holds a token field. Select only the keys you need, for example with `jq`, and never print or save the whole output |
 | Company description, persona (extra detail) | `adacli <instance> client persona show --json` | `company_description`, `personality`, `message_length`, `instructions`. Use it where the account allows it |
 | Languages (extra detail) | `adacli <instance> snapshot export --include languages --json` | The `languages` key under `config`. The command exports a configuration snapshot to the terminal and changes nothing. `languages list` only prints the 60 supported languages, so do not read it as the enabled set |
@@ -91,3 +91,11 @@ person can reverse it.
   length of one page.
 - `custom-metrics conversations` and `testing runs list` can include test
   conversations and old runs. Say which window and which changeset you read.
+
+## If the instance is read-only
+
+Run `adacli <instance> status --json` once at the start. If `read_only` is
+`true`, say so before you plan any change: this skill's writes will be
+refused. Offer a writable instance, or the steps that only read. A write that
+exits with code 7 means the same. Stop, name the change, and leave
+`~/.adacli/config` alone. `setup-adacli` has the full rule.
