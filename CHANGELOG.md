@@ -4,6 +4,11 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.05.3
+
+- `author-playbook` now builds every SET and ASK step at Reasoning level Normal and leaves `reasoning_level` off. In our runs High fixed only date and weekday arithmetic, so a long instruction is not a reason for it. When a step still saves a wrong value in tests or real chats, it loads `ada-tune-reasoning-level` and tests Normal against High on that step's own inputs.
+- `revise-playbook` now sends every step's `reasoning_level` back as it read it, because a rewrite that drops the field sets the step to Normal without a warning. It loads `ada-tune-reasoning-level` before rewording a step that saves a wrong value.
+
 ## 2026.11.05.2
 
 - `author-playbook` now sets rules for quick-reply labels. On Messenger, Instagram, LINE and WhatsApp, a question shows buttons only when every title is 20 characters or fewer, no two titles match, no title equals another value, and there are 10 options or fewer. If one title is too long, the whole question turns into a text list of the raw values, so a customer can read `did_not_answer` as a line of text. The new `references/quick-replies.md` has the rules and shortened examples. The new `scripts/check_quick_replies.py` checks a playbook file or a changeset file and exits 1 on a bad label.

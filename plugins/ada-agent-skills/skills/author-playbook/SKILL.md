@@ -98,6 +98,12 @@ says where it is). Then work from the design, not from the last comment:
 - Reuse their existing actions. Never invent one. If the design needs data no
   action returns, say so plainly and stop.
 - Branch with IF_ELSE on variables, two or three levels at most.
+- Build every SET and ASK at Reasoning level Normal, and leave `reasoning_level`
+  off. High is a slower, stronger extraction. In our runs it fixed only date and
+  weekday arithmetic, so a long instruction is not a reason for it. Put date
+  arithmetic in a code tool (section 3). When a step still saves a wrong value in
+  tests or real chats, load `ada-tune-reasoning-level` and test Normal against
+  High on that step's own inputs.
 
 ## 3. When to use a code tool
 

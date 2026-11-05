@@ -88,6 +88,9 @@ After Approve, follow author-playbook from step 2, with these differences:
 - Rewrite the steps the design touches as a whole, so the playbook reads as
   if it was written this way from the start. Remove steps and rules that the
   new design no longer needs.
+- Send every step's `reasoning_level` back as you read it. A rewrite that drops
+  the field sets the step to Normal without a warning. When a step saves a wrong
+  value, load `ada-tune-reasoning-level` before you rewrite its wording.
 - Save test cases only for scenarios that are new or changed. Keep the old
   ids for the rest, and update the use case's record.
 - Check old cases against the approved board before running.
