@@ -12,7 +12,7 @@ Command shapes checked against adacli `main` on 21/10/2026. Replace
 | Find the draft | `adacli <instance> changesets list`, then `changesets get <id>` for each one in status `testing`. Read the staged diff and match it to the case |
 | List saved cases | `adacli <instance> testing cases list --json`. The table view is very wide. The JSON is `{"test_cases": [...]}` |
 | Save a case | `adacli <instance> testing cases create --from-json <file>`. Read `author-playbook/references/test-cases.md` before you word `good` and `fail` |
-| Save a case from a real chat | `adacli <instance> testing cases from-conversation <conversation-id>` prints a scaffold for review. Add `--create` to save it, and `--criteria` to replace the seeded criteria |
+| Save a case from a real chat | `adacli <instance> testing cases from-conversation <conversation-id> --json` prints a screened draft and saves nothing. Follow its `instructions`, then save with `testing cases create --from-json <file>`. Needs adacli 1.1.7 or later. `--create` is deprecated |
 | Run on live | `adacli <instance> testing runs create --cases <id> <id> ...` |
 | Run on the draft | The same command with `--changeset <changeset-id>` |
 | Repeat for a pass rate | Add `--repeat <n>` |

@@ -11,6 +11,7 @@ may prefix the tool names.
 | Doctor: the draft | `list_agent_changesets` with `include_diff: true` shows the id and what is staged |
 | List saved cases | `get_test_cases` with `name_filter` set to the use case name |
 | Save a case | `edit_agent_config` with `entity_type: test_case`, `operation: create`. Call it with no `fields` first to read the schema. Read `author-playbook/references/runtime-mcp.md` for the case rules |
+| Save a case from a real chat | `draft_test_case_from_conversation` with `conversation_id` returns a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8 |
 | Run on live | `edit_agent_config` with `entity_type: test_run`, `operation: create`, `test_case_ids` |
 | Run on the draft | The same call with `changeset_id` set |
 | Repeat for a pass rate | Run the same call again. The MCP has no repeat option |

@@ -10,7 +10,7 @@ against `adacli <instance> <group> <command> --help` on 28/10/2026. Replace
 | Read one case in full | `adacli <instance> testing cases get <id> --json` |
 | Find the design board (anchor 2) | `ls ~/.ada-architect/<instance>/boards/` for `<work>-r<round>.design.txt`, and read the highest round. `cat ~/.ada-architect/<instance>/use-cases/*.md` for the record that lists case ids. Ask the person which round they approved |
 | Save a case from a board scenario | Write a JSON array to a file with the Write tool, then `adacli <instance> testing cases create --from-json <file>`. Fields per case: `name`, `user_message`, `success_criteria` (list), `scenario`, `language`, `channel_id`, `variables`, `external_systems`. `--from-json` cannot be mixed with `--name` or `--criteria` |
-| Capture one bad conversation | `adacli <instance> testing cases from-conversation <conversation id> --name "<Use case>: <scenario>" --criteria "<the person's outcome>" --json` prints a scaffold and creates nothing. Review it, then add `--create`. See the traps below |
+| Capture one bad conversation | `adacli <instance> testing cases from-conversation <conversation id> --json` saves nothing. It prints the screened draft and an `instructions` field: follow it. After the person confirms, write the case as a JSON array and save it with `testing cases create --from-json <file>`. Needs adacli 1.1.7 or later. See the traps below |
 | Add what the customer gave later | `adacli <instance> testing cases update <id> --scenario "<text>"` |
 | Check each tool's setting | `adacli <instance> actions list` shows each api tool's Mode (mock or live). `adacli <instance> actions profile <id>` shows its sampled replies |
 | Check each handoff | `adacli <instance> handoffs list`, then `adacli <instance> handoffs get <id> --json`. Ask the person which platform each one sends to |
@@ -30,14 +30,20 @@ against `adacli <instance> <group> <command> --help` on 28/10/2026. Replace
 
 ## Traps
 
-- `from-conversation` seeds the criteria with generic lines ("Resolves the
-  customer's inquiry..."). Always pass `--criteria` with the person's own
-  outcome, or the case checks nothing they asked for.
-- It seeds the opening message from the first customer text message and the
-  scenario from the conversation's summary. Check both, and swap personal
-  details for fakes.
-- Exit code 22 means a degraded read. The scaffold is untrusted and nothing was
+- adacli before 1.1.7 builds the case from the unscreened transcript. Check
+  `adacli --version` first and upgrade (`setup-adacli`).
+- `--create`, `--name` and `--criteria` are deprecated. `--create` saves a case
+  with a fixed scenario and fixed criteria, and prints a warning. Use the
+  `--json` flow so the case gets a real scenario and the person's outcome.
+- The command fails with no draft when the conversation is not found, 6 drafts
+  in a minute were used, or the conversation cannot be screened. Wait a minute
+  and retry once, then ask the person.
+- Exit code 22 means a degraded read. The draft is untrusted and nothing was
   created. Retry once, then ask the person.
+- Run the case, then read the run with `testing runs get <run id> --json --calls`.
+  `simulation_not_covered` means the case's external systems text misses a call:
+  fix the text, not the agent. A live web action call means an API tool is not
+  mocked: hold further runs and name the tool.
 - `testing runs create --repeat <n>` runs each case n times. Count each repeat
   against the quota (ASSUMED: the quota counts every run).
 - A case that sets `variables` can make a playbook skip the lookup you meant to

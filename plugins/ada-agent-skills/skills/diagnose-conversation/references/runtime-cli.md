@@ -7,7 +7,7 @@ Architect helpers (`tools/ada-architect/local/setup.py` installs them).
 |---|---|
 | Read the transcript | `adacli <instance> conversations get <id> --json` |
 | Read the reasoning log | `ada-why <instance> <id>`: which playbook ran, which steps, which knowledge and coaching, where the playbook ended |
-| Turn the conversation into a test case | `adacli <instance> testing cases from-conversation <id>` |
+| Turn the conversation into a test case | `adacli <instance> testing cases from-conversation <id> --json` prints a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8. Needs adacli 1.1.7 or later |
 | Run it on the draft and on live | `ada-test <instance> --cases <ids> --changeset <id>` |
 | "File it with provide-feedback" | Send it to Ada through your usual support channel |
 | Links to conversations | `https://<instance>.ada.support/insights/conversations/<id>` |

@@ -10,7 +10,7 @@ host may prefix the tool names.
 | Read one case in full | `get_test_cases` with `test_case_id`. A case that carries `truncated_fields` was cut to fit a page: read it by id and never write it back from the list |
 | Find the design board (anchor 2) | Nothing in the MCP saves a board. Look for the last ADA-DESIGN block in this conversation. If it is not here, ask the person to paste it and to say which round they approved |
 | Save a case from a board scenario | `edit_agent_config`, `entity_type: test_case`, `operation: create`. Call it with no `fields` first to read the schema. Required: `name` (256 characters at most), `user_message` (1024 at most), `success_criteria` (list, 1 to 10, 2048 characters each), `language`, `scenario_goal` (2048 at most). A create without `scenario_goal` is rejected after you confirm. Optional: `channel_id`, `variables`, `external_systems` (8000 at most). Leave `changeset_id` off |
-| Capture one bad conversation | `get_conversation` on the id for the first customer message and what the customer gave later. Then create the case as above: `user_message` word for word with fakes for personal details, `success_criteria` in the person's words, the later facts in `scenario_goal`, `channel_id` from `list_entities` with `entity_type: channels` |
+| Capture one bad conversation | `draft_test_case_from_conversation` with `conversation_id`. It saves nothing and returns a screened draft plus an `instructions` field: follow it to write, preview, save and run the case. Take every value from the draft. `get_conversation` returns the customer's own words, so use it to understand the chat only. One call per conversation, 6 per minute per agent. An error and no draft means the chat was too large or could not be screened. Agree the outcome with the person first (see Traps) |
 | Check each tool's setting | `list_entities` with `entity_type: tools` and `detail: full`. Only `full` shows `simulation_mode` on each api, code and mcp tool, and the result is large. Do not pass `limit`: only `entity_type: variables` accepts it, and the call is rejected otherwise. On the sandbox read every tool showed `live` |
 | Check each handoff | `list_entities` with `entity_type: handoffs` gives name, description and `is_active`, not the platform. Ask the person where each one sends |
 | Check the quota | `get_test_run_quota`: `runs_used`, `runs_remaining`, `daily_limit` |
@@ -27,6 +27,20 @@ host may prefix the tool names.
 | Withdraw one fix | `edit_agent_behavior`, `operation: remove`, `changeset_id`, `entity_id`, `entity_type` |
 | Reword a wrong case | `edit_agent_config`, `entity_type: test_case`, `operation: update`, `entity_id`, with the new `fields`. Only after the person agrees |
 | Hand over | ada-promote-changeset. Do not call `promote` here |
+
+## Traps
+
+- The draft's `instructions` step 2 asks the person to confirm the outcome the
+  case checks. Do not skip it for a failed chat: the draft's `resolution_reason`
+  describes what the agent did, not what was right.
+- `edit_agent_config` is not in every agent's tool list. If it is missing, say
+  the draft can be written but not saved here, and stop.
+- A run with `failure_code: simulation_not_covered` means the case's
+  `external_systems` text does not describe a call the agent made. Fix the
+  text. Do not change the agent for it.
+- `simulated_call_counts` with `live_web_action_call` or
+  `failed_live_web_action_call` means an API tool is set to live. Hold further
+  runs and name the tool.
 
 ## What goes live at once
 

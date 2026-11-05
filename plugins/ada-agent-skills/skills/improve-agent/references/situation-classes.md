@@ -43,8 +43,8 @@ Knowledge is missing or wrong.
   caused the low score.
 - Next skill: knowledge edit (a changeset edit of the article), then
   `test-and-fix`.
-- Take the facts from the human replies (`human-agent-learning.md`) when you
-  have them. Never invent the article body.
+- Take the facts from the human replies (`mine-human-agent-conversations`) when
+  you have them. Never invent the article body.
 
 ### Policy or authority
 

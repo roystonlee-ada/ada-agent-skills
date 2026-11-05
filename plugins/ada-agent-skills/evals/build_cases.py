@@ -176,6 +176,8 @@ VAGUE_TO_STAGE = [
     ("route-vague-test-fix", "The refunds use case keeps breaking. Sort it out, and this time prove it works.",
      "test-and-fix"),
     ("route-vague-improve", "Make our Ada agent better.", "improve-agent"),
+    ("route-mine-human", "After the bot hands off, our human agents answer the same refund-status questions all day. "
+                         "What are they doing that a playbook could take over?", "mine-human-agent-conversations"),
     ("route-vague-handoff", "Nobody on our support team receives the chats the Ada bot passes over. Sort it out.",
      "configure-handoff"),
     ("route-vague-troubleshoot", "Since IT changed our login settings, half the team can't get into the Ada dashboard. "
@@ -187,6 +189,8 @@ NAMED_STAGE = [
     ("route-named-onboard", "Use onboard-agent to show which setup stages our agent has finished.", "onboard-agent"),
     ("route-named-test-fix", "Run test-and-fix on the refunds use case.", "test-and-fix"),
     ("route-named-improve", "Run improve-agent on our agent for the last 30 days.", "improve-agent"),
+    ("route-named-mine", "Run mine-human-agent-conversations on the last 28 days of handoffs.",
+     "mine-human-agent-conversations"),
     ("route-named-handoff", "Use configure-handoff to set up handoff to Salesforce.", "configure-handoff"),
     ("route-named-troubleshoot", "Use troubleshoot: how do I rotate our Ada API key?", "troubleshoot"),
 ]

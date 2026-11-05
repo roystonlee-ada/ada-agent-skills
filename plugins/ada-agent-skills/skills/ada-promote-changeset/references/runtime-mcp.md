@@ -8,6 +8,7 @@ the tool names.
 | Status and the real diff | `list_agent_changesets` with `changeset_id` and `include_diff: true`. Status is `testing`, `promoting`, `promoted` or `reverted` |
 | Find a changeset | `list_agent_changesets`, optionally with `status: testing` |
 | Cases that touch the playbook | `get_test_cases` with `name_filter` set to the use case name |
+| Cases from real chats | `draft_test_case_from_conversation` with `conversation_id` returns a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8. Find the chats with `get_conversations` filtered to the changed playbook |
 | Run on draft and on live | `get_test_run_quota` first. Then `edit_agent_config` with `entity_type: test_run`, `operation: create`, `test_case_ids`, and `changeset_id` for the draft. Run again without `changeset_id` for live. Poll `get_test_runs` until each run is `completed`, `failed` or `timeout` |
 | Read a failure | `get_conversation` on the run's conversation |
 | Before and after on live traffic | `compare_changeset_metrics` once the draft has traffic |

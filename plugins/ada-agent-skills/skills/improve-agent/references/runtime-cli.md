@@ -9,7 +9,6 @@ Contents:
 - Metrics and what each one counts
 - Containment check
 - Step table
-- Human-agent messages after a handoff
 - What this route cannot do
 - Inside Ada Architect
 
@@ -77,29 +76,6 @@ action block with Count as Handoff (`is_handoff`) off is invisible to the
    containment figure is too high. On one real instance, email handoffs ran with
    Count as Handoff off and the reported containment was about 27 points too
    high. Name the channel and send the fix to `configure-handoff`.
-
-## Human-agent messages after a handoff
-
-Two commands show the return path when `conversations handoffs <id>` is refused:
-- `conversations details <id> --json`: the `handoffs` array has the target,
-  status and reason code of each attempt.
-- `conversations transcript <id> --json`: presence events (`agent_arrival`,
-  `agent_depart`, `live_chat_end`) and agent messages. An agent message has a
-  `source` of agent and an `agent_info` block with the name (the source also
-  accepts `by`). `conversations log <id> --json` shows the same messages with
-  the reasoning.
-
-Presence-only lines are not replies. Count a human reply only when an agent
-message is present. Ticket, case and email handoffs return nothing to Ada by
-design (observed on Zendesk Ticketing, a Salesforce case, a Gorgias ticket and
-email), so a handed-off conversation with no agent message is normal there.
-
-`conversations export --transcripts --json -o <file>` writes full transcripts
-for a window, with a bound set by `--limit`. Use it to read human replies across
-a cluster, then join on the conversation id.
-
-If a handed-off conversation has no agent message after the handoff, follow
-`human-agent-learning.md`: ask for the helpdesk export, and say so in the report.
 
 ## What this route cannot do
 

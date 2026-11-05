@@ -77,13 +77,13 @@ alone: the agent picks the code itself, so treat it as a lead.
 
 ## 4. Learn from what the humans did
 
-For a cluster where a person closed the case, read what the human agent said
-after the handoff: what they asked for, what they told the customer, what closed
-the case. That is the cheapest source of the missing article, the missing field
-or the missing step. Open `references/human-agent-learning.md` for what to read
-and for the helpdesk export to ask for when the route does not return those
-messages. Say in the report whether this section rests on the transcript, on an
-export, or is missing.
+For a cluster where a person closed the case, the human agent's replies are the
+cheapest source of the missing article, the missing field or the missing step.
+Load `mine-human-agent-conversations` for the top handoff clusters and tell it
+the clusters, so it skips its own topic split and reads 5 conversations per
+cluster. It returns the source line (transcript, helpdesk export, or missing),
+the path the humans followed, and the resolvable share. Say that source line in
+the report.
 
 ## 5. Size every cluster
 

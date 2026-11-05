@@ -58,6 +58,10 @@ ends up patching a playbook nobody read.
   pass. Those are the controls: if one fails after your change it got worse,
   and if it already fails, it is not yours to chase. A case that already fails
   because its wording contradicts the design goes back for review.
+- Few saved cases, or a rewrite that replaces a playbook? Draft more controls
+  from real conversations the old version handled well, before you build. Use
+  `author-playbook/references/test-cases.md` section 8 for the draft tool and
+  its checks. The new version must pass them.
 - Read the use case's record if one exists: its goal, approved scenarios and
   test case ids.
 - If the change aims to cut handoffs, save the baseline count for that

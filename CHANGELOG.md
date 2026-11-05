@@ -4,6 +4,14 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.05.1
+
+- Test cases from real conversations now use Ada's new draft tool. In the MCP it is `draft_test_case_from_conversation`. In adacli 1.1.7 it is `testing cases from-conversation <id> --json`. Both return a screened draft (personal details become fakes of the same shape, credentials and sensitive variables are left out) and save nothing. The draft carries an `instructions` field, and the skills follow it for write, preview, save and run.
+- `author-playbook` test-case guide has a new section 8, "Seed a case from a real conversation". It adds what the draft does not decide: agree the outcome with the person first (never copy what the agent did), mark a failed chat as a target and a good chat as a control, draft only (never copy from `get_conversation`), read the preview for personal data, check an empty opening message, describe the external systems from the draft, and set every tool the chat called to mock before the first run. A run that fails with `simulation_not_covered` is a wrong case, so the fix goes in the case's external systems text and not in the agent.
+- `test-and-fix`, `diagnose-conversation`, `ada-promote-changeset`, `ada-playbook-monitor-loop` and `create-verification-skill` use the new tool in their runtime files. The `--create`, `--name` and `--criteria` flags are deprecated, and `test-and-fix` says so. `revise-playbook` drafts extra controls from real chats when a rewrite replaces a playbook with few saved cases.
+- New skill `mine-human-agent-conversations`. It reads the replies that human agents sent after a handoff, finds the path most of them follow, and places each cluster on a rung (answer, collect, look up, resolve, or stay human). It checks what already exists, then writes a playbook candidate card with a size, the resolvable share as "k of n", the policy to confirm, two or more conversation links and three conversations to seed as test cases. It checks first that the handoff integration returns replies at all, and says what to ask for from the helpdesk when it does not. It only reads.
+- `improve-agent` now loads the new skill for its handoff clusters, in place of its own copy of the human-reply guide. The source check and the helpdesk export request moved into the new skill.
+
 ## 2026.11.04.1
 
 - adacli read-only mode is now part of setup. `setup-adacli` has a new step, "Read-only or read-write": it reads the instance's full domain from `adacli status --json`, shows the `read_only=` line, adds it to `~/.adacli/config` after your yes, and confirms with `status`. It uses the full domain because a short handle matches nothing and adacli gives no warning. The check script now lists the `read_only` entries and warns about any entry with no domain.

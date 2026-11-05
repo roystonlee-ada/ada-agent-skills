@@ -95,7 +95,9 @@ confidence. The runtime file gives the format.
 
 ## 4. Prove it
 
-Turn the conversation into a test case unless one already covers it. Run it on the draft
+Draft the conversation as a test case unless one already covers it (the runtime
+file names the draft tool, and `author-playbook/references/test-cases.md`
+section 8 says how to check it). Run it on the draft
 with the fix and on live, and show both conversations as links. If the same
 case fails the same way after a fix, stop and diagnose again with a different
 hypothesis.

@@ -50,7 +50,9 @@ would have nothing to fix. Tell the person and go back to the diagnosis.
 ## 4. Read the result before you report it
 
 The same configuration gives a different verdict on borderline conversations
-about half the time. One run is not proof either way.
+about half the time. One run is not proof either way. A case that swings
+between runs is a sign its criterion is loose or wrong (section 7), not a
+fact about the bot to accept.
 
 - **Pin test first.** After staging, run the single plainest target case on
   the draft: `ada-test <instance> --cases <one id> --changeset <id> --no-live`.
@@ -136,3 +138,83 @@ Before you trust a suite, check it:
    a fresh run resamples the bot and the judge, and the remaining failures
    were scattered real defects. A forecast of the new pass count from the old
    runs was an upper bound and came out wrong.
+
+## 6. Start at the greeting
+
+A real customer meets the greeting first. Harnesses and simulated testers
+often send the first message straight to the agent, so a case can pass there
+and fail for a person. A button tap and a typed reply also route differently:
+a typed "Show all my activity" read "show" as "show me how".
+
+- Write each case from a real chat that starts at the greeting, and put the
+  opening move on the case: the button to tap, or "type this at the greeting,
+  do not tap first". "Start by saying X" alone leaves the tester guessing.
+- Cover tap-then-type and type-at-the-greeting as separate cases for every
+  open ask.
+- Show the tester the full flow, greeting to last check.
+- Record how the run reached the case. A harness run that skips the greeting
+  is not a pass for the greeting path, and the page must not call it tested.
+
+## 7. A fail at the end of a run is a finding
+
+Never close a failure as noise, flaky or non-determinism. Sort it:
+
+| Fail is | Evidence | Fix |
+|---|---|---|
+| The agent | Wrong, missing or dead-end reply, or no return to the task | Fix the playbook. The case stays failed |
+| The rule | A correct reply fails it, or the same transcript grades differently on a re-grade | Reword the criterion (sections 1 and 5), rerun |
+| A blind check | The judge cannot see a button, card or picture | Add a fixed check |
+| The tester | The simulated member looped or skipped the question | Fix the script |
+
+A case that swings between runs has a loose rule first ("if it swings so
+much, chances are it's our test criteria", the owner, 04/11/2026). Allow
+flexibility: no exact 1:1 reply, as long as the points are captured. A correct
+answer without the return to the task is a failed check, not a pass by
+comment. A case never counts as passed by default or because it was not run.
+Report counts by kind, and take no rate such as "1 in 5" as acceptable without
+the owner's yes.
+
+## 8. Seed a case from a real conversation
+
+A case drafted from a real conversation holds the real first message, the
+variables, the tool results and the path the agent took. Use it for a bug (the
+failed chat), a change set (chats that touch the changed step) and a playbook
+migration (chats the old version handled). Draft one conversation per call.
+
+The draft tool saves nothing. Take its `instructions` field as the procedure
+for writing, previewing, saving and running the case, because the steps follow
+the client's current field rules. The route files name the tool and command.
+The sections above still decide whether the case is any good:
+
+- **Agree the outcome with the person first.** The draft shows what the agent
+  did, not what was right. For a failed chat, the criterion is what the customer
+  should have got, in the person's words. Never copy the agent's behaviour into
+  a criterion: the case would then pass on the bug.
+- **Mark it.** A case from a failed chat is a target and must fail on live
+  (section 3). A case from a chat that resolved well is a control.
+- **Draft only.** Write every value from the draft. `get_conversation` and
+  `conversations get` return the customer's own words, so use them to
+  understand the chat and never to fill a field.
+- **Read the preview for personal data.** Screening swaps names, emails, phone
+  numbers and order numbers for fakes of the same shape and drops credentials,
+  but it can miss a detail, and saving does not screen again. Replace what is
+  left by hand.
+- **Check the opening.** An empty `first_message` means the customer sent no
+  text, often because they tapped a button. Ask for the opening move and record
+  it as section 6 says.
+- **Check variables marked as the customer's current value.** They can differ
+  from the value during the chat. A variable that a mocked tool's lookup needs
+  must stay out of the case, or the lookup is skipped.
+- **Describe the external systems from the draft.** Each tool call the chat made
+  becomes plain text: the records, their identifiers, the values returned and
+  each error. A call the text does not describe fails the run with
+  `simulation_not_covered`. That is a wrong case (section 4), so fix the
+  `external_systems` text and leave the agent alone.
+- **Set every tool the chat called to mock in simulations before the first run.**
+  A tool set to live sends real requests. Code tools, MCP tools and HTTP Request
+  blocks also run for real unless blocked, and a blocked call fails a case that
+  needs it. Read `simulated_call_counts` on the first run. A live call means the
+  tool is not mocked: stop and tell the person which one. `test-and-fix`
+  `references/safe-to-run.md` holds the hold rule.
+- **Search for a duplicate first.** If a saved case already tests the outcome,
+  show it and ask before saving another.

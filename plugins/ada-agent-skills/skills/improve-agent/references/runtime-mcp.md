@@ -7,7 +7,6 @@ instance that day. Your host may prefix the tool names.
 Contents:
 - Metrics and what each one counts
 - Step table
-- Human-agent messages after a handoff
 - What this route cannot do
 
 ## Metrics and what each one counts
@@ -46,31 +45,6 @@ with `get_available_filters` first.
 | Is the knowledge there | `search_knowledge` with a short title keyword |
 | Is there a tool for the task | `list_entities` with `entity_type: tools`, and `entity_type: handoffs` for the destinations |
 | Links | The `conversation_url` that `get_conversations` `SUMMARY` returns, shaped `https://<instance>.ada.support/insights/conversations/<id>`. Mark each link opened or ASSUMED |
-
-## Human-agent messages after a handoff
-
-`get_conversation` returns the unified transcript. The api source builds it from
-every message in the conversation and drops only `variable_set` and `presence`
-entries. A message that the handoff integration relays from a human agent is a
-`live_agent_message` entry with `content` and `agent_name`. The `handoff_triggered`
-entry carries `reason_code` and `reasoning.text`.
-
-What I saw on the sandbox: a handed-off conversation returned the
-`handoff_triggered` entry and a bot message saying it was waiting for an agent.
-No human had joined, so there was no `live_agent_message` to read. I could not
-show a live human reply on this instance. The api source and the product docs
-say they appear when the integration relays them.
-
-Because `presence` entries are removed, the MCP does not show when an agent
-joined or left. Time to close comes from the first and last `live_agent_message`
-timestamps.
-
-`get_conversations` `SUMMARY` has no human-message field. Read each sample with
-`get_conversation`.
-
-If a handed-off conversation shows a `handoff_triggered` entry and no
-`live_agent_message` after it, follow `human-agent-learning.md`: ask for the
-helpdesk export, and say so in the report.
 
 ## What this route cannot do
 

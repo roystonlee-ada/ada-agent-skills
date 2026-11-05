@@ -28,6 +28,7 @@ restate its steps here.
 | Failing tests, or a bad conversation to fix and retest until the use case passes | `test-and-fix` |
 | What to improve across the whole agent: handoffs, containment, CSAT and custom metrics together | `improve-agent` |
 | Why conversations hand off, counted by the recorded reason | `review-handoffs` |
+| What human agents do after a handoff, and which playbooks or articles could take it over | `mine-human-agent-conversations` |
 | A tested changeset that should go live | `ada-promote-changeset` |
 | Ramping a change on live traffic, or "should we revert" | `ada-rollout-changeset` |
 | Watching a playbook after launch, alert noise, a control set | `ada-playbook-monitor-loop` |
@@ -52,7 +53,8 @@ restate its steps here.
 - If `adacli <instance> status --json` shows `read_only: true`, or a write
   just exited with code 7, route to the skills that only read:
   `diagnose-conversation` (untested), `review-handoffs`, `ada-report`,
-  `improve-agent` (ranking only), `troubleshoot`. Say that building and
+  `improve-agent` (ranking only), `mine-human-agent-conversations` (reading only),
+  `troubleshoot`. Say that building and
   testing need a writable instance.
 - For "where are we", read the agent's playbooks, changesets and test runs,
   then name the current stage and the next skill.

@@ -12,7 +12,7 @@ live tool definitions on 20/10/2026. Your host may prefix the tool names.
 | An action failed | The failed call in the `get_conversation` log. `run_code_tool` re-runs a code tool on the same input (pass `code_tool_id`). Its network calls are real, so never re-run one that charges, cancels or deletes |
 | How common is it | `get_available_filters`, then `get_conversations` with `detail_level: SUMMARY` and both dates, paging with `offset` and `next_offset`. `get_ada_metric` for a rate |
 | Where a fix belongs | `get_improvement_guide`, once per session |
-| Turn it into a test case | `edit_agent_config` with `entity_type: test_case`, `operation: create`. Call it with no `fields` first. Copy the customer's first message word for word, swap each personal detail and credential for a fake of the same shape, and state the outcome the customer wanted in `success_criteria` |
+| Turn it into a test case | `draft_test_case_from_conversation` with `conversation_id` returns a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8. Take every value from the draft. State the outcome the customer should have got in `success_criteria`, agreed with the person |
 | Run it on the draft and on live | `get_test_run_quota`, then `edit_agent_config` with `entity_type: test_run`, `operation: create`, `test_case_ids`, and `changeset_id` for the draft. Run again without it for live. Poll `get_test_runs` |
 | Links to conversations | `https://<instance>.ada.support/insights/conversations/<id>`. `get_conversations` with `SUMMARY` also returns each dashboard URL |
 

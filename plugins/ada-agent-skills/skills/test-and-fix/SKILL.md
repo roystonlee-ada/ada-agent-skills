@@ -46,15 +46,17 @@ Never invent expected behavior. Every success criterion comes from a saved
 case, the board, or words the person wrote. A criterion you made up makes the
 loop fix the agent toward your guess.
 
-**One bad conversation, existing playbook.** Start here too. Capture that
-conversation as a case before any fix:
-- Opening message: the customer's first message, word for word. Swap each
-  personal detail and credential for a fake of the same shape.
+**One bad conversation, existing playbook.** Start here too. Draft that
+conversation as a case before any fix, with the draft tool the runtime file
+names, and follow `author-playbook/references/test-cases.md` section 8:
 - Success criteria: the outcome the person states, in their words. If they
   have not stated one, ask "what should the customer have got?" Do not copy a
-  generic default such as "resolves the inquiry".
-- Facts the customer gave later go in the scenario so the simulated customer
-  can give them.
+  generic default such as "resolves the inquiry", and do not copy what the
+  agent did.
+- Every field comes from the screened draft. Facts the customer gave later go in
+  the scenario goal, so the simulated customer can give them.
+- The case is a target. It must fail on live in step 3, or it is the wrong
+  case.
 
 Then treat it as a one-case anchor.
 
