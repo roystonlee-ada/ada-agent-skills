@@ -8,6 +8,7 @@ index page (category, folder, article) and collects article URLs. Standard libra
 
 import argparse
 import hashlib
+import http.client
 import ipaddress
 import json
 import re
@@ -78,16 +79,75 @@ def discover(index_url, max_pages=200):
     return articles
 
 
+def is_public(address):
+    ip = ipaddress.ip_address(address)
+    ip = getattr(ip, "ipv4_mapped", None) or ip
+    return not (ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast)
+
+
+def blocked(host):
+    return ValueError(f"blocked URL, {host} resolves to a non-public address (use --allow-private for a staging site)")
+
+
 def check_url(url):
     parts = urllib.parse.urlsplit(url)
     if parts.scheme not in ("http", "https") or not parts.hostname:
         raise ValueError(f"blocked URL, only http and https are allowed: {url}")
     if ALLOW_PRIVATE:
         return
-    for info in socket.getaddrinfo(parts.hostname, parts.port or 443):
-        ip = ipaddress.ip_address(info[4][0])
-        if ip.is_private or ip.is_loopback or ip.is_link_local or ip.is_reserved or ip.is_multicast:
-            raise ValueError(f"blocked URL, {parts.hostname} resolves to a non-public address (use --allow-private for a staging site)")
+    default_port = 80 if parts.scheme == "http" else 443
+    for info in socket.getaddrinfo(parts.hostname, parts.port or default_port, type=socket.SOCK_STREAM):
+        if not is_public(info[4][0]):
+            raise blocked(parts.hostname)
+
+
+def checked_socket(host, port, timeout, source_address):
+    """Resolve the host once, check every address, then connect to one of those addresses.
+
+    The connection never resolves the name again, so a DNS answer that changes
+    between the check and the connect cannot steer it to an internal address.
+    """
+    infos = socket.getaddrinfo(host, port, type=socket.SOCK_STREAM)
+    if not ALLOW_PRIVATE and not all(is_public(info[4][0]) for info in infos):
+        raise blocked(host)
+    error = OSError(f"no address found for {host}")
+    for family, kind, proto, _, address in infos:
+        sock = socket.socket(family, kind, proto)
+        try:
+            sock.settimeout(timeout)
+            if source_address:
+                sock.bind(source_address)
+            sock.connect(address)
+            if not ALLOW_PRIVATE and not is_public(sock.getpeername()[0]):
+                raise blocked(host)
+            return sock
+        except Exception as caught:
+            sock.close()
+            if isinstance(caught, ValueError):
+                raise
+            error = caught
+    raise error
+
+
+class CheckedHTTPConnection(http.client.HTTPConnection):
+    def connect(self):
+        self.sock = checked_socket(self.host, self.port, self.timeout, self.source_address)
+
+
+class CheckedHTTPSConnection(http.client.HTTPSConnection):
+    def connect(self):
+        sock = checked_socket(self.host, self.port, self.timeout, self.source_address)
+        self.sock = self._context.wrap_socket(sock, server_hostname=self.host)
+
+
+class CheckedHTTPHandler(urllib.request.HTTPHandler):
+    def http_open(self, req):
+        return self.do_open(CheckedHTTPConnection, req)
+
+
+class CheckedHTTPSHandler(urllib.request.HTTPSHandler):
+    def https_open(self, req):
+        return self.do_open(CheckedHTTPSConnection, req, context=self._context)
 
 
 class CheckedRedirect(urllib.request.HTTPRedirectHandler):
@@ -98,8 +158,8 @@ class CheckedRedirect(urllib.request.HTTPRedirectHandler):
 
 OPENER = urllib.request.OpenerDirector()
 for handler in (
-    urllib.request.HTTPHandler,
-    urllib.request.HTTPSHandler,
+    CheckedHTTPHandler,
+    CheckedHTTPSHandler,
     CheckedRedirect,
     urllib.request.HTTPDefaultErrorHandler,
     urllib.request.HTTPErrorProcessor,

@@ -4,6 +4,13 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.05.4
+
+- `author-playbook` now tests every complicated SET and ASK step at both Reasoning levels before it stages. A complicated step has several rules, a precedence order, a long list, arithmetic, or several variables at once. It loads `ada-tune-reasoning-level`, runs the step's own inputs at Normal and at High, and keeps the level that gets more right. A tie keeps Normal, because High is slower and has no second model behind it. A simple step stays at Normal with no test.
+- `ada-tune-reasoning-level` says in its description that `author-playbook` loads it.
+- New script `author-playbook/scripts/check_ask_instructions.py` checks the instruction of every reasoning-mode ASK step in a playbook, changeset or folder of them. It fails an ASK that never says a problem reply means "no", or that tells the model to repeat the question word for word, and warns about a missing re-ask line, re-ask cap or fallback value. It exits 1 on a FAIL. No skill calls it yet.
+- `help-center-to-kb-playbooks`: `extract_help_center.py` now connects to the address it checked. It resolved the host name once to check it and again to connect, so a DNS server that changed its answer in between could send a fetch to an internal address. It now resolves once, rejects any non-public address, connects to that address with the original host name for TLS, and checks the connected peer. It also uses the scheme's default port (80 for http) in the check.
+
 ## 2026.11.05.3
 
 - `author-playbook` now builds every SET and ASK step at Reasoning level Normal and leaves `reasoning_level` off. In our runs High fixed only date and weekday arithmetic, so a long instruction is not a reason for it. When a step still saves a wrong value in tests or real chats, it loads `ada-tune-reasoning-level` and tests Normal against High on that step's own inputs.

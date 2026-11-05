@@ -98,12 +98,14 @@ says where it is). Then work from the design, not from the last comment:
 - Reuse their existing actions. Never invent one. If the design needs data no
   action returns, say so plainly and stop.
 - Branch with IF_ELSE on variables, two or three levels at most.
-- Build every SET and ASK at Reasoning level Normal, and leave `reasoning_level`
-  off. High is a slower, stronger extraction. In our runs it fixed only date and
-  weekday arithmetic, so a long instruction is not a reason for it. Put date
-  arithmetic in a code tool (section 3). When a step still saves a wrong value in
-  tests or real chats, load `ada-tune-reasoning-level` and test Normal against
-  High on that step's own inputs.
+- Build a simple SET or ASK at Reasoning level Normal and leave `reasoning_level`
+  off. A complicated one (several rules, a precedence order, a long list,
+  arithmetic, several variables at once) gets both levels tested before you
+  stage: load `ada-tune-reasoning-level`, run the step's own inputs at Normal
+  and at High, and keep the level that gets more of them right. On a tie keep
+  Normal, because High is slower and has no second model behind it. Test, don't
+  assume: in our runs High fixed date arithmetic and only added time elsewhere,
+  but those cases were easy. Put date arithmetic in a code tool (section 3).
 
 ## 3. When to use a code tool
 

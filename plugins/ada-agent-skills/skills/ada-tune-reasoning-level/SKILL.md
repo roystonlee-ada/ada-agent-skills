@@ -8,7 +8,8 @@ description: >
   when the miss is about wording. Use for "reasoning level", "set this to
   high", "which steps need High", "the SET gets the date wrong", "this step is
   slow", or "audit my SET steps". Not for a wrong step order or a wrong route
-  (diagnose-conversation) and not for a new playbook (author-playbook).
+  (diagnose-conversation). author-playbook loads it to test each complicated
+  step it builds.
 ---
 
 # Choose the Reasoning level for SET and ASK steps
