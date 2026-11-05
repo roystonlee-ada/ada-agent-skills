@@ -87,9 +87,14 @@ says where it is). Then work from the design, not from the last comment:
 - Write each step's instruction for the turn it produces, in a few lines. No
   rule lists. A step that needs "also include X, unless Y, but if Z" is a sign
   the logic belongs in a code tool or a branch.
-- Choices: give an ASK `accepted_values` when the design shows `options`. On
-  social channels the question itself carries the numbered list, and a typed
-  number maps back to its value.
+- Choices: give an ASK `accepted_values` when the design shows `options`, and
+  give every value a `quick_reply_labels` label of at most 20 characters, each
+  one different. A channel draws buttons only when every title fits. If one
+  title is too long, the whole question falls back to a text list that prints
+  the raw values, such as `did_not_answer`. Keep a status value such as
+  `did_not_answer` out of the list unless a branch needs it, and label it when
+  one does. Run `scripts/check_quick_replies.py` on the draft before you stage.
+  Read `references/quick-replies.md` for the rules and the fixes.
 - Reuse their existing actions. Never invent one. If the design needs data no
   action returns, say so plainly and stop.
 - Branch with IF_ELSE on variables, two or three levels at most.

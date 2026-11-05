@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.05.2
+
+- `author-playbook` now sets rules for quick-reply labels. On Messenger, Instagram, LINE and WhatsApp, a question shows buttons only when every title is 20 characters or fewer, no two titles match, no title equals another value, and there are 10 options or fewer. If one title is too long, the whole question turns into a text list of the raw values, so a customer can read `did_not_answer` as a line of text. The new `references/quick-replies.md` has the rules and shortened examples. The new `scripts/check_quick_replies.py` checks a playbook file or a changeset file and exits 1 on a bad label.
+- The draft step in both runtime files now checks the labels before it stages a changeset.
+- Keep a status value such as `did_not_answer` out of the accepted values unless a branch tests it. If a branch does test it, give it a label.
+
 ## 2026.11.05.1
 
 - Test cases from real conversations now use Ada's new draft tool. In the MCP it is `draft_test_case_from_conversation`. In adacli 1.1.7 it is `testing cases from-conversation <id> --json`. Both return a screened draft (personal details become fakes of the same shape, credentials and sensitive variables are left out) and save nothing. The draft carries an `instructions` field, and the skills follow it for write, preview, save and run.

@@ -12,6 +12,7 @@ the last column replaces those pieces.
 | Save a case | `adacli <instance> testing cases create --from-json <file>`. Fields: `name`, `user_message` (first customer turn), `scenario` (what the simulated customer says later), `success_criteria` (a list), `language`, optional `variables` and `external_systems` | the same |
 | Record the use case | Emit the block below. The chat saves it to memory | Write the same JSON to `~/.ada-architect/<instance>/use-cases/<use_case>.md`, and rewrite it once the playbook names exist |
 | Platform detail | The toolkit's `references/playbook-authoring.md` and its Ada Architect overlay | The workspace's ada-agent-toolkit skill (`references/playbook-authoring.md`), then `tools/ada-architect/skills/_overlays/ada-agent-toolkit/references/playbook-authoring.md` |
+| Check quick-reply labels | `adacli <instance> playbooks get <id> --json > pb.json`, then `python3 scripts/check_quick_replies.py pb.json`. It also takes a changeset file, so run it before `changesets stage`. Exit 1 means fix the labels first | the same |
 | List code tools | `adacli <instance> code-tools list --json` | the same |
 | Test a code tool | `run_code_tool` | `run_code_tool`, or the code tool's test command in `adacli` |
 | Stage the draft | Put `design: <work>` on the changeset card so the chat links the draft to the approved design. A draft without one is held back | No card. After staging, run `ada-changeset <instance> <id>` and show its summary, the changeset id and the design's `work` in chat |
