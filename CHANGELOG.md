@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.06.2
+
+- The routing diagram in the README now reads its skill groups from the Stage table, and the build redraws it every time. It had lagged the table: it was missing `voice-playbook-builder` and `ada-tune-reasoning-level`. The "New in this release" highlight is gone, since nobody kept it current.
+
 ## 2026.11.06.1
 
 - New skill `voice-playbook-builder`. It builds, tests and ships V2 playbooks for phone calls: a design checklist, ready patterns (verification, failure branches, confirm-then-write, SMS), how the voice engine treats corrections, exits and API failures, simulation testing, and a staged rollout. It works over adacli or the Ada MCP. Based on Marc M.'s Voice Playbook Builder v1 (Ada, 06/11/2026).
