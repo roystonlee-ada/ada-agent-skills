@@ -72,7 +72,6 @@ for the first sync.
 
 - `product-docs/fern/versions/pages/docs/knowledge/content-ingestion/` (all
   pages for integrations and web import)
-- `api/core/knowledge/legacy/core/models/settings.py` (index status values)
 
 ## OPEN or ASSUMED
 

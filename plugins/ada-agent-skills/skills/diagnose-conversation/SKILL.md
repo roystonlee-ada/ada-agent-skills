@@ -49,6 +49,7 @@ tools folder are the signs. Then:
 
 ## 1. Read the conversation and its log
 
+- If the call is on voice (phone), load voice-playbook-builder first: its engine notes explain backtracking, exits and forced handoffs that chat transcripts do not show.
 - Read the transcript.
 - Read the reasoning log: which playbook ran, which steps, which knowledge
   and coaching were used, and where the playbook ended.

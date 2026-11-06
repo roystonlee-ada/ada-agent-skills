@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.06.1
+
+- New skill `voice-playbook-builder`. It builds, tests and ships V2 playbooks for phone calls: a design checklist, ready patterns (verification, failure branches, confirm-then-write, SMS), how the voice engine treats corrections, exits and API failures, simulation testing, and a staged rollout. It works over adacli or the Ada MCP. Based on Marc M.'s Voice Playbook Builder v1 (Ada, 06/11/2026).
+- `design-conversation`, `author-playbook`, `revise-playbook` and `diagnose-conversation` now point to it when the channel is voice.
+- The build now also blocks engine source paths and the name of the customer the voice skill came from.
+
 ## 2026.11.05.4
 
 - `author-playbook` now tests every complicated SET and ASK step at both Reasoning levels before it stages. A complicated step has several rules, a precedence order, a long list, arithmetic, or several variables at once. It loads `ada-tune-reasoning-level`, runs the step's own inputs at Normal and at High, and keeps the level that gets more right. A tie keeps Normal, because High is slower and has no second model behind it. A simple step stays at Normal with no test.

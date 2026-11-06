@@ -49,6 +49,7 @@ tools folder are the signs. Then:
 
 Do these first, before you propose anything. Skipping them is how a revision
 ends up patching a playbook nobody read.
+- If the playbook runs on voice (phone), load voice-playbook-builder for the voice checklist, patterns and sim testing.
 - Read the whole live playbook, and every playbook it runs or that routes
   into it. Read the live version, not a memory of it.
 - Load the saved test cases and keep every one that touches this use case.

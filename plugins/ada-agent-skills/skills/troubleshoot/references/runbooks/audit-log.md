@@ -39,7 +39,6 @@ the Change sets page, or put a recorded setting back by hand.
 ## Source
 
 - `product-docs/fern/versions/pages/docs/other/audit-log/overview.mdx`
-- `api/core/analytics/audit_log/stores/clickhouse.py` (entity labels)
 
 ## OPEN or ASSUMED
 

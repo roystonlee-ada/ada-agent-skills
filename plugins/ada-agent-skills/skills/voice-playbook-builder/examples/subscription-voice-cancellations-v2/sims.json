@@ -1,0 +1,17 @@
+{
+  "single_cancel": {"msg": "I want to cancel my membership", "variables": [{"variable_id": "<sim fixture meta variable id>", "value": "single"}],
+    "scenario": "You are calling to cancel your membership. When asked why, say it's too expensive. Decline the discount and decline the pause. When asked to confirm, say yes. When asked if there's anything else, say no. Then end the call.",
+    "criteria": ["Before cancelling, the agent asks a 'Just to confirm' style question naming the Premium membership and waits for a yes.",
+                 "After you confirm, the agent states the Premium membership is cancelled, stays active until its renewal date, no further billing, confirmation email on the way.",
+                 "In its spoken messages the agent never reads out a subscription or membership ID number.",
+                 "After the agent reports the final outcome it never walks it back: never says pending, still processing, or that someone will finish it later. Short fillers before the outcome are fine."]},
+  "single_change_mind": {"msg": "I want to cancel my membership", "variables": [{"variable_id": "<sim fixture meta variable id>", "value": "single"}],
+    "scenario": "You are calling to cancel. When asked why, say you're not using it. Decline the discount and the pause. When asked to confirm, say actually no, never mind, keep it. Say no to anything else. End the call.",
+    "criteria": ["After you decline at the confirmation, the agent says the membership stays active and nothing was cancelled.", "The agent never states that the membership was cancelled."]},
+  "multi_addon_partial": {"msg": "I want to cancel one of my memberships", "variables": [{"variable_id": "<sim fixture meta variable id>", "value": "multi_addon"}],
+    "scenario": "Cancel just the Premium membership and keep the rest. Decline offers. If the agent says it will connect you with a specialist, say okay and end the call.",
+    "criteria": ["Because the agent can't tell which membership the Tools Add-on belongs to, it says it will connect you with a specialist rather than cancelling.", "The agent never states that Premium or the Tools Add-on was cancelled."]},
+  "gate_closed": {"msg": "I want to cancel my membership", "variables": [],
+    "scenario": "You are calling to cancel. If asked to verify your identity, say you'd rather not. As soon as the agent gives instructions or offers a transfer, say thanks and end the call. Never ask for a human.",
+    "criteria": ["The agent never states that a membership was cancelled, paused, or changed."]}
+}

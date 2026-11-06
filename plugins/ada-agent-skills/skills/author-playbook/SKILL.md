@@ -77,6 +77,8 @@ Before you write a step:
 
 ## 2. Design the playbook from the whole conversation
 
+If the channel is voice (phone), load voice-playbook-builder for the voice checklist, patterns and sim testing, and build from it.
+
 Read the playbook authoring guide for platform detail (the runtime file
 says where it is). Then work from the design, not from the last comment:
 - Map each bot turn to one step. One ASK collects one fact. When the board

@@ -36,7 +36,6 @@ Set the values back to those recorded in step 2.
 
 - `product-docs/fern/versions/pages/docs/other/team-access/session-timeout.mdx`
 - `adacli/docs/guide.md` (session lifetime)
-- `api/core/analytics/audit_log/stores/clickhouse.py` (Session Limits label)
 
 ## OPEN or ASSUMED
 

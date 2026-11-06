@@ -43,6 +43,8 @@ read-only: change nothing while you learn.
 - The agent's voice notes, if any: the reviewer's standing rules for wording,
   form of address, emoji and message length. Follow them in every board.
 
+If the channel is voice (phone), load voice-playbook-builder for the voice design checklist and patterns before you draft the board.
+
 Then ask only what you cannot work out, at most two questions, with choices:
 the goal in the customer's words ("what should a customer who asks this get
 back?"), and the one rule you cannot see in their setup (a cut-off, who

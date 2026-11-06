@@ -8,7 +8,7 @@ The guide picks the right skill, so you do not need to remember the skills.
 | Stage | Skills the guide sends you to |
 |---|---|
 | Set up | `onboard-agent`, `configure-handoff`, `ada-custom-metrics-setup`, `setup-adacli`, `setup-ada-mcp` |
-| Build | `design-conversation`, `author-playbook`, `help-center-to-kb-playbooks`, `ada-image-cards`, `create-verification-skill` |
+| Build | `design-conversation`, `author-playbook`, `voice-playbook-builder`, `help-center-to-kb-playbooks`, `ada-image-cards`, `create-verification-skill` |
 | Fix | `diagnose-conversation`, `test-and-fix`, `revise-playbook` |
 | Improve | `improve-agent`, `mine-human-agent-conversations`, `review-handoffs`, `ada-custom-metrics-improve`, `ada-custom-metrics-loop` |
 | Operate | `ada-promote-changeset`, `ada-rollout-changeset`, `ada-playbook-monitor-loop`, `ada-report`, `troubleshoot`, `ada-tune-reasoning-level` |
@@ -54,6 +54,7 @@ instance.
 | `ada-tune-reasoning-level` | Choose which SET and ASK steps run at Reasoning level High, test each on its own inputs, and stage the change |
 | `design-conversation` | Design a new use case as sample conversations you approve before anything is built |
 | `author-playbook` | Build the approved design into a playbook, save its scenarios as tests, run them |
+| `voice-playbook-builder` | Build, test and ship playbooks for phone calls: voice design checklist, patterns, engine behaviour, sim testing, staged rollout |
 | `revise-playbook` | Change an existing use case, with today's flow shown beside the proposed one |
 | `diagnose-conversation` | Find which part of the agent owns a bad conversation, with evidence |
 | `review-handoffs` | Count handoffs by the reason Ada recorded, with samples |
