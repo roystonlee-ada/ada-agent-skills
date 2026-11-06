@@ -23,15 +23,16 @@ shows in the transcript and the judge grades it, but nothing reaches a queue.
 |---|---|
 | Web Chat | Ends the simulation. Reaches no agent, creates no ticket. No webhook is sent and nothing is written to Zendesk Messaging |
 | Email | The same as Web Chat |
+| Send Email app step | Mocked. The api swaps an app action for a simulated block, so no email is sent and the transcript shows "[SIMULATED] This email integration has been executed in this simulated environment." From the api code and its tests, not a live send |
+| Salesforce email handoff | Not mocked. The api code says this block has no simulated version, so a test run sends the email for real |
 | Voice | Ends the call. Reaches no agent and the fallback number is not dialled. Webhooks are sent as on a real call |
 
-Not settled (ASSUMED): the api code has a simulated version for most handoff
-block types, but two types (the Salesforce email block and the Zendesk live
-chat block) show none in the code read, and the docs do not name them. The
-tool listings show a handoff's name, description and active flag, not its
-platform. Ask the person which platform each handoff sends to. If it is one of
-those two, treat the case as unsafe until they confirm that the handoff is
-test-safe.
+Not settled (ASSUMED): the Zendesk live chat block also shows no simulated
+version in the code read, and the docs do not name it. The tool listings show
+a handoff's name, description and active flag, not its platform. Ask the
+person which platform each handoff sends to. If it is Salesforce email or
+Zendesk live chat, treat the case as unsafe until they confirm that the
+handoff is test-safe.
 
 ## 2. What a run does reach
 

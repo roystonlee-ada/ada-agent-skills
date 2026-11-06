@@ -118,8 +118,9 @@ there is not a broken link.
 - `adacli <instance> chat` runs as a real chatter. ASSUMED unsafe for a
   handoff: it may reach the live helpdesk. Do not use it to test a handoff to
   a live queue.
-- `adacli <instance> testing` runs saved cases. ASSUMED to mock handoffs the
-  same way simulations do. Confirm on the first run that the result shows a
+- `adacli <instance> testing` runs saved cases as simulations, so handoffs
+  and Send Email app steps are mocked. A Salesforce email handoff is not, and
+  sends for real. Confirm on the first run that the result shows a
   simulated handoff, not a platform ticket.
 - `adacli <instance> conversations handoffs <conversation-id>` after a real,
   approved test shows target, outcome and reason code.

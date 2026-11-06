@@ -7,6 +7,7 @@ Architect helpers (`tools/ada-architect/local/setup.py` installs them).
 |---|---|
 | Read the transcript | `adacli <instance> conversations get <id> --json` |
 | Read the reasoning log | `ada-why <instance> <id>`: which playbook ran, which steps, which knowledge and coaching, where the playbook ended |
+| See what a SET or tool wrote | `adacli <instance> conversations reasoning <id> --json`. Each `variable_value_set` event has `variable_name` and `new_value`, and a failed tool shows its `error_message`. The text `conversations log` never prints variable values, and `--all` adds only a bare `[variable_change]` line |
 | Turn the conversation into a test case | `adacli <instance> testing cases from-conversation <id> --json` prints a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8. Needs adacli 1.1.7 or later |
 | Run it on the draft and on live | `ada-test <instance> --cases <ids> --changeset <id>` |
 | "File it with provide-feedback" | Send it to Ada through your usual support channel |

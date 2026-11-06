@@ -208,6 +208,11 @@ The sections above still decide whether the case is any good:
 - **Leave an empty variable out of the case.** A preset of `""` is not null,
   so every `is null` branch is skipped and the case tests a path no real chat
   takes.
+- **A preset lasts only until a tool writes the variable.** A mocked tool
+  that runs saves its answer over the preset (a sandbox check on 07/11/2026
+  saw `PRESET_VALUE` become the mocked value). To test the path after the
+  lookup with the preset, describe the same value in the external systems
+  text.
 - **Describe the external systems from the draft.** Each tool call the chat made
   becomes plain text: the records, their identifiers, the values returned and
   each error. A call the text does not describe fails the run with

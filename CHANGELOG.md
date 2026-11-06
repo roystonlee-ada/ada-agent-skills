@@ -19,6 +19,13 @@ From a customer's review of the skills (07/11/2026). Each change was checked aga
 - `improve-agent` sizing adds a known-positive and empty-input check for text-matching counts, and says to cover every language. `test-and-fix` says what to do when the test quota reads far below 3,000.
 - New `evals/check_cli_commands.py` checks every adacli command and flag the skills name against `agent-context`, and diffs command lists after an upgrade. Baseline in `evals/adacli-commands.json`.
 
+Checked on a sandbox (07/11/2026) and added:
+
+- `author-playbook` build pitfalls add three rows. A yes/no pill prints `True` or `False` in a send. A full-sections stage that leaves out `reasoning_level` turns a High step into Normal with no warning, so start from `export-steps --sections`, which carries it. An action output's `variable_name` takes the variable ID, and a name there makes every call fail.
+- The test-case guide says a mocked tool that runs writes its answer over a preset variable.
+- `test-and-fix` `safe-to-run.md` and `configure-handoff` say a Send Email app step is mocked in a test run, and a Salesforce email handoff is not: it sends for real.
+- `diagnose-conversation` reads what a SET or tool wrote from `conversations reasoning --json`, because the text `conversations log` never prints variable values.
+
 ## 2026.11.06.4
 
 - `test-and-fix` accepts a customer's requirements sheet or doc as the anchor. Many customers keep "what good looks like" as one row per scenario. The new `references/anchor-from-sheet.md` covers reading the sheet, mapping its columns to case fields, showing the first rows for approval, and sending vague or contradictory rows back as questions instead of rewording them. Based on feedback from a Claude run on a customer sandbox (06/11/2026).
