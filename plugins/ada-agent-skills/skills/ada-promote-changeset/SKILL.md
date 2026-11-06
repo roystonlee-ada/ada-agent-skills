@@ -39,6 +39,11 @@ Each step below names what to do, not a command. Read one file for how:
 Show the platform's own before and after for the changeset. Do not describe the
 change from memory: the thing that made the change is the worst judge of it.
 
+Make it readable at a glance. Follow `references/readable-diff.md`: name each
+changed entity instead of showing its ID, and show every changed rule in full.
+The platform's default view lists IDs and cuts long fields short, so a reviewer
+cannot tell which playbook changed or what its routing rule now says.
+
 If live config moved after staging, the promote will refuse as stale. Offer to
 restage against the current live version and show the new diff.
 

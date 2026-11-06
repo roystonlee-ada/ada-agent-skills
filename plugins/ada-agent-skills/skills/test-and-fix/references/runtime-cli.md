@@ -8,7 +8,8 @@ against `adacli <instance> <group> <command> --help` on 28/10/2026. Replace
 |---|---|
 | Find saved cases (anchor 1) | `adacli <instance> testing cases list --json --page 1 --limit 100`, then `--page 2` and on until a page comes back empty. Keep cases named "<Use case>: <scenario>" |
 | Read one case in full | `adacli <instance> testing cases get <id> --json` |
-| Find the design board (anchor 2) | `ls ~/.ada-architect/<instance>/boards/` for `<work>-r<round>.design.txt`, and read the highest round. `cat ~/.ada-architect/<instance>/use-cases/*.md` for the record that lists case ids. Ask the person which round they approved |
+| Read a requirements sheet (anchor 2) | A Google Sheet or doc: use a Google Drive or Sheets tool if your host has one, else ask the person to download the tab as CSV and give you the path, then read it with the Read tool. See `anchor-from-sheet.md` |
+| Find the design board (anchor 3) | `ls ~/.ada-architect/<instance>/boards/` for `<work>-r<round>.design.txt`, and read the highest round. `cat ~/.ada-architect/<instance>/use-cases/*.md` for the record that lists case ids. Ask the person which round they approved |
 | Save a case from a board scenario | Write a JSON array to a file with the Write tool, then `adacli <instance> testing cases create --from-json <file>`. Fields per case: `name`, `user_message`, `success_criteria` (list), `scenario`, `language`, `channel_id`, `variables`, `external_systems`. `--from-json` cannot be mixed with `--name` or `--criteria` |
 | Capture one bad conversation | `adacli <instance> testing cases from-conversation <conversation id> --json` saves nothing. It prints the screened draft and an `instructions` field: follow it. After the person confirms, write the case as a JSON array and save it with `testing cases create --from-json <file>`. Needs adacli 1.1.7 or later. See the traps below |
 | Add what the customer gave later | `adacli <instance> testing cases update <id> --scenario "<text>"` |

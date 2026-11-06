@@ -2,7 +2,8 @@
 name: test-and-fix
 description: >
   Run a test, fix, retest loop on an Ada AI agent use case, anchored on what
-  good looks like: the saved test cases, or the approved design board. Runs
+  good looks like: the saved test cases, a customer's requirements sheet or
+  doc, or the approved design board. Runs
   every case, sends each failure to diagnose-conversation, stages fixes on a
   changeset, reruns the whole set, and stops at all-pass, after three rounds,
   or when a fix changes the design. Use it for "test and fix this", "run the
@@ -33,17 +34,23 @@ The anchor is the set of cases that define "good". Look in this order and stop
 at the first hit:
 1. **Saved test cases** for the use case, named "<Use case>: <scenario>". They
    are the regression set, so they win.
-2. **The design board**, the last round the person approved. The runtime file
+2. **A requirements sheet or doc.** Many customers keep "what good looks
+   like" as a Google Sheet or doc with one row per scenario: what the customer
+   says and the expected outcome. Read it directly and do not retype it. Follow
+   `references/anchor-from-sheet.md` for the read, the column mapping and the
+   rows that go back to the person as questions. The person approves the
+   mapping on the first rows, then each save.
+3. **The design board**, the last round the person approved. The runtime file
    says where it lives. Turn each scenario into a case: the first customer
    turn is the opening message, `expect` becomes the success criteria, and
    each "must not" in the design becomes its own criterion. Follow
    author-playbook's test-case rules. The person approves each save.
-3. **Neither.** Ask the person for three sample conversations of what good
+4. **None of these.** Ask the person for three sample conversations of what good
    looks like, with a customer, a request and the outcome they want. Offer
    design-conversation as the better route and stop there if they take it.
 
 Never invent expected behavior. Every success criterion comes from a saved
-case, the board, or words the person wrote. A criterion you made up makes the
+case, a sheet row, the board, or words the person wrote. A criterion you made up makes the
 loop fix the agent toward your guess.
 
 **One bad conversation, existing playbook.** Start here too. Draft that

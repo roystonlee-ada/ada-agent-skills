@@ -5,7 +5,8 @@ the tool names.
 
 | Step | Tool call |
 |---|---|
-| Status and the real diff | `list_agent_changesets` with `changeset_id` and `include_diff: true`. Status is `testing`, `promoting`, `promoted` or `reverted` |
+| Status and the real diff | `list_agent_changesets` with `changeset_id` and `include_diff: true`. Name each entity as `readable-diff.md` says. Status is `testing`, `promoting`, `promoted` or `reverted` |
+| Name an entity from its ID | `list_entities` with the `entity_type` of the change, matching on the ID. A deleted entity is not listed: use the name in the diff's `before` |
 | Find a changeset | `list_agent_changesets`, optionally with `status: testing` |
 | Cases that touch the playbook | `get_test_cases` with `name_filter` set to the use case name |
 | Cases from real chats | `draft_test_case_from_conversation` with `conversation_id` returns a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8. Find the chats with `get_conversations` filtered to the changed playbook |

@@ -4,6 +4,11 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.06.4
+
+- `test-and-fix` accepts a customer's requirements sheet or doc as the anchor. Many customers keep "what good looks like" as one row per scenario. The new `references/anchor-from-sheet.md` covers reading the sheet, mapping its columns to case fields, showing the first rows for approval, and sending vague or contradictory rows back as questions instead of rewording them. Based on feedback from a Claude run on a customer sandbox (06/11/2026).
+- `ada-promote-changeset` shows a readable diff. New `references/readable-diff.md`: read the diff as JSON, name each changed entity instead of its ID, show routing and availability rules in full, and check the block count against the changeset. The default view lists IDs and cuts off long fields such as `availability_rules`.
+
 ## 2026.11.06.3
 
 - Fix the README routing diagram. 2026.11.06.2 also drew the Install table's "Claude Code" and "Codex" rows as extra columns, with overlapping text. It now reads only the Stage table, and the build stops if the table lists a skill that has no folder.
