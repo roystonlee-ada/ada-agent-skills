@@ -1,0 +1,1 @@
+{"id": "{{input.conversation_id}}", "transcript": [{"role": "customer", "text": "Is there a fee for a second checked bag on my flight to Osaka?"}, {"role": "reasoning", "text": "No knowledge article covers second-bag fees for this route. Handing off."}, {"role": "event", "type": "handoff", "reason_code": "knowledge_unavailable", "reasoning": "No article on second-bag fees."}]}
