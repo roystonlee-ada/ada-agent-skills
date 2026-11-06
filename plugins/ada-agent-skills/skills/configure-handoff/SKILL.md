@@ -171,8 +171,10 @@ question:
 1. **Read-only checks.** Integration state, handoff config, platform
    settings, and the outcome of recent real handoff attempts. Most diagnosis
    ends here.
-2. **Simulation.** Simulated conversations replace the handoff block with a
-   mock, so no helpdesk is contacted. A simulation proves the trigger, the
+2. **Simulation.** Simulated conversations replace most handoff blocks with
+   a mock, so no helpdesk is contacted. A Send Email app step is mocked too.
+   A Salesforce email handoff is not: it sends real email even in a test run
+   (`test-and-fix` `references/safe-to-run.md`). A simulation proves the trigger, the
    wording and the branch. It cannot prove the connection.
 3. **A real test, with the person's go-ahead.** Pick the safest target in this
    order: a test queue or department in the helpdesk, a test user and test

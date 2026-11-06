@@ -7,7 +7,7 @@ the tool names.
 |---|---|
 | Changeset and its status | `list_agent_changesets` with `changeset_id` |
 | Active rollouts | `list_agent_changesets` with `status: testing`. If a rollout's percentage is not in the result, ask the person to read it from Changesets in the Ada dashboard |
-| Start or raise a stage | `edit_agent_behavior` with `operation: set_rollout`, `changeset_id`, `percentage` (1 to 100) and `max_conversations`. The percents across active rollouts must total 100 or less, or the call is refused |
+| Start or raise a stage | `edit_agent_behavior` with `operation: set_rollout`, `changeset_id`, `percentage` (1 to 90) and `max_conversations`. The percents across active rollouts must total 90 or less, or the call is refused |
 | Stop a rollout | `edit_agent_behavior` with `operation: stop_rollout` and `changeset_id`. The percent frees up. Chats already on the changeset keep its variants until they end |
 | Sampled chats | `get_conversations` with the `CHANGESETID` filter (read the filter from `get_available_filters`). Page through every `next_cursor` before you quote a total |
 | One chat | `get_conversation` for the transcript, and the reasoning entries for step and playbook ownership |

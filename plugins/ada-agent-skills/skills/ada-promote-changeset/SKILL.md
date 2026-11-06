@@ -44,8 +44,13 @@ changed entity instead of showing its ID, and show every changed rule in full.
 The platform's default view lists IDs and cuts long fields short, so a reviewer
 cannot tell which playbook changed or what its routing rule now says.
 
-If live config moved after staging, the promote will refuse as stale. Offer to
-restage against the current live version and show the new diff.
+A changeset holds a full copy of each entity it touches, and promote copies
+that whole entity over live. So if live moved after staging (another promote,
+a dashboard edit), the promote would undo that newer change. The preview warns
+about the stale copy and asks for its token before it applies. Two open
+changesets on the same playbook do the same to each other: the later promote
+undoes the earlier one. Offer to restage against the current live version and
+show the new diff, and keep one open changeset per entity.
 
 ## 3. Pick the path and recommend one
 

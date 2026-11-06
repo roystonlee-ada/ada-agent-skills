@@ -12,7 +12,7 @@ instance comes first in every command, and there is no `--instance` flag.
 | Run on draft and on live | `adacli <instance> testing runs create --cases <ids> --changeset <id>`, then again without `--changeset`. Read each with `testing runs get <run id> --json`: `did_pass`, `criteria_results[].rationale` |
 | The real diff | `adacli <instance> changesets get <id> --diff --json` for the full before and after of each field. The table view (`--diff` alone) shows IDs and can cut long fields short. See `readable-diff.md` |
 | Name an entity from its ID | `adacli <instance> playbooks get <id> --json` for a playbook. Other types: the same `get` on their command group (`knowledge`, `coaching`, `handoffs`, `glossary`, `variables`) |
-| Direct promote | `adacli <instance> changesets promote <id>` returns a preview. Applying it needs `--yes` and the `--token` from that preview, which only the person's go-ahead permits |
+| Direct promote | `adacli <instance> changesets promote <id>` returns a preview. Applying it needs `--yes` and the `--token` from that preview, which only the person's go-ahead permits. Add `--json` and check that `status` is `promoted`. If live changed after the preview, the call returns `confirmation_required` with exit 0 and applies nothing |
 | Clean up a test stage | `adacli <instance> changesets delete <id> --yes` |
 
 ## Promote needs the person

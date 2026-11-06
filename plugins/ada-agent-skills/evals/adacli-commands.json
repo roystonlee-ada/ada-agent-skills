@@ -1,0 +1,1705 @@
+{
+ "version": "1.4.0 (adacli-v1.4.0 tag, every command gate open)",
+ "global": [
+  "--json",
+  "--no-color",
+  "--output",
+  "--quiet",
+  "--session",
+  "--yes",
+  "-q",
+  "-y"
+ ],
+ "commands": {
+  "actions": [],
+  "actions create": [
+   "--content-type",
+   "--description",
+   "--json",
+   "--method",
+   "--name",
+   "--request-body",
+   "--url"
+  ],
+  "actions delete": [
+   "--force"
+  ],
+  "actions get": [
+   "--json"
+  ],
+  "actions headers": [],
+  "actions headers set": [
+   "--json"
+  ],
+  "actions headers unset": [
+   "--json"
+  ],
+  "actions inputs": [],
+  "actions inputs add": [
+   "--capture",
+   "--description",
+   "--json",
+   "--type"
+  ],
+  "actions inputs remove": [
+   "--json"
+  ],
+  "actions inputs set": [
+   "--capture",
+   "--description",
+   "--json",
+   "--type"
+  ],
+  "actions list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "actions outputs": [],
+  "actions outputs remove": [
+   "--json"
+  ],
+  "actions outputs set": [
+   "--json",
+   "--key",
+   "--save-as-variable",
+   "--source",
+   "--variable",
+   "--visible-to-llm"
+  ],
+  "actions profile": [
+   "--json"
+  ],
+  "actions test": [
+   "--inputs",
+   "--json"
+  ],
+  "actions update": [
+   "--content-type",
+   "--description",
+   "--disable",
+   "--enable",
+   "--inputs-file",
+   "--json",
+   "--method",
+   "--name",
+   "--outputs-file",
+   "--request-body",
+   "--request-body-file",
+   "--simulation-mode",
+   "--standalone",
+   "--url"
+  ],
+  "agent-context": [],
+  "alerts": [],
+  "alerts history": [
+   "--json",
+   "--since"
+  ],
+  "alerts metrics": [
+   "--json"
+  ],
+  "alerts rules": [],
+  "alerts rules create": [
+   "--channel",
+   "--direction",
+   "--disabled",
+   "--json",
+   "--max",
+   "--metric",
+   "--min",
+   "--min-change",
+   "--name"
+  ],
+  "alerts rules delete": [
+   "--json"
+  ],
+  "alerts rules list": [
+   "--json"
+  ],
+  "alerts rules preview": [
+   "--channel",
+   "--days",
+   "--direction",
+   "--json",
+   "--max",
+   "--metric",
+   "--min",
+   "--min-change"
+  ],
+  "alerts rules update": [
+   "--channel",
+   "--direction",
+   "--disable",
+   "--enable",
+   "--json",
+   "--max",
+   "--metric",
+   "--min",
+   "--min-change",
+   "--name"
+  ],
+  "analytics": [],
+  "analytics report": [
+   "--json"
+  ],
+  "analytics reports": [
+   "--json"
+  ],
+  "analytics summary": [
+   "--end",
+   "--json",
+   "--since",
+   "--start"
+  ],
+  "analytics topics": [
+   "--end",
+   "--json",
+   "--since",
+   "--start"
+  ],
+  "api-keys": [],
+  "api-keys create": [
+   "--expiry",
+   "--json",
+   "--key-only",
+   "--name"
+  ],
+  "api-keys list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "api-keys revoke": [
+   "--force"
+  ],
+  "changesets": [],
+  "changesets compare": [
+   "--custom-metric",
+   "--end",
+   "--json",
+   "--start",
+   "--tz"
+  ],
+  "changesets delete": [
+   "--json",
+   "--yes"
+  ],
+  "changesets get": [
+   "--diff",
+   "--json"
+  ],
+  "changesets list": [
+   "--cursor",
+   "--custom-metric",
+   "--json",
+   "--limit",
+   "--status"
+  ],
+  "changesets promote": [
+   "--json",
+   "--token",
+   "--yes"
+  ],
+  "changesets remove": [
+   "--entity-type",
+   "--json"
+  ],
+  "changesets revert": [
+   "--json",
+   "--name",
+   "--summary"
+  ],
+  "changesets set-rollout": [
+   "--json",
+   "--max-conversations",
+   "--percent"
+  ],
+  "changesets stage": [
+   "--changeset",
+   "--custom-metric",
+   "--file",
+   "--json",
+   "--name",
+   "--summary"
+  ],
+  "changesets stop-rollout": [
+   "--json"
+  ],
+  "channels": [],
+  "channels configure": [
+   "--config",
+   "--json"
+  ],
+  "channels disable": [
+   "--json"
+  ],
+  "channels enable": [
+   "--json"
+  ],
+  "channels get": [
+   "--json"
+  ],
+  "channels list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "chat": [],
+  "chat talk": [
+   "--changeset",
+   "--handle",
+   "--timeout",
+   "--var"
+  ],
+  "chatters": [],
+  "chatters get": [
+   "--json"
+  ],
+  "client": [],
+  "client persona": [],
+  "client persona show": [
+   "--json"
+  ],
+  "client persona update": [
+   "--acknowledgment-messages",
+   "--allowed-emojis",
+   "--ask-for-more-help",
+   "--avoid-competitors",
+   "--avoid-customer-pi",
+   "--competitor-names",
+   "--contact-detail-values",
+   "--contact-details",
+   "--description",
+   "--emoji",
+   "--handoff-friction",
+   "--json",
+   "--length",
+   "--no-acknowledgment-messages",
+   "--no-ask-for-more-help",
+   "--no-avoid-competitors",
+   "--no-avoid-customer-pi",
+   "--no-emoji",
+   "--no-handoff-friction",
+   "--personality",
+   "--timezone"
+  ],
+  "client show": [
+   "--json"
+  ],
+  "client update": [
+   "--agent-name",
+   "--avatar",
+   "--avatar-letter",
+   "--json",
+   "--language"
+  ],
+  "coaching": [],
+  "coaching create": [
+   "--chosen",
+   "--conversation",
+   "--event",
+   "--intent",
+   "--json",
+   "--live",
+   "--module",
+   "--plan",
+   "--text",
+   "--type"
+  ],
+  "coaching delete": [
+   "--force"
+  ],
+  "coaching get": [
+   "--json"
+  ],
+  "coaching list": [
+   "--json",
+   "--limit",
+   "--live",
+   "--page",
+   "--pending"
+  ],
+  "coaching update": [
+   "--clear-rules",
+   "--disable",
+   "--enable",
+   "--intent",
+   "--json",
+   "--live",
+   "--rules",
+   "--text"
+  ],
+  "code-tools": [],
+  "code-tools create": [
+   "--description",
+   "--disabled",
+   "--file",
+   "--inputs",
+   "--json",
+   "--name",
+   "--no-standalone",
+   "--outputs",
+   "--request-body",
+   "--rules",
+   "--standalone"
+  ],
+  "code-tools delete": [
+   "--force"
+  ],
+  "code-tools get": [
+   "--json",
+   "--source-out"
+  ],
+  "code-tools list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "code-tools test": [
+   "--inputs",
+   "--json"
+  ],
+  "code-tools update": [
+   "--description",
+   "--disable",
+   "--enable",
+   "--file",
+   "--inputs",
+   "--json",
+   "--name",
+   "--no-standalone",
+   "--outputs",
+   "--request-body",
+   "--rules",
+   "--standalone"
+  ],
+  "collaboration": [],
+  "collaboration handoff-targets": [
+   "--json"
+  ],
+  "collaboration report": [
+   "--end",
+   "--json",
+   "--kind",
+   "--since",
+   "--start"
+  ],
+  "collaboration settings": [],
+  "collaboration settings get": [
+   "--json"
+  ],
+  "collaboration settings update": [
+   "--file",
+   "--json",
+   "--set"
+  ],
+  "collaboration status": [
+   "--json"
+  ],
+  "collaboration teams": [],
+  "collaboration teams create": [
+   "--channel",
+   "--consult-off",
+   "--consult-on",
+   "--destination",
+   "--file",
+   "--handles",
+   "--handoff-group",
+   "--handoff-platform",
+   "--handoff-tag",
+   "--hours",
+   "--intent",
+   "--json",
+   "--name",
+   "--no-pairs",
+   "--pairs-call-center",
+   "--pairs-off",
+   "--pairs-on",
+   "--rules",
+   "--schedule"
+  ],
+  "collaboration teams delete": [],
+  "collaboration teams get": [
+   "--json"
+  ],
+  "collaboration teams list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "collaboration teams update": [
+   "--channel",
+   "--consult-off",
+   "--consult-on",
+   "--destination",
+   "--file",
+   "--handles",
+   "--handoff-group",
+   "--handoff-platform",
+   "--handoff-tag",
+   "--hours",
+   "--intent",
+   "--json",
+   "--name",
+   "--no-pairs",
+   "--pairs-call-center",
+   "--pairs-off",
+   "--pairs-on",
+   "--rules",
+   "--schedule"
+  ],
+  "collaboration tools": [],
+  "collaboration tools create": [
+   "--description",
+   "--disabled",
+   "--enabled",
+   "--file",
+   "--input",
+   "--json",
+   "--name",
+   "--output",
+   "--team"
+  ],
+  "collaboration tools delete": [],
+  "collaboration tools get": [
+   "--json"
+  ],
+  "collaboration tools list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "collaboration tools update": [
+   "--description",
+   "--disabled",
+   "--enabled",
+   "--file",
+   "--input",
+   "--json",
+   "--name",
+   "--output",
+   "--team"
+  ],
+  "conversations": [],
+  "conversations coaching": [
+   "--json"
+  ],
+  "conversations details": [
+   "--json"
+  ],
+  "conversations diagnose": [
+   "--json"
+  ],
+  "conversations export": [
+   "--concurrency",
+   "--end",
+   "--json",
+   "--limit",
+   "--output",
+   "--reasoning",
+   "--since",
+   "--start",
+   "--test-users",
+   "--topic",
+   "--transcripts",
+   "-o"
+  ],
+  "conversations get": [
+   "--json"
+  ],
+  "conversations guidance": [
+   "--json"
+  ],
+  "conversations handoff-reasons": [
+   "--channel",
+   "--count",
+   "--end",
+   "--filter",
+   "--handoff-reason",
+   "--json",
+   "--language",
+   "--playbook",
+   "--samples",
+   "--since",
+   "--start",
+   "--topic",
+   "--with-reasoning"
+  ],
+  "conversations handoffs": [
+   "--json"
+  ],
+  "conversations log": [
+   "--all",
+   "--json"
+  ],
+  "conversations reasoning": [
+   "--json"
+  ],
+  "conversations recent": [
+   "--json",
+   "--limit"
+  ],
+  "conversations search": [
+   "--all",
+   "--article",
+   "--ces",
+   "--channel",
+   "--chatter-id",
+   "--coaching",
+   "--csat",
+   "--custom-metric",
+   "--end",
+   "--filter",
+   "--handoff",
+   "--handoff-reason",
+   "--intent",
+   "--json",
+   "--language",
+   "--limit",
+   "--metric-result",
+   "--playbook",
+   "--resolution",
+   "--since",
+   "--size",
+   "--start",
+   "--test-users",
+   "--text",
+   "--topic"
+  ],
+  "conversations topic": [
+   "--change",
+   "--json"
+  ],
+  "conversations transcript": [
+   "--all",
+   "--json"
+  ],
+  "custom-metrics": [],
+  "custom-metrics activate": [
+   "--json",
+   "--override-reason"
+  ],
+  "custom-metrics backfill": [
+   "--conversations",
+   "--dry-run",
+   "--json",
+   "--yes"
+  ],
+  "custom-metrics conversations": [
+   "--end",
+   "--ids-only",
+   "--json",
+   "--result",
+   "--start"
+  ],
+  "custom-metrics create": [
+   "--changeset",
+   "--direction",
+   "--draft",
+   "--fail-description",
+   "--intent-ids",
+   "--json",
+   "--name",
+   "--null-description",
+   "--override-checks",
+   "--override-reason",
+   "--pass-description",
+   "--scoring-guidance",
+   "--subject"
+  ],
+  "custom-metrics deactivate": [
+   "--json"
+  ],
+  "custom-metrics delete": [
+   "--force",
+   "--json"
+  ],
+  "custom-metrics discard-edit": [
+   "--json"
+  ],
+  "custom-metrics draft": [
+   "--json"
+  ],
+  "custom-metrics get": [
+   "--json"
+  ],
+  "custom-metrics list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "custom-metrics update": [
+   "--direction",
+   "--fail-description",
+   "--intent-ids",
+   "--json",
+   "--name",
+   "--null-description",
+   "--override-checks",
+   "--override-reason",
+   "--pass-description",
+   "--scoring-guidance",
+   "--subject"
+  ],
+  "custom-metrics verdicts": [
+   "--json"
+  ],
+  "dialpad": [],
+  "dialpad channels": [
+   "--json"
+  ],
+  "dialpad connection": [],
+  "dialpad connection connect": [
+   "--file",
+   "--json"
+  ],
+  "dialpad connection disconnect": [
+   "--json"
+  ],
+  "dialpad connection get": [
+   "--json"
+  ],
+  "dialpad destinations": [
+   "--json",
+   "--limit",
+   "--office",
+   "--page"
+  ],
+  "dialpad dx-connector": [],
+  "dialpad dx-connector get": [
+   "--json"
+  ],
+  "dialpad dx-connector set": [
+   "--file",
+   "--json"
+  ],
+  "dialpad offices": [
+   "--json"
+  ],
+  "dialpad offloads": [],
+  "dialpad offloads delete": [],
+  "dialpad offloads list": [
+   "--json"
+  ],
+  "dialpad offloads set": [
+   "--after",
+   "--agent-listens",
+   "--field",
+   "--file",
+   "--json",
+   "--mode",
+   "--no-agent-listens"
+  ],
+  "dialpad reserved-numbers": [
+   "--json"
+  ],
+  "dialpad router": [],
+  "dialpad router get": [
+   "--json"
+  ],
+  "dialpad router provision": [
+   "--area-code",
+   "--backup-id",
+   "--backup-type",
+   "--json",
+   "--number",
+   "--office"
+  ],
+  "dialpad router teardown": [
+   "--json"
+  ],
+  "dialpad router update": [
+   "--backup-id",
+   "--backup-type",
+   "--json",
+   "--name"
+  ],
+  "dialpad webhook": [],
+  "dialpad webhook rotate": [],
+  "docs": [
+   "--print"
+  ],
+  "glossary": [],
+  "glossary create": [
+   "--ai-agent-term",
+   "--definition",
+   "--external-id",
+   "--json",
+   "--mode",
+   "--user-term",
+   "--voice"
+  ],
+  "glossary delete": [
+   "--force"
+  ],
+  "glossary export": [
+   "--out"
+  ],
+  "glossary get": [
+   "--json"
+  ],
+  "glossary import": [
+   "--json"
+  ],
+  "glossary list": [
+   "--json",
+   "--lang",
+   "--mode",
+   "--order",
+   "--page",
+   "--search",
+   "--size",
+   "--sort"
+  ],
+  "glossary update": [
+   "--ai-agent-term",
+   "--clear-ai-agent-terms",
+   "--definition",
+   "--external-id",
+   "--json",
+   "--mode",
+   "--user-term",
+   "--voice"
+  ],
+  "guidance": [],
+  "guidance create": [
+   "--json",
+   "--text",
+   "--title"
+  ],
+  "guidance delete": [
+   "--force"
+  ],
+  "guidance get": [
+   "--json"
+  ],
+  "guidance list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "guidance update": [
+   "--clear-rules",
+   "--disable",
+   "--enable",
+   "--json",
+   "--rules",
+   "--text",
+   "--title"
+  ],
+  "guidance validate": [
+   "--json",
+   "--text"
+  ],
+  "handoffs": [],
+  "handoffs create": [
+   "--description",
+   "--file",
+   "--json",
+   "--live",
+   "--name"
+  ],
+  "handoffs delete": [],
+  "handoffs get": [
+   "--json"
+  ],
+  "handoffs integrations": [],
+  "handoffs integrations configure": [
+   "--api-token",
+   "--email",
+   "--file",
+   "--json",
+   "--subdomain"
+  ],
+  "handoffs integrations connect": [
+   "--no-open",
+   "--subdomain"
+  ],
+  "handoffs integrations delete": [
+   "--force",
+   "--json"
+  ],
+  "handoffs integrations disable": [
+   "--json"
+  ],
+  "handoffs integrations download-app": [
+   "--output",
+   "-o"
+  ],
+  "handoffs integrations enable": [
+   "--json"
+  ],
+  "handoffs integrations get": [
+   "--json"
+  ],
+  "handoffs integrations groups": [
+   "--json",
+   "--type"
+  ],
+  "handoffs integrations list": [
+   "--json"
+  ],
+  "handoffs list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "handoffs set-http-block": [
+   "--create",
+   "--description",
+   "--json",
+   "--label",
+   "--live",
+   "--return-text",
+   "--standby-text",
+   "--url"
+  ],
+  "handoffs set-zendesk-messaging": [
+   "--create",
+   "--department-id",
+   "--department-name",
+   "--description",
+   "--json",
+   "--live",
+   "--standby-message",
+   "--tags"
+  ],
+  "handoffs set-zendesk-support": [
+   "--create",
+   "--description",
+   "--group",
+   "--json",
+   "--live",
+   "--standby-text",
+   "--subject",
+   "--tags"
+  ],
+  "handoffs update": [
+   "--clear-rules",
+   "--description",
+   "--file",
+   "--handle",
+   "--json",
+   "--rules",
+   "--tags"
+  ],
+  "improve": [],
+  "improve advance": [
+   "--json"
+  ],
+  "improve cancel": [
+   "--json"
+  ],
+  "improve conflicts": [
+   "--json"
+  ],
+  "improve decide": [
+   "--action",
+   "--choice",
+   "--content",
+   "--content-file",
+   "--expected-answer",
+   "--json",
+   "--note"
+  ],
+  "improve export": [
+   "--out"
+  ],
+  "improve families": [
+   "--json",
+   "--lane"
+  ],
+  "improve group": [],
+  "improve group create": [
+   "--coaching-ids",
+   "--json",
+   "--name",
+   "--profile",
+   "--source",
+   "--subjects"
+  ],
+  "improve group start": [
+   "--json"
+  ],
+  "improve list": [
+   "--cursor",
+   "--json",
+   "--limit",
+   "--status"
+  ],
+  "improve promote": [
+   "--confirm-message",
+   "--force",
+   "--json",
+   "--yes"
+  ],
+  "improve promote-run": [
+   "--confirm",
+   "--confirm-message",
+   "--force",
+   "--json"
+  ],
+  "improve queue": [
+   "--cursor",
+   "--json",
+   "--kind",
+   "--limit",
+   "--run",
+   "--status"
+  ],
+  "improve queue list": [
+   "--cursor",
+   "--json",
+   "--kind",
+   "--limit",
+   "--run",
+   "--status"
+  ],
+  "improve queue show": [
+   "--json"
+  ],
+  "improve revert": [
+   "--json",
+   "--yes"
+  ],
+  "improve revert-run": [
+   "--confirm",
+   "--json"
+  ],
+  "improve start": [
+   "--bar",
+   "--baseline-runs",
+   "--candidate-runs",
+   "--coaching-ids",
+   "--conversation-ids",
+   "--handoff-target",
+   "--json",
+   "--name",
+   "--no-retire-inert",
+   "--no-reuse-decisions",
+   "--remedy-rounds",
+   "--reuse-criteria",
+   "--sample",
+   "--seed",
+   "--source",
+   "--subjects"
+  ],
+  "improve status": [
+   "--interval",
+   "--json",
+   "--routes",
+   "--watch"
+  ],
+  "knowledge": [],
+  "knowledge create": [
+   "--body",
+   "--file",
+   "--json",
+   "--language",
+   "--locale",
+   "--title",
+   "--url"
+  ],
+  "knowledge delete": [
+   "--force"
+  ],
+  "knowledge get": [
+   "--json"
+  ],
+  "knowledge list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "knowledge scrape": [
+   "--crawl",
+   "--json",
+   "--name",
+   "--rules",
+   "--sync",
+   "--sync-at",
+   "--sync-days",
+   "--timezone",
+   "--urls"
+  ],
+  "knowledge set-rules": [
+   "--articles",
+   "--rules"
+  ],
+  "knowledge sources": [],
+  "knowledge sources create": [
+   "--external-id",
+   "--json",
+   "--name",
+   "--rules"
+  ],
+  "knowledge sources list": [
+   "--json"
+  ],
+  "knowledge sources sync": [
+   "--json"
+  ],
+  "knowledge sources update": [
+   "--clear-rules",
+   "--json",
+   "--name",
+   "--rules",
+   "--sync",
+   "--sync-at",
+   "--sync-days",
+   "--timezone"
+  ],
+  "knowledge update": [
+   "--body",
+   "--disable",
+   "--enable",
+   "--file",
+   "--json",
+   "--language",
+   "--locale",
+   "--title",
+   "--url"
+  ],
+  "languages": [],
+  "languages list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "login": [
+   "--email",
+   "--password"
+  ],
+  "logout": [],
+  "mcp": [],
+  "mcp connect": [
+   "--json"
+  ],
+  "mcp create": [
+   "--api-key",
+   "--api-key-header",
+   "--auth-type",
+   "--json",
+   "--name",
+   "--oauth-client-id",
+   "--oauth-client-secret",
+   "--server-url"
+  ],
+  "mcp delete": [
+   "--json",
+   "--yes"
+  ],
+  "mcp discover": [
+   "--json"
+  ],
+  "mcp get": [
+   "--json"
+  ],
+  "mcp list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "mcp tools": [],
+  "mcp tools disable": [
+   "--connection",
+   "--json"
+  ],
+  "mcp tools enable": [
+   "--connection",
+   "--json"
+  ],
+  "mcp tools get": [
+   "--connection",
+   "--json"
+  ],
+  "mcp tools list": [
+   "--connection",
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "mcp tools test": [
+   "--args",
+   "--args-file",
+   "--connection",
+   "--json",
+   "--yes"
+  ],
+  "mcp tools update": [
+   "--can-run-standalone",
+   "--connection",
+   "--json",
+   "--outputs-file",
+   "--requires-user-auth",
+   "--rules"
+  ],
+  "mcp update": [
+   "--api-key",
+   "--api-key-header",
+   "--clear-end-user-token-field",
+   "--disable",
+   "--enable",
+   "--end-user-token-field",
+   "--json",
+   "--name",
+   "--oauth-client-id",
+   "--oauth-client-secret"
+  ],
+  "mcp users": [],
+  "mcp users list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "mcp users revoke": [
+   "--json"
+  ],
+  "optimize": [],
+  "optimize list": [
+   "--json"
+  ],
+  "optimize record": [
+   "--change",
+   "--json",
+   "--pass-rate",
+   "--passed",
+   "--rolled-back",
+   "--run",
+   "--total"
+  ],
+  "optimize start": [
+   "--json",
+   "--label",
+   "--target"
+  ],
+  "optimize status": [
+   "--json",
+   "--run"
+  ],
+  "optimize viz": [
+   "--json",
+   "--output",
+   "--run",
+   "-o"
+  ],
+  "playbooks": [],
+  "playbooks create": [
+   "--active",
+   "--content",
+   "--description",
+   "--file",
+   "--general-instructions",
+   "--general-instructions-file",
+   "--json",
+   "--name",
+   "--on-human-request",
+   "--on-off-script",
+   "--on-off-topic",
+   "--referenced-articles",
+   "--rules",
+   "--standalone",
+   "--steps",
+   "--tags",
+   "--version"
+  ],
+  "playbooks delete": [
+   "--force"
+  ],
+  "playbooks deviations": [
+   "--json"
+  ],
+  "playbooks export-steps": [
+   "--output",
+   "--sections",
+   "-o"
+  ],
+  "playbooks generate": [
+   "--instructions",
+   "--json",
+   "--pdf"
+  ],
+  "playbooks get": [
+   "--content",
+   "--json"
+  ],
+  "playbooks list": [
+   "--json",
+   "--limit",
+   "--page",
+   "--tags"
+  ],
+  "playbooks steps-schema": [],
+  "playbooks update": [
+   "--active",
+   "--clear-general-instructions",
+   "--clear-referenced-articles",
+   "--clear-rules",
+   "--clear-tags",
+   "--content",
+   "--description",
+   "--file",
+   "--general-instructions",
+   "--general-instructions-file",
+   "--inactive",
+   "--json",
+   "--name",
+   "--not-startable-from-sdk",
+   "--on-human-request",
+   "--on-off-script",
+   "--on-off-topic",
+   "--referenced-articles",
+   "--rules",
+   "--startable-from-sdk",
+   "--steps",
+   "--tags"
+  ],
+  "playbooks update-step": [
+   "--json",
+   "--on-human-request",
+   "--on-off-script",
+   "--on-off-topic"
+  ],
+  "proactives": [],
+  "proactives create": [
+   "--json",
+   "--name",
+   "--trigger"
+  ],
+  "proactives delete": [
+   "--force"
+  ],
+  "proactives get": [
+   "--json"
+  ],
+  "proactives list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "proactives update": [
+   "--json",
+   "--name",
+   "--status"
+  ],
+  "redactions": [],
+  "redactions create": [
+   "--json",
+   "--key",
+   "--pattern"
+  ],
+  "redactions delete": [
+   "--force"
+  ],
+  "redactions disable": [],
+  "redactions enable": [],
+  "redactions images": [],
+  "redactions images disable": [
+   "--json"
+  ],
+  "redactions images enable": [
+   "--json"
+  ],
+  "redactions images list": [
+   "--json"
+  ],
+  "redactions images message": [],
+  "redactions images message clear": [
+   "--json"
+  ],
+  "redactions images message set": [
+   "--json"
+  ],
+  "redactions list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "refinements": [],
+  "refinements create": [
+   "--conversation",
+   "--event",
+   "--json",
+   "--text",
+   "--turn"
+  ],
+  "refinements discard": [
+   "--json"
+  ],
+  "refinements get": [
+   "--json"
+  ],
+  "refinements save": [
+   "--json"
+  ],
+  "refinements turns": [
+   "--json"
+  ],
+  "refinements validate": [
+   "--json"
+  ],
+  "responses": [],
+  "responses create": [
+   "--body",
+   "--json",
+   "--name"
+  ],
+  "responses delete": [
+   "--force"
+  ],
+  "responses get": [
+   "--json"
+  ],
+  "responses update": [
+   "--clear-rules",
+   "--description",
+   "--file",
+   "--handle",
+   "--json",
+   "--rules",
+   "--tags"
+  ],
+  "scorecards": [],
+  "scorecards conversations": [
+   "--end",
+   "--ids-only",
+   "--json",
+   "--metric",
+   "--result",
+   "--start"
+  ],
+  "scorecards create": [
+   "--description",
+   "--json",
+   "--metrics",
+   "--name"
+  ],
+  "scorecards delete": [
+   "--force"
+  ],
+  "scorecards get": [
+   "--json"
+  ],
+  "scorecards list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "scorecards update": [
+   "--description",
+   "--json",
+   "--metrics",
+   "--name"
+  ],
+  "session-tracking": [],
+  "session-tracking start": [
+   "--intent",
+   "--json",
+   "--quiet",
+   "-q"
+  ],
+  "session-tracking update": [
+   "--intent",
+   "--json",
+   "--notes",
+   "--quiet",
+   "--reason",
+   "-q"
+  ],
+  "snapshot": [],
+  "snapshot export": [
+   "--force",
+   "--json",
+   "--output",
+   "-o"
+  ],
+  "snapshot import": [
+   "--confirm",
+   "--dry-run",
+   "--include",
+   "--json",
+   "--secret"
+  ],
+  "start-triggers": [],
+  "start-triggers clear": [
+   "--json"
+  ],
+  "start-triggers list": [
+   "--json",
+   "--playbook"
+  ],
+  "start-triggers set": [
+   "--authoritative",
+   "--json",
+   "--no-authoritative",
+   "--playbook"
+  ],
+  "start-triggers unassigned": [
+   "--json"
+  ],
+  "status": [
+   "--json"
+  ],
+  "tags": [],
+  "tags create": [
+   "--color",
+   "--json",
+   "--name"
+  ],
+  "tags delete": [
+   "--force"
+  ],
+  "tags get": [
+   "--json"
+  ],
+  "tags list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "tags update": [
+   "--color",
+   "--json",
+   "--name"
+  ],
+  "team": [],
+  "team add": [
+   "--email",
+   "--json",
+   "--name",
+   "--role"
+  ],
+  "team get": [
+   "--json"
+  ],
+  "team list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "team remove": [
+   "--force"
+  ],
+  "team update-role": [
+   "--json",
+   "--role"
+  ],
+  "testing": [],
+  "testing cases": [],
+  "testing cases create": [
+   "--channel",
+   "--criteria",
+   "--custom-metric",
+   "--external-systems",
+   "--from-json",
+   "--json",
+   "--language",
+   "--message",
+   "--name",
+   "--scenario",
+   "--variables"
+  ],
+  "testing cases delete": [
+   "--force"
+  ],
+  "testing cases from-conversation": [
+   "--create",
+   "--criteria",
+   "--json",
+   "--name"
+  ],
+  "testing cases get": [
+   "--json"
+  ],
+  "testing cases list": [
+   "--custom-metric",
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "testing cases update": [
+   "--channel",
+   "--criteria",
+   "--custom-metric",
+   "--external-systems",
+   "--json",
+   "--language",
+   "--message",
+   "--name",
+   "--scenario",
+   "--variables"
+  ],
+  "testing metrics": [
+   "--json"
+  ],
+  "testing quota": [
+   "--json"
+  ],
+  "testing runs": [],
+  "testing runs compare": [
+   "--baseline",
+   "--candidate",
+   "--json"
+  ],
+  "testing runs create": [
+   "--cases",
+   "--changeset",
+   "--json",
+   "--repeat"
+  ],
+  "testing runs get": [
+   "--calls",
+   "--json"
+  ],
+  "testing runs list": [
+   "--changesets",
+   "--custom-metric",
+   "--json",
+   "--limit",
+   "--page",
+   "--status"
+  ],
+  "topics": [],
+  "topics class": [],
+  "topics class create": [
+   "--description",
+   "--excludes",
+   "--json",
+   "--name",
+   "--signals"
+  ],
+  "topics class delete": [],
+  "topics class get": [
+   "--json",
+   "--status"
+  ],
+  "topics class intents": [],
+  "topics class intents create": [
+   "--description",
+   "--excluded",
+   "--included",
+   "--json",
+   "--name"
+  ],
+  "topics class intents delete": [],
+  "topics class intents list": [
+   "--json",
+   "--status"
+  ],
+  "topics class intents move": [
+   "--json",
+   "--no-wait",
+   "--to"
+  ],
+  "topics class intents update": [
+   "--description",
+   "--excluded",
+   "--included",
+   "--json",
+   "--name"
+  ],
+  "topics class jobs": [
+   "--json"
+  ],
+  "topics class list": [
+   "--json",
+   "--status"
+  ],
+  "topics class recommendations": [
+   "--all",
+   "--json"
+  ],
+  "topics class recommendations approve": [
+   "--description",
+   "--excluded",
+   "--included",
+   "--json",
+   "--name",
+   "--yes"
+  ],
+  "topics class recommendations dismiss": [
+   "--json",
+   "--yes"
+  ],
+  "topics class update": [
+   "--description",
+   "--excludes",
+   "--json",
+   "--name",
+   "--signals"
+  ],
+  "topics generated": [],
+  "topics generated create": [
+   "--description",
+   "--json",
+   "--title"
+  ],
+  "topics generated get": [
+   "--json"
+  ],
+  "topics generated group": [
+   "--children",
+   "--parent"
+  ],
+  "topics generated hide": [],
+  "topics generated list": [
+   "--all",
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "topics generated report": [
+   "--end",
+   "--json",
+   "--since",
+   "--start"
+  ],
+  "topics generated ungroup": [],
+  "topics generated unhide": [],
+  "topics generated update": [
+   "--description",
+   "--json",
+   "--title"
+  ],
+  "topics list": [
+   "--json"
+  ],
+  "topics report": [
+   "--end",
+   "--intents",
+   "--json",
+   "--since",
+   "--start"
+  ],
+  "upgrade": [
+   "--check"
+  ],
+  "variables": [],
+  "variables create": [
+   "--description",
+   "--json",
+   "--name",
+   "--scope",
+   "--type"
+  ],
+  "variables delete": [
+   "--force"
+  ],
+  "variables get": [
+   "--json"
+  ],
+  "variables list": [
+   "--json",
+   "--limit",
+   "--page"
+  ],
+  "variables update": [
+   "--description",
+   "--json",
+   "--name",
+   "--scope",
+   "--type"
+  ]
+ }
+}

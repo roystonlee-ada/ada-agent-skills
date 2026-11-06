@@ -6,7 +6,7 @@ Command shapes checked against adacli `main` on 21/10/2026. Replace
 
 | Step in the skill | Command |
 |---|---|
-| Doctor: session | `adacli <instance> status` |
+| Doctor: session | `adacli <instance> status --json`. It exits 0 even when logged out, so check that `status` is `connected` |
 | Doctor: test quota | `adacli <instance> testing quota` |
 | Doctor: the draft | `adacli <instance> changesets get <changeset-id>` shows what is staged. `changesets list` finds the id |
 | Find the draft | `adacli <instance> changesets list`, then `changesets get <id>` for each one in status `testing`. Read the staged diff and match it to the case |
