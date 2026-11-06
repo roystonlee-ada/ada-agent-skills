@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.06.3
+
+- Fix the README routing diagram. 2026.11.06.2 also drew the Install table's "Claude Code" and "Codex" rows as extra columns, with overlapping text. It now reads only the Stage table, and the build stops if the table lists a skill that has no folder.
+
 ## 2026.11.06.2
 
 - The routing diagram in the README now reads its skill groups from the Stage table, and the build redraws it every time. It had lagged the table: it was missing `voice-playbook-builder` and `ada-tune-reasoning-level`. The "New in this release" highlight is gone, since nobody kept it current.

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1604" height="478" viewBox="0 0 1604 478" role="img" aria-labelledby="t d">
+<svg xmlns="http://www.w3.org/2000/svg" width="1148" height="478" viewBox="0 0 1148 478" role="img" aria-labelledby="t d">
 <title id="t">How /ada-agent-guide routes a request</title>
 <desc id="d">A request about your Ada agent enters /ada-agent-guide, which sends it to one stage skill in five groups: set up, build, fix, improve and operate. A request that already names a stage goes straight to that skill.</desc>
 <style>
@@ -13,18 +13,18 @@
     .small { font-size: 12px; fill: #50545e; }
 </style>
 <defs><marker id="a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#2b2d33"/></marker><marker id="g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#7a7f8a"/></marker></defs>
-<rect x="0" y="0" width="1604" height="478" fill="#ffffff"/>
-<rect class="box" x="672" y="16" width="260" height="48" rx="10"/>
-<text class="t" x="802" y="37" text-anchor="middle" font-size="15" font-weight="600">Your request</text>
-<text class="t small" x="802" y="55" text-anchor="middle">"fix this chat", "set up a new agent"</text>
-<path class="line" d="M802,64 L802,100" marker-end="url(#a)"/>
-<rect x="672" y="102" width="260" height="48" rx="10" fill="#1d1f24"/>
-<text class="t" x="802" y="124" text-anchor="middle" font-size="15" font-weight="700" style="fill:#ffffff">/ada-agent-guide</text>
-<text class="t" x="802" y="141" text-anchor="middle" font-size="12" style="fill:#d6d9e0">picks the stage, loads its skill</text>
-<path class="dash" d="M932,40 L1584,40 L1584,184" marker-end="url(#g)"/>
-<text class="t small" x="1258" y="32" text-anchor="middle">Names a stage? It goes straight to that skill</text>
-<path class="line" d="M802,150 L802,186"/>
-<path class="line" d="M118,186 L1584,186"/>
+<rect x="0" y="0" width="1148" height="478" fill="#ffffff"/>
+<rect class="box" x="444" y="16" width="260" height="48" rx="10"/>
+<text class="t" x="574" y="37" text-anchor="middle" font-size="15" font-weight="600">Your request</text>
+<text class="t small" x="574" y="55" text-anchor="middle">"fix this chat", "set up a new agent"</text>
+<path class="line" d="M574,64 L574,100" marker-end="url(#a)"/>
+<rect x="444" y="102" width="260" height="48" rx="10" fill="#1d1f24"/>
+<text class="t" x="574" y="124" text-anchor="middle" font-size="15" font-weight="700" style="fill:#ffffff">/ada-agent-guide</text>
+<text class="t" x="574" y="141" text-anchor="middle" font-size="12" style="fill:#d6d9e0">picks the stage, loads its skill</text>
+<path class="dash" d="M704,40 L1128,40 L1128,184" marker-end="url(#g)"/>
+<text class="t small" x="916" y="32" text-anchor="middle">Names a stage? It goes straight to that skill</text>
+<path class="line" d="M574,150 L574,186"/>
+<path class="line" d="M118,186 L1128,186"/>
 <path class="line" d="M118,186 L118,214" marker-end="url(#a)"/>
 <rect class="head" x="12" y="216" width="212" height="36" rx="8"/>
 <text class="t" x="118" y="239" text-anchor="middle" font-size="14" font-weight="700">Set up</text>
@@ -90,18 +90,4 @@
 <text class="mono" x="1030" y="419" text-anchor="middle">troubleshoot</text>
 <rect class="pill" x="924" y="436" width="212" height="26" rx="13"/>
 <text class="mono" x="1030" y="453" text-anchor="middle">ada-tune-reasoning-level</text>
-<path class="line" d="M1258,186 L1258,214" marker-end="url(#a)"/>
-<rect class="head" x="1152" y="216" width="212" height="36" rx="8"/>
-<text class="t" x="1258" y="239" text-anchor="middle" font-size="14" font-weight="700">Claude Code</text>
-<rect class="pill" x="1152" y="266" width="212" height="26" rx="13"/>
-<text class="mono" x="1258" y="283" text-anchor="middle">claude plugin marketplace add roystonlee-ada/ada-agent-skills</text>
-<rect class="pill" x="1152" y="300" width="212" height="26" rx="13"/>
-<text class="mono" x="1258" y="317" text-anchor="middle">claude plugin install ada-agent-skills@ada-agent-skills</text>
-<path class="line" d="M1486,186 L1486,214" marker-end="url(#a)"/>
-<rect class="head" x="1380" y="216" width="212" height="36" rx="8"/>
-<text class="t" x="1486" y="239" text-anchor="middle" font-size="14" font-weight="700">Codex</text>
-<rect class="pill" x="1380" y="266" width="212" height="26" rx="13"/>
-<text class="mono" x="1486" y="283" text-anchor="middle">codex plugin marketplace add roystonlee-ada/ada-agent-skills</text>
-<rect class="pill" x="1380" y="300" width="212" height="26" rx="13"/>
-<text class="mono" x="1486" y="317" text-anchor="middle">codex plugin add ada-agent-skills@ada-agent-skills</text>
 </svg>
