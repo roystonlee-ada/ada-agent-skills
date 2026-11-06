@@ -64,7 +64,10 @@ carries no handoff, so it is safe for a first-turn check only.
 
 - Daily runs: 3,000 per instance in the docs (changelog 11/06/2026) and in a
   live read of the quota tool. One tool page still says 300. Read the live
-  quota, not a page.
+  quota, not a page. A `daily_limit` far below 3,000 (on 06/11/2026 it read 1
+  on many instances, and runs got a 429) is a platform setting, not your
+  usage. Stop the batch, tell the person, and ask Ada support to check the
+  instance's limit.
 - Test cases: 1,000 per instance. Turns: 40 per run.
 - A run can finish as `failed`, `timeout` or `cancelled`, or show "Run not
   graded" when a mocked tool call had no answer in the case text. None of

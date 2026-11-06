@@ -205,6 +205,9 @@ The sections above still decide whether the case is any good:
 - **Check variables marked as the customer's current value.** They can differ
   from the value during the chat. A variable that a mocked tool's lookup needs
   must stay out of the case, or the lookup is skipped.
+- **Leave an empty variable out of the case.** A preset of `""` is not null,
+  so every `is null` branch is skipped and the case tests a path no real chat
+  takes.
 - **Describe the external systems from the draft.** Each tool call the chat made
   becomes plain text: the records, their identifiers, the values returned and
   each error. A call the text does not describe fails the run with

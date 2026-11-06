@@ -33,7 +33,7 @@ Contents:
 | Handoff target and reason | `conversations details <id> --json`, or `conversations handoffs <id> --json` when the account allows it |
 | Many transcripts at once | `conversations export --topic <topic> --start <date> --end <date> --transcripts --json -o <file> --limit 200`. The export has no handoff filter, so join the file to the ids from the search above |
 | Does a playbook exist (step 6) | `playbooks list --json`, then `playbooks get <id> --json` |
-| Is the knowledge there | `knowledge list`, and `knowledge probe` to see which articles rank for a customer's question |
+| Is the knowledge there | `knowledge list` for the titles. To see what a customer's question retrieves, ask it with `chat talk` and read the reply (adacli 0.13.1 removed `knowledge probe`) |
 | Is there a tool for the task | `actions list`, `code-tools list`, `mcp list`. `handoffs list` for the destinations |
 | Does coaching cover it | `coaching list --json` |
 | Draft a test case (step 7) | `testing cases from-conversation <id> --json`. Follow `author-playbook/references/test-cases.md` section 8 |

@@ -6,7 +6,7 @@ instance comes first in every command, and there is no `--instance` flag.
 | Step | Command |
 |---|---|
 | Active rollouts on the instance | `adacli <instance> changesets list --json`, read each `rollout.percentage` and `rollout.status` |
-| Start or raise a stage | `adacli <instance> changesets set-rollout <id> --percent <n> --max-conversations <cap>`. The percents across active rollouts must total 100 or less |
+| Start or raise a stage | `adacli <instance> changesets set-rollout <id> --percent <n> --max-conversations <cap>`. The percents across active rollouts must total 90 or less |
 | Stop a rollout | `adacli <instance> changesets stop-rollout <id>`. Safe to repeat |
 | Chats on the changeset so far | `adacli <instance> changesets get <id> --json`, read `rollout.applied_count` |
 | Find the sampled chats | `adacli <instance> conversations search --since <date>` with the changeset filter. It needs `--since`, caps a page at 50 and reports no total, so quote counts as lower bounds |

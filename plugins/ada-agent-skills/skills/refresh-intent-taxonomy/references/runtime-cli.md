@@ -43,17 +43,20 @@ Notes:
 agent that uses classification Topics and Intents they return an empty list
 and exit 0, which is not a quiet window. Do not use them here.
 
-As of 30/10/2026 adacli has no command to:
-- list AI-recommended intents with their volume and trend
-- show per-intent volume, resolution rate and CSAT, or the "other" and
-  "unclassified" shares
-- approve or dismiss a recommendation
-- edit an existing Intent in place (`topics class update` edits a Topic, and
-  Intents only have `create`, `move` and `delete`)
+Since adacli 1.2.0 these exist (check `topics class --help` on the
+installed version):
+- `topics class recommendations` lists recommended intents ranked by volume
+  (`--all` for every one)
+- `topics class recommendations approve <id>` and `dismiss <id>` preview
+  first and apply with `--yes`, which only the person's go-ahead permits
+- `topics class intents update <id>` edits an Intent in place
+
+As of 07/11/2026 adacli still has no command to show per-intent volume,
+resolution rate and CSAT, or the "other" and "unclassified" shares.
 
 Two adacli changes are open and unmerged: a classification default for topic
-commands, and `conversations classification <id>`. Do not rely on either until
-a release lists them.
+commands, and the unreleased `conversations classification <id>`. Do not rely
+on either until a release lists them.
 
 Do these in the dashboard: **Analytics > Topics & Intents**. Read the
 recommended list, volume, trend and the "other" share there. Use its buttons to

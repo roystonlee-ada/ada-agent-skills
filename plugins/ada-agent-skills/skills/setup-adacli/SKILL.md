@@ -77,7 +77,12 @@ adacli <instance> status
 ```
 
 `login` prints a code and a link. The person opens the link, signs in and
-approves the code. Then `status` should report a healthy session.
+approves the code. Then run `adacli <instance> status --json` and check that
+`status` is `connected`. The command exits 0 even when logged out
+(`not_logged_in`) or when the session expired (`session_invalid`), so the
+exit code proves nothing. A script can instead run a cheap read, such as
+`adacli <instance> knowledge list --limit 1 --json`, and treat exit code 3 as
+logged out.
 
 - Never ask for a password in chat. Headless login with `--email` and
   `--password` exists for accounts that do not use single sign-on. Let the

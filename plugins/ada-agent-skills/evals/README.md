@@ -60,6 +60,29 @@ python3 evals/check_tool_names.py https://<instance>.ada.support/api/mcp/oauth
 - Use a demo or sandbox instance. Results hold real transcripts, so never
   publish them or point the live tier at a customer instance.
 
+## adacli commands and the ask checker
+
+The mocked suite drives the MCP route, so a command adacli removed still
+passes there. `check_cli_commands.py` reads adacli's own command list and
+checks every adacli command and flag the skills name.
+
+```
+adacli <instance> agent-context > /tmp/ctx.json
+python3 evals/check_cli_commands.py /tmp/ctx.json
+python3 evals/check_cli_commands.py /tmp/ctx.json --baseline evals/adacli-commands.json
+```
+
+- It exits 1 when a skill names a command or flag that adacli lacks. A span
+  just after "removed" or "unreleased" names a command on purpose and is
+  skipped.
+- `--baseline` diffs two command lists after an upgrade, and tags each new
+  command that writes. `evals/adacli-commands.json` is adacli 1.4.0 with every
+  command gate open. An instance with gates closed hides gated commands, so
+  they show as REMOVED in the diff. `--save` writes a new baseline.
+- `test_check_ask_instructions.py` tests the author-playbook ask checker,
+  including rule A4 (zero re-asks, no fallback, and an action with no
+  `is null` check). Run `python3 evals/test_check_ask_instructions.py`.
+
 ## Add a case
 
 Add an entry to `ROUTING`, `NEGATIVE`, `BEHAVIOUR` or `LIVE` in

@@ -45,6 +45,13 @@ Contents:
 5. A count of 0 on the filter does not prove the cluster is absent. Handoffs
    with no recorded reason match no reason filter, so a reason count is a lower
    bound. Say so.
+6. When you count by matching text (a regex or keyword pass over transcripts),
+   prove the match works before you trust a count. Run it on one conversation
+   you know is in the cluster and expect a hit, and check that the input is
+   not empty. One census reported "0 failures" because every input file was
+   empty. Cover every language the agent answers in: in one agent about 1 in
+   12 chats were in Spanish, and English patterns missed all of them. From a
+   customer's review (07/11/2026).
 
 ## Lift on containment
 
