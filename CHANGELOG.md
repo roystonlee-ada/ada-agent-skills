@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.07
+
+- `design-conversation` designs to what each channel can show today. New `references/channel-features.md` lists the published features that change a sample conversation, per channel, each with its docs.ada.cx source: quick replies on ASK steps, hidden keyboard input on Web Chat and the Messaging SDK, who writes first on Email and social channels, email variables (recipient address, subject, attachments), trusted senders, and images. It also has the steps to refresh it from the release notes, so a new feature changes one file.
+- New design rules: on Email and social channels, and on Web Chat with a conversation start event, every scenario starts with the customer's message, with no greeting, and the first reply uses what that message already gave. A bot turn can set `hide_keyboard` only where the channel supports it.
+- The board script now warns when an email or social scenario starts with the bot, when an `options` list has fewer than 2 or more than 5 labels or a label over 20 characters, and when `hide_keyboard` is on a channel that keeps the message box. It draws options as a typed list on Email, LINE and SMS as well as WhatsApp, Messenger and Instagram.
+
 ## 2026.11.06.4
 
 - `test-and-fix` accepts a customer's requirements sheet or doc as the anchor. Many customers keep "what good looks like" as one row per scenario. The new `references/anchor-from-sheet.md` covers reading the sheet, mapping its columns to case fields, showing the first rows for approval, and sending vague or contradictory rows back as questions instead of rewording them. Based on feedback from a Claude run on a customer sandbox (06/11/2026).
