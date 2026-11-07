@@ -23,9 +23,10 @@ import webbrowser
 
 BLOCK_RE = re.compile(r"<<<ADA-DESIGN>>>\s*(\{.*?\})\s*<<<END-ADA-DESIGN>>>", re.S)
 HOME = pathlib.Path.home() / ".ada-architect"
-# Channels drawn with options as a numbered list instead of buttons. Keep in step
-# with references/channel-features.md: change it only when docs.ada.cx does.
-SOCIAL = ("messenger", "whatsapp", "instagram", "line", "sms")
+# Channels that get options as a numbered text list instead of buttons. Keep in
+# step with references/channel-features.md: change it only when docs.ada.cx does.
+TEXT_LIST = ("sms", "email", "apple messages")
+SOCIAL = ("messenger", "whatsapp", "instagram", "line", "telegram", "viber", "x (twitter)", "twitter", "apple messages", "sms")
 EMAIL = ("email",)
 # Channels where an ASK can hide keyboard input (references/channel-features.md).
 HIDE_KEYBOARD = ("web chat", "web", "messaging sdk", "sdk")
@@ -72,7 +73,7 @@ def problems(design: dict) -> list[str]:
     return out
 
 
-def bubble(turn: dict, social: bool, index: int) -> str:
+def bubble(turn: dict, listed: bool, index: int) -> str:
     who = turn.get("who")
     parts = []
     if turn.get("text"):
@@ -80,9 +81,9 @@ def bubble(turn: dict, social: bool, index: int) -> str:
     if turn.get("image"):
         parts.append(f"<div class='img'>Photo: {e(turn['image'])}</div>")
     options = turn.get("options") or []
-    if options and turn.get("hide_keyboard") and not social:
+    if options and turn.get("hide_keyboard") and not listed:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div><div class='img'>Typing off: tap an option</div>")
-    elif options and social:
+    elif options and listed:
         parts.append("<br>".join(f"{i}. {e(o)}" for i, o in enumerate(options, 1)))
     elif options:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div>")
@@ -190,7 +191,7 @@ def js(value) -> str:
 
 def render(design: dict, warnings: list[str]) -> str:
     channels = design.get("channels") or ["Web chat"]
-    social = any(c.lower().startswith(SOCIAL + EMAIL) for c in channels[:1])
+    listed = any(c.lower().startswith(TEXT_LIST) for c in channels[:1])
     notes = "".join(f"<li>{e(n)}</li>" for n in design.get("notes") or [])
     scenarios = design.get("scenarios") or []
     tabs = ["<button class='on' data-tab='overview'>Overview</button>"]
@@ -198,7 +199,7 @@ def render(design: dict, warnings: list[str]) -> str:
     for s in scenarios:
         sid = str(s.get("id", ""))
         tabs.append(f"<button data-tab='{e(sid)}'>{e(s.get('title', ''))}</button>")
-        turns = "".join(bubble(t, social, i) for i, t in enumerate(s.get("turns") or [], 1))
+        turns = "".join(bubble(t, listed, i) for i, t in enumerate(s.get("turns") or [], 1))
         kind = s.get("kind", "edge")
         badge = {"main": "ok", "edge": "now"}.get(kind, "mute")
         changed = f"<div class='chg'><b>Changed:</b> {e(s['changed'])}</div>" if s.get("changed") else ""
