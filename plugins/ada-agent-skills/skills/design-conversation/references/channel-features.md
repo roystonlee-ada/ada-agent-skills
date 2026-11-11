@@ -53,7 +53,8 @@ Last checked against docs.ada.cx release notes: 07/11/2026.
   asks for the first fact that message did not give.
 - Slow tools: when a step calls an API or code tool that can take more than
   10 seconds, check whether progress messages are on. If they are, show one
-  short progress line in that scenario so the reviewer sees the wait. If they
+  short progress line in that scenario, as a bot turn with
+  `"progress": true`, so the reviewer sees the wait. If they
   are off, say in `notes` that the customer sees only the loading animation.
 - Email: one bot turn is one email. Keep the one-question rule, but put the
   answer, what happens next and the question in that same email, because the

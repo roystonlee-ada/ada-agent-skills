@@ -64,6 +64,8 @@ def problems(design: dict) -> list[str]:
             long = [o for o in options if len(str(o)) > 20]
             if long:
                 out.append(f"scenario {sid}: option labels over 20 characters: {', '.join(map(str, long))}")
+            if t.get("progress") and not can_hide:
+                out.append(f"scenario {sid}: progress messages show on Web Chat and the Messaging SDK only")
             if t.get("hide_keyboard"):
                 if not options:
                     out.append(f"scenario {sid}: hide_keyboard needs options to tap")
@@ -72,8 +74,31 @@ def problems(design: dict) -> list[str]:
     return out
 
 
-def bubble(turn: dict, listed: bool, index: int) -> str:
+def channel_card(channels: list[str]) -> str:
+    """One row per channel: what references/channel-features.md says it shows."""
+    rows = []
+    for name in channels:
+        c = name.lower()
+        rich = c.startswith(BUTTONS)
+        chips = [
+            ("Quick replies", "buttons" if rich else "numbered list to type back"),
+            ("Typing", "can be hidden on an ask" if rich else "always open"),
+            ("Who starts", "customer, no greeting" if c.startswith(SOCIAL + EMAIL) else "greeting, or customer with a start event"),
+            ("Progress messages", "if turned on" if rich else "none"),
+        ]
+        if c.startswith(EMAIL):
+            chips.append(("Each reply", "one email: answer, next step, one question"))
+        rows.append(f"<div class='ch'><b>{e(name)}</b>" + "".join(
+            f"<span class='cf'><i>{e(k)}</i> {e(v)}</span>" for k, v in chips) + "</div>")
+    return "<h2>What these channels show</h2><div class='card'>" + "".join(rows) + "</div>"
+
+
+def bubble(turn: dict, listed: bool, index: int, email: bool = False) -> str:
     who = turn.get("who")
+    if who == "bot" and turn.get("progress"):
+        return (f"<div class='t bot prog' data-turn='{index}'><div class='col'><div class='who'>Progress message</div>"
+                f"<div class='bub'>{e(turn.get('text', ''))}</div>"
+                f"<input class='tc' data-k='turn-{index}' placeholder='Comment on this turn'></div></div>")
     parts = []
     if turn.get("text"):
         parts.append(e(turn["text"]).replace("\n", "<br>"))
@@ -83,10 +108,14 @@ def bubble(turn: dict, listed: bool, index: int) -> str:
     if options and turn.get("hide_keyboard") and not listed:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div><div class='img'>Typing off: tap an option</div>")
     elif options and listed:
-        parts.append("<br>".join(f"{i}. {e(o)}" for i, o in enumerate(options, 1)))
+        parts.append("<div class='list'>" + "<br>".join(f"{i}. {e(o)}" for i, o in enumerate(options, 1)) + "</div>")
     elif options:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div>")
-    return (f"<div class='t {e(who or '')}' data-turn='{index}'><div class='col'><div class='who'>{'Customer' if who == 'customer' else 'Agent'}</div><div class='bub'>{''.join(parts)}</div>"
+    if email:
+        label = "Customer email" if who == "customer" else "Reply email"
+    else:
+        label = "Customer" if who == "customer" else "Agent"
+    return (f"<div class='t {e(who or '')}' data-turn='{index}'><div class='col'><div class='who'>{label}</div><div class='bub'>{''.join(parts)}</div>"
             f"<input class='tc' data-k='turn-{index}' placeholder='Comment on this turn'></div></div>")
 
 
@@ -127,6 +156,10 @@ h2{font-size:18px;font-weight:500;letter-spacing:-.01em;margin:28px 0 12px}
 .bub{padding:9px 13px;border-radius:14px;background:var(--chip)} .customer .bub{background:var(--ink);color:var(--bg)}
 .opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px} .opts span{border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:13px;background:var(--card);color:var(--ink)}
 .img{font-style:italic;font-size:13px}
+.list{margin-top:8px}
+.prog .bub{background:transparent;border:1px dashed var(--line);color:var(--mute);font-style:italic;font-size:13px}
+.ch{padding:8px 0;border-top:1px solid var(--line)} .ch:first-child{border-top:0} .ch b{display:block;margin-bottom:6px}
+.cf{display:inline-block;background:var(--chip);border-radius:999px;padding:2px 10px;margin:0 6px 6px 0;font-size:13px} .cf i{font-style:normal;color:var(--mute)}
 .tc{font:inherit;font-size:13px;border:1px dashed var(--line);border-radius:8px;padding:4px 10px;background:var(--card);width:300px;max-width:100%;color:var(--ink)}
 .tc:placeholder-shown{color:var(--mute)} .tc:focus{border-style:solid;border-color:var(--mute);outline:none}
 .ex{background:var(--okb);color:var(--ok);border-radius:8px;padding:10px 12px;font-size:13px;margin-top:4px}
@@ -191,6 +224,7 @@ def js(value) -> str:
 def render(design: dict, warnings: list[str]) -> str:
     channels = design.get("channels") or ["Web chat"]
     listed = not any(c.lower().startswith(BUTTONS) for c in channels[:1])
+    email = str(channels[0]).lower().startswith(EMAIL)
     notes = "".join(f"<li>{e(n)}</li>" for n in design.get("notes") or [])
     scenarios = design.get("scenarios") or []
     tabs = ["<button class='on' data-tab='overview'>Overview</button>"]
@@ -198,7 +232,7 @@ def render(design: dict, warnings: list[str]) -> str:
     for s in scenarios:
         sid = str(s.get("id", ""))
         tabs.append(f"<button data-tab='{e(sid)}'>{e(s.get('title', ''))}</button>")
-        turns = "".join(bubble(t, listed, i) for i, t in enumerate(s.get("turns") or [], 1))
+        turns = "".join(bubble(t, listed, i, email) for i, t in enumerate(s.get("turns") or [], 1))
         kind = s.get("kind", "edge")
         badge = {"main": "ok", "edge": "now"}.get(kind, "mute")
         changed = f"<div class='chg'><b>Changed:</b> {e(s['changed'])}</div>" if s.get("changed") else ""
@@ -215,7 +249,7 @@ def render(design: dict, warnings: list[str]) -> str:
     rnd = design["round"] if isinstance(design.get("round"), int) else 1
     overview = (
         f"<section class='pane on' id='tab-overview'><div class='wrap'>{warn}"
-        f"<p class='lead'>{e(design.get('goal', ''))}</p>"
+        f"<p class='lead'>{e(design.get('goal', ''))}</p>{channel_card([str(c) for c in channels])}"
         + (f"<h2>Notes</h2><div class='card'><ul class='nl'>{notes}</ul></div>" if notes else "")
         + "<h2>Overall comment</h2><div class='card'><div class='label'>Comment on the whole board</div>"
         "<textarea class='sc' data-k='overall' placeholder='Write a comment'></textarea></div>"
