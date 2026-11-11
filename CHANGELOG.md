@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.4
+
+- `voice-playbook-builder` lists the SMS opt-out words (`STOP`, `UNSUBSCRIBE`, `END`, `QUIT`, `STOPALL`, `CANCEL`, `REVOKE`, `OPTOUT`), warns against texts that ask for one of them as a reply, and says that with your own SMS channel your provider handles opt-outs. Source: docs.ada.cx, SMS consent and Voice onboarding.
+
 ## 2026.11.11.2
 
 - `configure-handoff` checks that every Conditional block in a handoff has an Else. With no Else, a customer who matches no condition gets no handoff and no message. Source: docs.ada.cx, handoff Conditional block.
