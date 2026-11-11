@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.5
+
+- The README has a new rule for contributors: only generally available features go in a skill. Leave out anything docs.ada.cx marks as Early Access, beta, preview or limited availability. Custom Metrics is an approved exception while it moves to general availability.
+- `author-playbook` no longer says Messenger, Instagram, LINE and WhatsApp draw quick-reply buttons. The docs.ada.cx step reference supports quick replies on Web Chat and the Messaging SDK only, and says other channels are not supported yet. The label rules stay as design rules: 20 characters or less, all different, 10 values or fewer.
+- `configure-handoff` no longer calls the Salesforce SMTP Connector early access. Its live docs page is in the docs menu and has no Early Access label.
+
 ## 2026.11.11.4
 
 - `voice-playbook-builder` lists the SMS opt-out words (`STOP`, `UNSUBSCRIBE`, `END`, `QUIT`, `STOPALL`, `CANCEL`, `REVOKE`, `OPTOUT`), warns against texts that ask for one of them as a reply, and says that with your own SMS channel your provider handles opt-outs. Source: docs.ada.cx, SMS consent and Voice onboarding.

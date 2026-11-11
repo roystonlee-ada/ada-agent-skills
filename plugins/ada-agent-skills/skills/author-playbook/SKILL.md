@@ -91,9 +91,9 @@ says where it is). Then work from the design, not from the last comment:
   the logic belongs in a code tool or a branch.
 - Choices: give an ASK `accepted_values` when the design shows `options`, and
   give every value a `quick_reply_labels` label of at most 20 characters, each
-  one different. A channel draws buttons only when every title fits. If one
-  title is too long, the whole question falls back to a text list that prints
-  the raw values, such as `did_not_answer`. Keep a status value such as
+  one different. Buttons show on Web Chat and the Messaging SDK only. The docs
+  say other channels are not supported yet, so the question must also work
+  when the customer types the answer. Keep a status value such as
   `did_not_answer` out of the list unless a branch needs it, and label it when
   one does. Run `scripts/check_quick_replies.py` on the draft before you stage.
   Read `references/quick-replies.md` for the rules and the fixes.

@@ -1,8 +1,7 @@
 # Salesforce SMTP Connector (email)
 
-Docs: `handoffs/salesforce/salesforce-smtp-connector.mdx`. Marked early access
-and hidden in the docs, so confirm it is enabled for the agent before
-promising it. Email only. The block is "Salesforce Email".
+Docs: `handoffs/salesforce/salesforce-smtp-connector.mdx`. Email only. The
+block is "Salesforce Email".
 
 ## Setup summary
 

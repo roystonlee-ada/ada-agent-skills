@@ -129,3 +129,11 @@ Built from Ada's internal Architect skills by `local/build_plugin.py`. Bump
 get, because Claude Code updates a plugin only when its version changes. Every
 skill must run over adacli or the Ada MCP without Architect. The build fails if
 a customer name, an id or an email is left in a skill.
+
+Only generally available features go in a skill. Leave out anything that
+docs.ada.cx marks as Early Access, beta, preview or limited availability, or
+that a customer must ask their CSM to turn on. Check the live page before you
+add a feature, and add it once the docs show it as generally available.
+
+Custom Metrics is an approved exception. Its skills stay in the plugin while
+the feature moves to general availability (planned for 16/11/2026).

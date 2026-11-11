@@ -8,7 +8,7 @@ so it is listed as WARN and does not change the exit code.
 
 Usage: python3 check_quick_replies.py <file.json> [<file.json> ...]
 
-Rules (a channel draws chips only when all of them hold, else it lists the raw values):
+Rules (design rules for short, clear buttons on Web Chat and the Messaging SDK):
   R1  each title (the label, else the value) is at most 20 characters
   R2  titles are distinct once lower-cased and whitespace-collapsed, and no title
       equals another option's value
