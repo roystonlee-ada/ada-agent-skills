@@ -44,6 +44,10 @@ read-only: change nothing while you learn.
   form of address, emoji and message length. Follow them in every board.
 
 If the channel is voice (phone), load voice-playbook-builder for the voice design checklist and patterns before you draft the board.
+For every other channel on the board, read `references/channel-features.md`.
+It says what each channel can show (quick replies, hidden keyboard input,
+images), who writes first, and what email adds, each with its docs.ada.cx
+source. Design to it, not to memory.
 
 Then ask only what you cannot work out, at most two questions, with choices:
 the goal in the customer's words ("what should a customer who asks this get
@@ -106,12 +110,16 @@ Design rules. Each one prevents a failure you would otherwise patch later:
   instead.
 - Constrain the input before you handle bad input. Give choices as `options`
   when there are 2 to 5 fixed answers, or a format hint ("DD/MM/YYYY") for
-  free text. Write `options` once, with labels of 20 characters or less:
-  WhatsApp and Messenger cut longer button labels. A typed answer that names
+  free text. Write `options` once, with labels of 20 characters or less
+  so they read as short buttons. A typed answer that names
   an option, or carries the detail itself (an email at "Use my email", a
   code at "Enter OTP"), picks that option, so buttons never block typing.
-  Text-only channels, or social channels without rich buttons, get the
-  options as a plain list to type back.
+  Which channels draw buttons, which get a plain list to type back, and when
+  you may hide typing are in `references/channel-features.md`.
+- On a channel where the customer writes first (Email, social, or Web Chat
+  with a conversation start event), start every scenario with the
+  customer's message. No greeting turn. The first bot turn uses what that
+  message, its subject line or its attachment already gave.
 - Never ask what the customer already said, and never ask what an action can
   look up.
 - Short messages: two or three lines. The answer itself, not only a link.
@@ -167,6 +175,9 @@ fix it first, and never show one with a known failure.
 - No bot turn asks more than one question. A list of facts inside one
   question is allowed when the person chose it.
 - Every `options` list has 2 to 5 labels of 20 characters or less.
+- `hide_keyboard` is only on a turn with `options`, on a board whose channels
+  all support it (`references/channel-features.md`).
+- On Email and social channels, each scenario starts with the customer.
 - Every route to a person says why in its scenario's `expect`.
 - `work` and `title` are set, and the block is valid JSON.
 The runtime file says how to run these checks where a tool does it for you.
