@@ -133,6 +133,11 @@ a playbook calls it. Set its inputs with SET steps
 before the RUN step that calls it, because RUN does not fill code tool inputs
 itself.
 
+When the design emails the customer mid-chat, read
+`references/code-tool-email.md` before you write the tool. It covers
+`send_email`, branching on whether it sent, keeping a one-time code out of
+the agent's reach, and how to test a send.
+
 ## 4. Push back on patches
 
 When asked for a change that adds a rule to a step to fix one case, look at

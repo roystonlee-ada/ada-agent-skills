@@ -4,6 +4,11 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.1
+
+- `design-conversation` designs flows where a code tool emails the customer mid-chat (a one-time code, a confirmation, a receipt). The bot turn says the email went out and names the address in part, every such flow gets a "didn't get it" scenario, and a failed send never reads as sent.
+- `author-playbook` has a new `references/code-tool-email.md` for `send_email` in a code tool: branch on `sent`, keep a one-time code in a variable the agent cannot read, the per-conversation, per-address and per-agent limits, and how a test run treats a send. Source: docs.ada.cx, code tools, "send_email".
+
 ## 2026.11.07.1
 
 From a customer's review of the skills (07/11/2026). Each change was checked against the adacli 1.4.0 source or the platform code first.

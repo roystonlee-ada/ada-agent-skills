@@ -127,6 +127,15 @@ Design rules. Each one prevents a failure you would otherwise patch later:
   A flow that ends in a form or link hands off to the form, not to a person.
 - If the flow needs many branches to survive bad input, the question is
   wrong. Simplify the design and say so in `notes`.
+- A code tool can email the customer mid-chat (a one-time code, a
+  confirmation, a receipt) and report whether it sent. When the flow does,
+  the same bot turn says so and names the address in part: "I've emailed a
+  6-digit code to j***@example.com. What's the code?" Give it an `edge`
+  scenario for "I didn't get it": check the address and spam folder, send once
+  more, then offer the other route. A send that fails says so and moves to
+  that route at once, so no turn ever claims an email that never left. Never
+  show the code in chat. It needs the agent's Email channel set up; if the
+  agent has none, say so in `notes`.
 
 ```
 <<<ADA-DESIGN>>>
