@@ -4,6 +4,11 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.2
+
+- `configure-handoff` checks that every Conditional block in a handoff has an Else. With no Else, a customer who matches no condition gets no handoff and no message. Source: docs.ada.cx, handoff Conditional block.
+- `configure-handoff` checks the Human Agent CSAT survey on the return path. It rates the human agent apart from the AI Agent survey, and a suppression rule keeps it from showing when the handoff never reached a person. Source: docs.ada.cx, CSAT survey configuration.
+
 ## 2026.11.11.1
 
 - `design-conversation` designs flows where a code tool emails the customer mid-chat (a one-time code, a confirmation, a receipt). The bot turn says the email went out and names the address in part, every such flow gets a "didn't get it" scenario, and a failed send never reads as sent.
