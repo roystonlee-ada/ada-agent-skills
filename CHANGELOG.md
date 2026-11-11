@@ -4,6 +4,11 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.6
+
+- New skill `prevent-handoffs`. It gives every handed-off conversation in a window a verdict: preventable, or not because the customer asked for a person, policy needs a person, or the agent lacks system access. Each verdict carries the reason and evidence. It groups the preventable ones by root cause, ranks them by conversations, drafts a knowledge, playbook or action fix for the top causes on a changeset, seeds test cases from the real handed-off conversations, and replays them with `test-and-fix`. A fix stays only when most of its targets now end without a handoff and the controls hold. The report is a ranked list: fix, cause, conversations affected, contained x of y, projected containment gain and links. It never promotes. On a read-only instance it stops at the proposed fix list.
+- `ada-agent-guide` routes "which handoffs could the agent have kept" to `prevent-handoffs`.
+
 ## 2026.11.11.5
 
 - The README has a new rule for contributors: only generally available features go in a skill. Leave out anything docs.ada.cx marks as Early Access, beta, preview or limited availability. Custom Metrics is an approved exception while it moves to general availability.

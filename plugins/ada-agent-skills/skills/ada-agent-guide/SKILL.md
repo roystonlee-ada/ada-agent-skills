@@ -29,6 +29,7 @@ restate its steps here.
 | What to improve across the whole agent: handoffs, containment, CSAT and custom metrics together | `improve-agent` |
 | Why conversations hand off, counted by the recorded reason | `review-handoffs` |
 | What human agents do after a handoff, and which playbooks or articles could take it over | `mine-human-agent-conversations` |
+| Which handoffs the agent could have kept, fixed and proven by replaying the real conversations | `prevent-handoffs` |
 | A tested changeset that should go live | `ada-promote-changeset` |
 | Ramping a change on live traffic, or "should we revert" | `ada-rollout-changeset` |
 | Watching a playbook after launch, alert noise, a control set | `ada-playbook-monitor-loop` |
@@ -47,7 +48,8 @@ restate its steps here.
 - A question about the Ada platform itself goes to `troubleshoot`, not to a
   conversation skill. A handoff that never reaches the helpdesk is
   `configure-handoff`. A handoff the agent chose to make is `review-handoffs`
-  or `diagnose-conversation`.
+  or `diagnose-conversation`. Cutting those handoffs, with proof, is
+  `prevent-handoffs`.
 - When two stages fit, take the earlier one. "Make it live" with no passing
   tests starts at the test run, not at promote.
 - If `adacli <instance> status --json` shows `read_only: true`, or a write
