@@ -10,7 +10,7 @@ The guide picks the right skill, so you do not need to remember the skills.
 | Set up | `onboard-agent`, `configure-handoff`, `ada-custom-metrics-setup`, `setup-adacli`, `setup-ada-mcp` |
 | Build | `design-conversation`, `author-playbook`, `voice-playbook-builder`, `help-center-to-kb-playbooks`, `ada-image-cards`, `create-verification-skill` |
 | Fix | `diagnose-conversation`, `test-and-fix`, `revise-playbook` |
-| Improve | `improve-agent`, `mine-human-agent-conversations`, `review-handoffs`, `ada-custom-metrics-improve`, `ada-custom-metrics-loop` |
+| Improve | `improve-agent`, `mine-human-agent-conversations`, `review-handoffs`, `prevent-handoffs`, `ada-custom-metrics-improve`, `ada-custom-metrics-loop` |
 | Operate | `ada-promote-changeset`, `ada-rollout-changeset`, `ada-playbook-monitor-loop`, `ada-report`, `troubleshoot`, `ada-tune-reasoning-level` |
 
 If your request already names a stage or a skill, the guide steps aside and
@@ -59,6 +59,7 @@ instance.
 | `diagnose-conversation` | Find which part of the agent owns a bad conversation, with evidence |
 | `review-handoffs` | Count handoffs by the reason Ada recorded, with samples |
 | `mine-human-agent-conversations` | Read what human agents did after a handoff, find the path they follow, and write playbook candidates with evidence and test seeds |
+| `prevent-handoffs` | Sort every handoff into preventable or not, fix the top causes on a changeset, and keep only fixes that replays of the real conversations prove |
 | `ada-promote-changeset` | Check a staged change, show its real diff, and hand you the promote step |
 | `ada-rollout-changeset` | Ramp a change onto live traffic in steps or at one percent you choose, and judge it against the baseline |
 | `ada-playbook-monitor-loop` | Test a playbook, watch real chats for verified problems, and stage tested fixes |
