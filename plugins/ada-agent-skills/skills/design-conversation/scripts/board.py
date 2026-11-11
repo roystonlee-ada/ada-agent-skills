@@ -23,10 +23,11 @@ import webbrowser
 
 BLOCK_RE = re.compile(r"<<<ADA-DESIGN>>>\s*(\{.*?\})\s*<<<END-ADA-DESIGN>>>", re.S)
 HOME = pathlib.Path.home() / ".ada-architect"
-# Channels that draw ASK options as quick-reply buttons and can hide keyboard
-# input. Every other channel gets a numbered list to type back. Keep in step
-# with references/channel-features.md: change it only when docs.ada.cx does.
+# Keep these in step with references/channel-features.md.
+# Web Chat and the Messaging SDK: buttons, hidden keyboard input, progress messages.
 BUTTONS = ("web", "messaging sdk", "sdk")
+# Channels that get ASK options as a plain list of values to type back.
+TEXT_LIST = ("sms", "email", "apple messages")
 SOCIAL = ("messenger", "whatsapp", "instagram", "line", "telegram", "viber", "x (twitter)", "twitter", "apple messages", "sms")
 EMAIL = ("email",)
 e = html.escape
@@ -35,6 +36,10 @@ e = html.escape
 def load(text: str) -> dict:
     m = BLOCK_RE.search(text)
     return json.loads(m.group(1) if m else text)
+
+
+def is_social(channel: str) -> bool:
+    return channel == "x" or channel.startswith(SOCIAL)
 
 
 def problems(design: dict) -> list[str]:
@@ -46,7 +51,7 @@ def problems(design: dict) -> list[str]:
     if not 3 <= len(scenarios) <= 6:
         out.append(f"{len(scenarios)} scenarios; the board expects 3 to 6")
     channels = [str(c).lower() for c in (design.get("channels") or ["Web chat"])]
-    writes_first = any(c.startswith(SOCIAL + EMAIL) for c in channels)
+    writes_first = any(is_social(c) or c.startswith(EMAIL) for c in channels)
     can_hide = all(c.startswith(BUTTONS) for c in channels)
     for s in scenarios:
         sid = s.get("id")
@@ -80,10 +85,19 @@ def channel_card(channels: list[str]) -> str:
     for name in channels:
         c = name.lower()
         rich = c.startswith(BUTTONS)
+        listed = c.startswith(TEXT_LIST)
+        if listed:
+            quick = "plain list of the values to type back"
+        elif c.startswith("whatsapp"):
+            quick = "3 or fewer: buttons, 4 to 10: a menu; labels 20 characters"
+        elif rich:
+            quick = "buttons"
+        else:
+            quick = "buttons, labels 20 characters or the set becomes a plain list"
         chips = [
-            ("Quick replies", "buttons" if rich else "numbered list to type back"),
+            ("Quick replies", quick),
             ("Typing", "can be hidden on an ask" if rich else "always open"),
-            ("Who starts", "customer, no greeting" if c.startswith(SOCIAL + EMAIL) else "greeting, or customer with a start event"),
+            ("Who starts", "customer, no greeting" if is_social(c) or c.startswith(EMAIL) else "greeting, or customer with a start event"),
             ("Progress messages", "if turned on" if rich else "none"),
         ]
         if c.startswith(EMAIL):
@@ -108,7 +122,7 @@ def bubble(turn: dict, listed: bool, index: int, email: bool = False) -> str:
     if options and turn.get("hide_keyboard") and not listed:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div><div class='img'>Typing off: tap an option</div>")
     elif options and listed:
-        parts.append("<div class='list'>" + "<br>".join(f"{i}. {e(o)}" for i, o in enumerate(options, 1)) + "</div>")
+        parts.append("<div class='list'>" + "<br>".join(e(str(o)) for o in options) + "</div>")
     elif options:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div>")
     if email:
@@ -223,7 +237,7 @@ def js(value) -> str:
 
 def render(design: dict, warnings: list[str]) -> str:
     channels = design.get("channels") or ["Web chat"]
-    listed = not any(c.lower().startswith(BUTTONS) for c in channels[:1])
+    listed = any(c.lower().startswith(TEXT_LIST) for c in channels[:1])
     email = str(channels[0]).lower().startswith(EMAIL)
     notes = "".join(f"<li>{e(n)}</li>" for n in design.get("notes") or [])
     scenarios = design.get("scenarios") or []
