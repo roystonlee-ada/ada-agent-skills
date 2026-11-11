@@ -9,10 +9,10 @@ Last checked against docs.ada.cx release notes: 07/11/2026.
 
 ## What each channel can show
 
-| Feature | Web Chat and Messaging SDK | Social (WhatsApp, Messenger, Instagram, LINE, SMS) | Email | Source |
+| Feature | Web Chat and Messaging SDK | Social and SMS (WhatsApp, Messenger, Instagram, LINE, SMS) | Email | Source |
 |---|---|---|---|---|
-| ASK step shows accepted values as quick replies | Yes | Yes: WhatsApp, Messenger, Instagram, LINE, Telegram, Viber and X through Sunshine Conversations, native Instagram, and Twilio WhatsApp and Messenger. SMS and Apple Messages keep a text list | No buttons: a text list | [Step reference: quick replies for accepted values](https://docs.ada.cx/docs/automation/playbooks/step-reference#quick-replies-for-accepted-values), [Ask steps can show accepted values as quick replies](https://docs.ada.cx/2026-08-11-playbooks-ask-quick-replies) |
-| Quick-reply label limits | 20 characters | Instagram 20 characters. WhatsApp shows 3 or fewer options as buttons and more as a menu, labels up to 20 or 24 characters. A label too long, two labels alike, or too many options sends the whole set as a text list | n/a | Same step reference |
+| ASK step shows accepted values as quick replies ("Map the answer using reasoning", one variable, 2 or more values) | Yes, in list order | Not supported yet. The agent asks the question and the customer types the answer | Not supported yet: same as social | [Step reference: quick replies for accepted values](https://docs.ada.cx/docs/automation/playbooks/step-reference#quick-replies-for-accepted-values) |
+| Quick-reply limits | Shows up to 10 options. A value or label can be up to 256 characters | n/a | n/a | Same step reference |
 | Hide keyboard input on an ASK with quick replies (the customer must tap) | Yes, off by default. The message box returns after a tap | No: the message box stays | No | [Step reference: Ask](https://docs.ada.cx/docs/automation/playbooks/step-reference#ask), [Release note](https://docs.ada.cx/2026-11-05-playbooks-ask-hide-keyboard-input) |
 | Progress messages while a tool runs (a short line after 10 seconds, then every 20) | Yes, one AI Agent setting, off by default | No | No | [Step reference: progress messages](https://docs.ada.cx/docs/automation/playbooks/step-reference#progress-messages-while-a-tool-runs), [Release note](https://docs.ada.cx/2026-11-06-progress-messages-while-a-tool-runs) |
 | Customer writes first, and the playbook reads that first message | Only when a conversation start event is set | Yes | Yes | [Conversation start events for Playbooks](https://docs.ada.cx/2026-08-04-conversation-start-events) |
@@ -37,11 +37,12 @@ Last checked against docs.ada.cx release notes: 07/11/2026.
 
 ## What this means on the board
 
-- Quick replies: write `options` once. Web Chat and social channels draw
-  them as buttons; SMS, Apple Messages and Email get a numbered list to type
-  back. Keep every label at 20 characters or less and unlike the others, so
-  the set stays buttons on every channel. A typed answer always has to work
-  on every channel except Web Chat with hidden keyboard input.
+- Quick replies: write `options` once. Web Chat and the Messaging SDK draw
+  them as buttons. Every other channel gets the question with a numbered
+  list to type back, because the docs do not support quick replies there
+  yet. Keep labels at 20 characters or less so they read as short buttons
+  (a design rule; the platform allows 256). A typed answer always has to
+  work on every channel except Web Chat with hidden keyboard input.
 - Hidden keyboard input: set `"hide_keyboard": true` on a bot turn only when
   every answer is one of its `options` and the board's channels are Web Chat
   or the Messaging SDK alone. Give the customer an option for "something
@@ -70,7 +71,7 @@ not designed for in a while:
    loses a feature; a new start event; a new variable a step can read.
 3. Add each as a table row or bullet with its docs.ada.cx link, and add or
    change the "What this means on the board" line it needs. When a feature
-   reaches a new channel, change that cell, and update `TEXT_LIST` in
+   reaches a new channel, change that cell, and update `BUTTONS` in
    `scripts/board.py` if the board should draw buttons or a list there.
 4. Update the "Last checked" date.
 

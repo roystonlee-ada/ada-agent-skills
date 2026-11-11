@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.07.2
+
+- `design-conversation` designs to what each channel can show today. New `references/channel-features.md` lists the published features that change a sample conversation, per channel, each with its docs.ada.cx source: quick replies on ASK steps (Web Chat and the Messaging SDK only), hidden keyboard input, progress messages while a tool runs, who writes first, greetings, images, and email variables and trusted senders. It also has the steps to refresh it from the release notes, so a new feature changes one file.
+- New design rules: on Email and social channels, and on Web Chat with a conversation start event, every scenario starts with the customer's message, with no greeting. A bot turn can set `hide_keyboard` only on Web Chat and the Messaging SDK. A slow API or code tool shows a progress line when progress messages are on.
+- The board script draws options as buttons on Web Chat and the Messaging SDK and as a numbered list everywhere else. It warns when an email or social scenario starts with the bot, when an `options` list has fewer than 2 or more than 5 labels or a label over 20 characters, and when `hide_keyboard` is on a channel that keeps the message box.
+
 ## 2026.11.07.1
 
 From a customer's review of the skills (07/11/2026). Each change was checked against the adacli 1.4.0 source or the platform code first.

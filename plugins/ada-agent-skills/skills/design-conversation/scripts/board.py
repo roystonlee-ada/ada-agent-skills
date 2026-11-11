@@ -23,13 +23,12 @@ import webbrowser
 
 BLOCK_RE = re.compile(r"<<<ADA-DESIGN>>>\s*(\{.*?\})\s*<<<END-ADA-DESIGN>>>", re.S)
 HOME = pathlib.Path.home() / ".ada-architect"
-# Channels that get options as a numbered text list instead of buttons. Keep in
-# step with references/channel-features.md: change it only when docs.ada.cx does.
-TEXT_LIST = ("sms", "email", "apple messages")
+# Channels that draw ASK options as quick-reply buttons and can hide keyboard
+# input. Every other channel gets a numbered list to type back. Keep in step
+# with references/channel-features.md: change it only when docs.ada.cx does.
+BUTTONS = ("web", "messaging sdk", "sdk")
 SOCIAL = ("messenger", "whatsapp", "instagram", "line", "telegram", "viber", "x (twitter)", "twitter", "apple messages", "sms")
 EMAIL = ("email",)
-# Channels where an ASK can hide keyboard input (references/channel-features.md).
-HIDE_KEYBOARD = ("web chat", "web", "messaging sdk", "sdk")
 e = html.escape
 
 
@@ -48,7 +47,7 @@ def problems(design: dict) -> list[str]:
         out.append(f"{len(scenarios)} scenarios; the board expects 3 to 6")
     channels = [str(c).lower() for c in (design.get("channels") or ["Web chat"])]
     writes_first = any(c.startswith(SOCIAL + EMAIL) for c in channels)
-    can_hide = all(c in HIDE_KEYBOARD for c in channels)
+    can_hide = all(c.startswith(BUTTONS) for c in channels)
     for s in scenarios:
         sid = s.get("id")
         turns = s.get("turns") or []
@@ -191,7 +190,7 @@ def js(value) -> str:
 
 def render(design: dict, warnings: list[str]) -> str:
     channels = design.get("channels") or ["Web chat"]
-    listed = any(c.lower().startswith(TEXT_LIST) for c in channels[:1])
+    listed = not any(c.lower().startswith(BUTTONS) for c in channels[:1])
     notes = "".join(f"<li>{e(n)}</li>" for n in design.get("notes") or [])
     scenarios = design.get("scenarios") or []
     tabs = ["<button class='on' data-tab='overview'>Overview</button>"]
