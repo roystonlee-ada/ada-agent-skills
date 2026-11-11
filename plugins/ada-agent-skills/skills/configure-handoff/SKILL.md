@@ -118,11 +118,21 @@ pass, so the person can see what you ruled out.
    the off-hours dialog, the error fallback and each block's fallback answer.
    An error fallback handoff runs when a handoff block fails. A customer who
    sees the wrong text is a wording or fallback problem, not a connection
-   problem. A branch no option reaches is dead.
+   problem. A branch no option reaches is dead. Every Conditional block in
+   the handoff needs an Else. When no If matches and there is no Else, the
+   block does nothing, so a customer whose variables miss every condition (a
+   new channel, a language, an empty value) gets no handoff block and no
+   message. Give the Else the handoff block most customers should get, or a
+   message that says plainly what to do next.
 7. **Return path.** Ada must learn when the agent finishes. This needs the
    platform's close event, a webhook or relay app that reaches Ada, and a
    status the platform actually sets. Without it the customer waits, or Ada
-   stays paused.
+   stays paused. When the human agent leaves, chat shows the Human Agent
+   survey, which is set apart from the AI Agent survey (Config > AI AGENT >
+   CSAT, Human Agent tab). Check it is on if the person wants the human
+   agent rated on its own. If a handoff can end without reaching a person,
+   set a variable on that path and add a Human Agent survey suppression rule
+   that matches it, so no one rates an agent they never met.
 
 When a platform file lists no symptoms, run the chain above and the platform's
 setup summary as the checklist.

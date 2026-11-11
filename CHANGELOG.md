@@ -10,6 +10,20 @@ each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 - `author-playbook` no longer says Messenger, Instagram, LINE and WhatsApp draw quick-reply buttons. The docs.ada.cx step reference supports quick replies on Web Chat and the Messaging SDK only, and says other channels are not supported yet. The label rules stay as design rules: 20 characters or less, all different, 10 values or fewer.
 - `configure-handoff` no longer calls the Salesforce SMTP Connector early access. Its live docs page is in the docs menu and has no Early Access label.
 
+## 2026.11.11.4
+
+- `voice-playbook-builder` lists the SMS opt-out words (`STOP`, `UNSUBSCRIBE`, `END`, `QUIT`, `STOPALL`, `CANCEL`, `REVOKE`, `OPTOUT`), warns against texts that ask for one of them as a reply, and says that with your own SMS channel your provider handles opt-outs. Source: docs.ada.cx, SMS consent and Voice onboarding.
+
+## 2026.11.11.2
+
+- `configure-handoff` checks that every Conditional block in a handoff has an Else. With no Else, a customer who matches no condition gets no handoff and no message. Source: docs.ada.cx, handoff Conditional block.
+- `configure-handoff` checks the Human Agent CSAT survey on the return path. It rates the human agent apart from the AI Agent survey, and a suppression rule keeps it from showing when the handoff never reached a person. Source: docs.ada.cx, CSAT survey configuration.
+
+## 2026.11.11.1
+
+- `design-conversation` designs flows where a code tool emails the customer mid-chat (a one-time code, a confirmation, a receipt). The bot turn says the email went out and names the address in part, every such flow gets a "didn't get it" scenario, and a failed send never reads as sent.
+- `author-playbook` has a new `references/code-tool-email.md` for `send_email` in a code tool: branch on `sent`, keep a one-time code in a variable the agent cannot read, the per-conversation, per-address and per-agent limits, and how a test run treats a send. Source: docs.ada.cx, code tools, "send_email".
+
 ## 2026.11.07.2
 
 - `design-conversation` designs to what each channel can show today. New `references/channel-features.md` lists the published features that change a sample conversation, per channel, each with its docs.ada.cx source: quick replies on ASK steps, hidden keyboard input, progress messages while a tool runs, who writes first, greetings, images, and email variables and trusted senders. It also has the steps to refresh it from the release notes, so a new feature changes one file.
