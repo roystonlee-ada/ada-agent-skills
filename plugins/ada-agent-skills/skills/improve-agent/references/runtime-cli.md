@@ -57,7 +57,7 @@ safe.
 | Ids for sampling | `conversations search ... --all --limit 200 --json` |
 | Read a sample (step 6) | `conversations details <id> --json` for the summary, resolution and handoffs. `conversations log <id>` for messages and reasoning together. `conversations handoffs <id> --json` for each attempt's target, outcome, reason code and reasoning. `conversations diagnose <id> --json` names the failure surface |
 | Topics and intents | `topics list --json`, and `topics class --help` for intents. `analytics topics` ranks topics by volume. Use the values in `--topic` and `--intent` |
-| Is the knowledge there | `knowledge list`, and `knowledge probe` to see which articles rank for a customer's question |
+| Is the knowledge there | `knowledge list` for the titles. To see what a customer's question retrieves, ask it with `chat talk` and read the reply (adacli 0.13.1 removed `knowledge probe`) |
 | Is there a tool for the task | `actions list`, `code-tools list`, `mcp list` (see `mcp --help`). `handoffs list` for the destinations |
 | A fix rate from a past change | `changesets compare <id>` for a promoted or rolled-out change of the same kind, over a date range. `testing runs` for a test run on cases from the cluster |
 | Links | `https://<instance>.ada.support/insights/conversations/<id>`, built from the id. Mark each link opened or ASSUMED |

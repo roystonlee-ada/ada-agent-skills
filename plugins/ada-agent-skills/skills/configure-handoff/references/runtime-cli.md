@@ -9,16 +9,16 @@ real instances on 28/10/2026. Replace
 Contents: command table, what this route cannot do, reading a handoff,
 reading a schedule, return path proof, testing.
 
-Log in first with `adacli <instance> login`, then confirm with
-`adacli <instance> status`. A login error with exit code 3 means log in again.
+Log in first with `adacli <instance> login`, then confirm the session.
+`adacli <instance> status --json` exits 0 even when logged out, so read its `status`: only `connected` means the session works (`not_logged_in` and `session_invalid` both mean log in again). In a script, run a cheap read such as `adacli <instance> knowledge list --limit 1 --json` and treat exit code 3 as logged out.
 
 | Step | Command |
 |---|---|
 | List handoffs | `adacli <instance> handoffs list --json` |
 | Read one handoff, block tree included | `adacli <instance> handoffs get <id> --json` |
 | Back up before a write | `adacli <instance> handoffs get <id> --json > backup.json` |
-| Back up the whole config | `adacli <instance> snapshot export --include handoffs -o backup.json` |
-| Diff a backup against live | `adacli <instance> snapshot diff backup.json` |
+| Back up the whole config | `adacli <instance> snapshot export -o backup/` (a folder; name it `backup.tar.gz` for one archive file) |
+| Diff a backup against live | Export again to a second folder, then `diff -r backup/ now/`. adacli 1.0 removed `snapshot diff`. `snapshot import <backup> --dry-run` only validates |
 | List integrations and state | `adacli <instance> handoffs integrations list --json` |
 | Read one integration | `adacli <instance> handoffs integrations get <integration> --json` |
 | List helpdesk groups | `adacli <instance> handoffs integrations groups <integration>` |
@@ -118,8 +118,9 @@ there is not a broken link.
 - `adacli <instance> chat` runs as a real chatter. ASSUMED unsafe for a
   handoff: it may reach the live helpdesk. Do not use it to test a handoff to
   a live queue.
-- `adacli <instance> testing` runs saved cases. ASSUMED to mock handoffs the
-  same way simulations do. Confirm on the first run that the result shows a
+- `adacli <instance> testing` runs saved cases as simulations, so handoffs
+  and Send Email app steps are mocked. A Salesforce email handoff is not, and
+  sends for real. Confirm on the first run that the result shows a
   simulated handoff, not a platform ticket.
 - `adacli <instance> conversations handoffs <conversation-id>` after a real,
   approved test shows target, outcome and reason code.

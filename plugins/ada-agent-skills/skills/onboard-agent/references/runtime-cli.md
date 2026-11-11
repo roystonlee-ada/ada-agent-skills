@@ -14,15 +14,15 @@ Make every call read-only.
 
 | Evidence | Command | What to read |
 |---|---|---|
-| Connection works | `adacli <instance> status --json` | `status` is anything but `not_logged_in`. Otherwise `setup-adacli`. Also read `read_only`: `true` means every write step below is refused, so onboarding can only report |
+| Connection works | `adacli <instance> status --json` | `status` is `connected`. Anything else (`not_logged_in`, `session_invalid`) means `setup-adacli`, because the command exits 0 either way. Also read `read_only`: `true` means every write step below is refused, so onboarding can only report |
 | Foundation, languages, redactions, channels (read first) | `adacli <instance> client show --json` (`client info` is an alias) | One call returns these keys, seen on real instances: `bot_persona`, `language`, `translated_languages`, `auto_translation`, `redactions`, `custom_redactions`, `image_redactions`, `platforms`, `scheduled_block_schedules`. What each key holds is inferred from its name (ASSUMED). The output also holds a token field. Select only the keys you need, for example with `jq`, and never print or save the whole output |
 | Company description, persona (extra detail) | `adacli <instance> client persona show --json` | `company_description`, `personality`, `message_length`, `instructions`. Use it where the account allows it |
-| Languages (extra detail) | `adacli <instance> snapshot export --include languages --json` | The `languages` key under `config`. The command exports a configuration snapshot to the terminal and changes nothing. `languages list` only prints the 60 supported languages, so do not read it as the enabled set |
+| Languages (extra detail) | `adacli <instance> snapshot export --json` | The `languages` key under `config`. The command exports a configuration snapshot to the terminal and changes nothing. `languages list` only prints the 60 supported languages, so do not read it as the enabled set |
 | Redactions (extra detail) | `adacli <instance> redactions list --json` | `builtin` (each `key` and whether `active`) and `custom` |
 | Glossary | `adacli <instance> glossary list --json --size 100` | Count and terms. Page with `--page` |
 | Knowledge sources | `adacli <instance> knowledge sources list --json` | Each source and its sync state |
 | Knowledge total | `adacli <instance> knowledge list --limit 1 --json` | `meta.total_items` (the table view prints "(N total)") |
-| Knowledge coverage | `adacli <instance> knowledge probe --query "<question>" --json` | The articles that rank for the question. Run one per top question |
+| Knowledge coverage | `adacli <instance> knowledge list --json` (paged) for the article titles | adacli 0.13.1 removed `knowledge probe`, and no command shows which articles rank for a question. To check one, ask the question with `chat talk` or in a test run and read the reply |
 | Handoffs | `adacli <instance> handoffs list --json` | Each handoff and whether it is live |
 | Handoff platforms | `adacli <instance> handoffs integrations list --json`, then `handoffs integrations get <integration> --json` | Which integration is configured and enabled |
 | Handoffs working | `adacli <instance> conversations search --handoff --since 30d --json`, and again with `--test-users` | `total` |

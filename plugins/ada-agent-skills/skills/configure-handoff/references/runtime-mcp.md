@@ -14,7 +14,7 @@ instance. Your host may prefix the tool names.
 | Count handoff outcomes | `get_conversations` with `detail_level: IDS_ONLY`, both dates, and a `HANDOFF` filter (`IS`, `true`). Add `CHANNEL` to narrow |
 | Read one handoff attempt | `get_conversation`. The transcript holds the handoff event with its target, outcome and reason |
 | Include test conversations | Add the `ISTESTUSER` filter. They are excluded by default |
-| Simulate the trigger | `simulate_conversation`. Handoff blocks are replaced by a mock, so nothing reaches the helpdesk |
+| Simulate the trigger | `simulate_conversation`. Handoff blocks are replaced by a mock, so nothing reaches the helpdesk. A Salesforce email handoff has no mock and sends for real |
 | Check a playbook change | `list_agent_changesets`, and `edit_agent_behavior` with `operation: update` for a playbook that routes to a handoff |
 
 ## What this route cannot do

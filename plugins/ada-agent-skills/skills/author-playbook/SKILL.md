@@ -108,6 +108,10 @@ says where it is). Then work from the design, not from the last comment:
   Normal, because High is slower and has no second model behind it. Test, don't
   assume: in our runs High fixed date arithmetic and only added time elsewhere,
   but those cases were easy. Put date arithmetic in a code tool (section 3).
+- Before you stage, read `references/build-pitfalls.md`. It lists the build
+  mistakes that broke live playbooks (copying a variable, empty `else`
+  branches, go-tos after an insert, `only_when_needed`, short-code matching)
+  and the safe way to build each.
 
 ## 3. When to use a code tool
 

@@ -28,8 +28,9 @@ check or the attribution table, and before recommending a revert.
 ## Preconditions
 
 - The changeset is `testing` and passed the checks in `ada-promote-changeset` step 1.
-- Sampled rollouts on the instance add up to 100% or less. Read each active
-  rollout's percentage from the changeset list.
+- Sampled rollouts on the instance add up to 90% or less, because 10% of
+  traffic always stays on the live config. Read each active rollout's
+  percentage from the changeset list.
 - The person asked for this step in chat. Starting or raising a rollout puts the
   change in front of real customers. Stopping one never needs a second ask.
 
@@ -45,7 +46,7 @@ Before starting, ask the person which they want, and recommend one with a reason
   instance where the stepped hold times would take days.
 
 If they give a number, use it as the only stage. Keep the same stop check and
-the 100% cap across active rollouts, and tell them how many chats at that
+the 90% cap across active rollouts, and tell them how many chats at that
 percent the stop check needs and roughly how long that takes at current volume.
 
 ## The stepped ramp
@@ -63,7 +64,9 @@ volume, and say so.
 
 Start, raise or stop a stage as the runtime file says. Set the conversation cap
 high enough to reach the stage minimum, because the rollout completes the
-moment the cap is hit.
+moment the cap is hit. Nothing announces it: `rollout.status` turns
+`completed`, the changeset stays in testing and gets no more traffic. Read the
+status at every check, and start the next stage or report when it completes.
 
 ## At each stage
 

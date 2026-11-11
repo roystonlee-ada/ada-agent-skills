@@ -18,11 +18,16 @@ Rules:
   A2  FAIL  a yes/no ASK never says that an error, problem or restriction means "no"
             (checked only when the question asks whether something worked or was done)
   A3  FAIL  the instruction tells the model to repeat the question as it was
-  A4  WARN  the instruction says to accept any answer or never re-ask (it also turns
-            off the off-topic and Q&A controls for the step, so keep it only on purpose)
+  A4  WARN  max_reask_attempts is 0 and the ask has no fallback value, and a later action
+            runs with no "is null" check on the variable in between. One non-answer
+            ("thanks, that's all", a bare "yes") leaves the variable empty and the
+            playbook moves on, so the action runs without it
   A5  WARN  contextual ASK with values and no line on how to word a re-ask
   A6  WARN  no max re-ask attempts set (default is 3, so the customer is asked 4 times)
   A7  WARN  ASK with values and no fallback value
+  A8  WARN  the instruction says to accept any answer or never re-ask. The extraction
+            prompt then drops the off-topic and Q&A statuses for the step, though live
+            chats still answered side questions. Keep it only on purpose
 """
 import json
 import re
@@ -64,6 +69,85 @@ def asks(node):
     elif isinstance(node, list):
         for value in node:
             yield from asks(value)
+
+
+def flat_steps(node):
+    """Every step in printed order: a branch's steps follow its if_else."""
+    if isinstance(node, dict):
+        if "type" in node and isinstance(node.get("type"), str):
+            yield node
+            for branch in node.get("branches") or []:
+                yield from flat_steps(branch.get("steps") or [])
+            yield from flat_steps(node.get("steps") or [])
+            return
+        for key in ("sections", "steps", "fields", "content", "playbook", "data", "changes"):
+            if key in node:
+                yield from flat_steps(node[key])
+    elif isinstance(node, list):
+        for value in node:
+            yield from flat_steps(value)
+
+
+def conditions_of(step):
+    for branch in step.get("branches") or []:
+        stack = [branch]
+        while stack:
+            group = stack.pop()
+            yield from group.get("conditions") or []
+            stack.extend(group.get("groups") or [])
+
+
+def guards(step, var):
+    """Whether an if_else tests the variable for null or blank."""
+    return any(
+        c.get("left_operand") == var and (
+            c.get("comparison_operator") in ("is null", "is not null")
+            or (c.get("comparison_operator") in ("is", "is not") and c.get("right_operand") == ""))
+        for c in conditions_of(step))
+
+
+def playbooks(node):
+    """Each playbook (a dict with sections) in the file, or the whole file when none."""
+    found = []
+    stack = [node]
+    while stack:
+        item = stack.pop()
+        if isinstance(item, dict):
+            if "sections" in item:
+                found.append(item)
+                continue
+            stack.extend(item.values())
+        elif isinstance(item, list):
+            stack.extend(item)
+    return found or [node]
+
+
+def unguarded_actions(doc):
+    """(ask, variable, action) for each zero-re-ask ask with no fallback whose next action
+    runs with no null check on the variable in between."""
+    found = []
+    for playbook in playbooks(doc):
+        found.extend(unguarded_in(list(flat_steps(playbook))))
+    return found
+
+
+def unguarded_in(steps):
+    found = []
+    for i, step in enumerate(steps):
+        if step.get("type") != "ask" or step.get("max_reask_attempts") != 0:
+            continue
+        inputs = step.get("inputs") or [step]
+        for inp in inputs:
+            var = inp.get("variable_id")
+            if not var or inp.get("fallback_value") or step.get("fallback_value"):
+                continue
+            for later in steps[i + 1:]:
+                if later.get("type") == "if_else" and guards(later, var):
+                    break
+                if later.get("type") == "run" and later.get("target_type") == "action":
+                    found.append((step, var, later))
+                    break
+    return found
 
 
 def values_of(step):
@@ -128,7 +212,7 @@ def problems(step):
     if VERBATIM.search(text):
         out.append(("FAIL", "A3", "tells the model to repeat the question as it was"))
     if ACCEPT_ANY.search(text):
-        out.append(("WARN", "A4", "accept-any-answer or never-re-ask wording"))
+        out.append(("WARN", "A8", "accept-any-answer or never-re-ask wording"))
 
     if values and not exact and step.get("question_phrasing") != "exact_words":
         if not REASK_LINE.search(text):
@@ -166,10 +250,16 @@ def main(argv):
         if active_only and isinstance(doc, dict) and doc.get("is_active") is False:
             continue
         name = doc.get("name") if isinstance(doc, dict) else None
+        zero_reask = {}
+        for ask, var, action in unguarded_actions(doc):
+            zero_reask.setdefault(id(ask), []).append(
+                ("WARN", "A4", f"max_reask_attempts 0 and no fallback: one non-answer leaves "
+                               f"{var} empty and action {action.get('target_id')} "
+                               f"[{action.get('id')}] runs with no 'is null' check"))
         for step in asks(doc):
             checked += 1
             head = " ".join((step.get("instruction") or "").split())[:70]
-            for level, rule, msg in problems(step):
+            for level, rule, msg in problems(step) + zero_reask.get(id(step), []):
                 per_rule[(level, rule)] = per_rule.get((level, rule), 0) + 1
                 if level == "FAIL":
                     fails += 1

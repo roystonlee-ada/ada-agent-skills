@@ -27,7 +27,7 @@ instance.
 | Save a test case | `adacli <inst> testing cases create --from-json <file>` (set the voice channel on the case) |
 | Run cases on the changeset | `adacli <inst> testing runs create --cases <ids> --changeset <id>`. Run again without `--changeset` for live |
 | Read a run | `adacli <inst> testing runs get <run-id>`, then `python3 scripts/runsummary.py --instance <inst> --prefix <var prefix> <run ids>` |
-| Quick check in chat | `adacli <inst> chat talk --changeset <id> --var <name>=<value> --transport http`. Good for logic and wording, blind to voice behaviour |
+| Quick check in chat | `adacli <inst> chat talk --changeset <id> --var <name>=<value>`. Good for logic and wording, blind to voice behaviour |
 | Read a call in full | `python3 scripts/monitor.py --instance <inst> --conversations <id> --detail`. Or `adacli <inst> conversations get <id>` |
 | Read real calls through a playbook | `python3 scripts/monitor.py --instance <inst> --playbook <id> --start <date>` |
 | Test an action with literal values | `python3 scripts/action_test.py --instance <inst> --action <id> --set <var id>=<value>` |

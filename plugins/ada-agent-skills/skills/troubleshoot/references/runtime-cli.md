@@ -10,7 +10,7 @@ the default US region, pass the full domain (for example
 | Need | Command |
 |---|---|
 | Log in (device code, works for SSO and MFA accounts) | `adacli <handle> login` |
-| Session health and connectivity | `adacli <handle> status --json` |
+| Session health and connectivity | `adacli <handle> status --json`. It exits 0 even when logged out, so check that `status` is `connected` |
 | Instance details | `adacli <handle> client show --json` |
 | Bundled guide | `adacli docs guide` |
 
@@ -26,7 +26,7 @@ inactivity timeout.
 | Team members and roles | `adacli <handle> team list --json`, `team get <id> --json` |
 | Knowledge sources, status and last sync | `adacli <handle> knowledge sources list --json` |
 | Changesets | `adacli <handle> changesets list --status testing --json`, then `changesets get <id> --diff` |
-| Diff a saved snapshot against live | `adacli <handle> snapshot diff <file>` |
+| Diff a saved snapshot against live | Export again to a second folder, then `diff -r <old>/ <new>/`. adacli 1.0 removed `snapshot diff` |
 | Export conversations to a file | `adacli <handle> conversations export --since 30d -o <file>` |
 
 `conversations export` pages best-effort. A page can repeat or skip rows while
@@ -62,7 +62,7 @@ first.
 | Change a role | `adacli <handle> team update-role <id> --role <role>` |
 | Remove a team member | `adacli <handle> team remove <id>` |
 | Re-crawl a website import | `adacli <handle> knowledge sources sync <id>` |
-| Change a website import's schedule | `adacli <handle> knowledge sources update <id> --sync daily` (daily, weekly or never) |
+| Change a website import's schedule | `adacli <handle> knowledge sources update <id> --sync daily` (daily, weekly or never). Where `knowledge sources update --help` lists them, set the hours and days instead with `--sync-at <hours> --sync-days <days> --timezone <zone>`. A flag left out keeps its saved value, and `--sync` cannot be combined with these |
 | Enable or disable a channel | `adacli <handle> channels enable <name>` or `channels disable <name>` |
 | Build a revert of a promoted changeset | `adacli <handle> changesets revert <id> --name <name>` |
 
@@ -82,9 +82,9 @@ schedule.
 ## Snapshot as a backup
 
 `adacli <handle> snapshot export -o <file>` writes the content configuration.
-`--include` and `--exclude` narrow the resource types. The output shape
-depends on the adacli version (a JSON file in 0.13.0, an archive on newer
-builds), so ASSUMED: check `snapshot export --help` on the installed version.
+Since adacli 1.0 it writes the whole configuration as a folder, or as one
+archive when the path ends in `.tar.gz`. It has no `--include` filter. Check
+`snapshot export --help` on the installed version.
 
 A snapshot does not hold email inboxes and settings, blocked and trusted
 senders, API keys, webhooks, team, roles, SSO, session limits, MCP server

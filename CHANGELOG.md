@@ -4,6 +4,28 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.07.1
+
+From a customer's review of the skills (07/11/2026). Each change was checked against the adacli 1.4.0 source or the platform code first.
+
+- Removed adacli commands are gone from the skills. `snapshot diff` (removed in 1.0) becomes an export to a second folder and `diff -r`. `knowledge probe` (removed in 0.13.1) becomes `knowledge list` plus asking the question in `chat talk`. `snapshot export --include` and `chat talk --transport` no longer exist, so they are dropped too.
+- `troubleshoot` adds the knowledge sync schedule flags (`--sync-at`, `--sync-days`, `--timezone`) next to `--sync`, which still works.
+- Logged-in checks read `status --json` for `connected`, because `status` exits 0 when logged out. Scripts can treat exit 3 on a cheap read as logged out (`setup-adacli`, `configure-handoff`, `troubleshoot`, `onboard-agent`, `create-verification-skill`).
+- `ada-rollout-changeset` uses the 90% cap across active rollouts (10% always stays on live) and says that a rollout completes silently when it hits its conversation cap.
+- `ada-promote-changeset` checks `status: promoted` in the JSON, not the exit code, explains the stale-copy warning and says to keep one open changeset per entity.
+- `refresh-intent-taxonomy` lists the intent recommendation commands added in adacli 1.2.0.
+- `author-playbook` has a new `references/build-pitfalls.md` with eight checked build mistakes, and the test-case guide says to leave an empty variable out instead of presetting `""`.
+- `check_ask_instructions.py` rule A4 now flags an ASK with zero re-asks and no fallback when a later action runs with no `is null` check. The old accept-any wording warning moves to A8 with softer wording. Tests in `evals/test_check_ask_instructions.py`.
+- `improve-agent` sizing adds a known-positive and empty-input check for text-matching counts, and says to cover every language. `test-and-fix` says what to do when the test quota reads far below 3,000.
+- New `evals/check_cli_commands.py` checks every adacli command and flag the skills name against `agent-context`, and diffs command lists after an upgrade. Baseline in `evals/adacli-commands.json`.
+
+Checked on a sandbox (07/11/2026) and added:
+
+- `author-playbook` build pitfalls add three rows. A yes/no pill prints `True` or `False` in a send. A full-sections stage that leaves out `reasoning_level` turns a High step into Normal with no warning, so start from `export-steps --sections`, which carries it. An action output's `variable_name` takes the variable ID, and a name there makes every call fail.
+- The test-case guide says a mocked tool that runs writes its answer over a preset variable.
+- `test-and-fix` `safe-to-run.md` and `configure-handoff` say a Send Email app step is mocked in a test run, and a Salesforce email handoff is not: it sends for real.
+- `diagnose-conversation` reads what a SET or tool wrote from `conversations reasoning --json`, because the text `conversations log` never prints variable values.
+
 ## 2026.11.06.4
 
 - `test-and-fix` accepts a customer's requirements sheet or doc as the anchor. Many customers keep "what good looks like" as one row per scenario. The new `references/anchor-from-sheet.md` covers reading the sheet, mapping its columns to case fields, showing the first rows for approval, and sending vague or contradictory rows back as questions instead of rewording them. Based on feedback from a Claude run on a customer sandbox (06/11/2026).
