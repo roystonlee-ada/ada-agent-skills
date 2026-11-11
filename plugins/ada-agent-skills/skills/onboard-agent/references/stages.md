@@ -1,4 +1,4 @@
-# The eight stages
+# The seven stages
 
 Contents: how to read a status, then one section per stage (why it matters,
 what done looks like, what to prepare, what proves the status, who takes
@@ -167,30 +167,7 @@ Reads: channels and their enabled state (CLI) or traffic by channel (MCP).
 Next: `references/channels.md` for each channel's route and dashboard step.
 Docs: `channels/overview`.
 
-## 6. Custom metrics
-
-Why: CSAT covers a small share of chats. A custom metric gives every ended
-chat a verdict, so you can see which fixes move outcomes.
-
-Done looks like:
-- At least one active metric the business would act on, and a scorecard if
-  the person wants one view.
-- The metric has graded conversations (a pass rate exists).
-
-Prepare: the two or three behaviours that matter (for example, never
-promises a refund the policy does not allow), and who acts on a failing
-verdict. A metric only grades chats that end after it is active, so set
-this up before launch if the person wants a baseline.
-
-Reads: custom metrics and their state; scorecards; a pass rate for a
-recent window. If the read returns FORBIDDEN or 403 "Feature not available",
-grade the stage Unknown and name Analytics > Metrics. The error text can say
-adacli is out of date. That is misleading, so do not act on it.
-
-Next: `ada-custom-metrics-setup`. Dashboard: Analytics > Metrics > New.
-Docs: `optimization/performance/custom-metrics`.
-
-## 7. Testing
+## 6. Testing
 
 Why: a test proves a use case once. Saved test cases prove it after every
 later change.
@@ -214,13 +191,13 @@ Docs limits: 1,000 test cases and 3,000 runs per day, up to 40 turns each,
 chat, email and voice only. Docs: `optimization/testing/simulations/overview`,
 `optimization/testing/interactive-testing`.
 
-## 8. Go-live review
+## 7. Go-live review
 
 Why: this is the person's decision, so give them the evidence in one
 place.
 
 Done looks like:
-- Stages 1 to 7 are Done or Not needed.
+- Stages 1 to 6 are Done or Not needed.
 - No changeset the person meant to ship is still waiting in Testing.
 - The person has approved launch scope: channels, traffic share, owner for
   the first week.
@@ -233,7 +210,7 @@ Reads: changesets by status; non-test conversation volume; the other
 stages' statuses.
 
 Next: `ada-promote-changeset` for any pending changeset. After launch,
-`review-handoffs` and `ada-custom-metrics-loop` keep improving the agent.
+`review-handoffs` and `improve-agent` keep improving the agent.
 Docs: `optimization/change-sets`.
 
 ## Connection and platform questions

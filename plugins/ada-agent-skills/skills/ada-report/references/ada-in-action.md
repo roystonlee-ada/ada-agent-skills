@@ -22,7 +22,6 @@ conversation's events, not from your guess about the setup.
 | A standing instruction shaped the tone or a limit | `guidance` | "Followed your standing rule on <subject>" |
 | The customer sent an image and the reply used what it showed | `image` | "Read the photo the customer sent" |
 | A code tool ran and its value appears in the reply | `code-tool` | "Worked out <value> for the customer" |
-| A custom metric verdict is on the conversation | `custom-metric` | "Scored against your <metric name> measure" |
 | A topic label is the point of a chart | `topics` | Use on the section, not a turn |
 
 ## Writing the moment label

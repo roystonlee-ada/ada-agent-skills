@@ -26,15 +26,12 @@ restate its steps here.
 | Changing or fixing an existing playbook | `revise-playbook` |
 | Why one conversation went wrong: a link, a wrong answer, a loop, an odd handoff | `diagnose-conversation` |
 | Failing tests, or a bad conversation to fix and retest until the use case passes | `test-and-fix` |
-| What to improve across the whole agent: handoffs, containment, CSAT and custom metrics together | `improve-agent` |
+| What to improve across the whole agent: handoffs, containment and CSAT together | `improve-agent` |
 | Why conversations hand off, counted by the recorded reason | `review-handoffs` |
 | What human agents do after a handoff, and which playbooks or articles could take it over | `mine-human-agent-conversations` |
 | A tested changeset that should go live | `ada-promote-changeset` |
 | Ramping a change on live traffic, or "should we revert" | `ada-rollout-changeset` |
 | Watching a playbook after launch, alert noise, a control set | `ada-playbook-monitor-loop` |
-| No custom metrics yet | `ada-custom-metrics-setup` |
-| Reviewing the scorecard | `ada-custom-metrics-improve` |
-| Looping on a failing metric | `ada-custom-metrics-loop` |
 | "How do we prove this works", a new code tool, a metric claim | `create-verification-skill` |
 | Not connected to Ada, or adacli missing | `setup-ada-mcp`, `setup-adacli` |
 

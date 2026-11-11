@@ -3,8 +3,8 @@ name: onboard-agent
 description: >
   Walk a person through setting up a new Ada AI Agent, one stage at a time,
   starting from what the live agent already holds. Reads the agent, marks each
-  stage (foundation, knowledge, handoff, actions and APIs, channels, custom
-  metrics, testing, go-live) Done, Partial or Not started with evidence, asks
+  stage (foundation, knowledge, handoff, actions and APIs, channels,
+  testing, go-live) Done, Partial or Not started with evidence, asks
   only what the config cannot tell, and hands the next stage to the skill that
   owns it. Use it when someone says "set up my new Ada agent", "I just got an
   Ada instance, what now", "onboard this agent", "what is left before go-live",
@@ -16,7 +16,7 @@ description: >
 
 # Onboard a new Ada agent
 
-A new agent needs about eight things in a sensible order, and people stall
+A new agent needs about seven things in a sensible order, and people stall
 because they cannot see which are done. The live agent already knows. So
 read it first, grade each stage from evidence, and ask only what the
 config cannot answer. That also makes the work resumable: the inventory is
@@ -38,7 +38,7 @@ Each step below names what to do, not a command. Read one file for how:
 
 ## 1. Inventory the live agent (read only)
 
-Read the evidence for all eight stages before you say anything. Open
+Read the evidence for all seven stages before you say anything. Open
 `references/stages.md` for what proves each status, and the runtime file for
 the call that reads it. Make no write in this step.
 
@@ -91,7 +91,6 @@ it to its skill by name. Hand over one stage at a time.
 | Handoff | `configure-handoff` |
 | Actions, APIs, first use cases | `design-conversation`, then `author-playbook`. Tools: dashboard Config > AI AGENT > Tools |
 | Channels | `references/channels.md`, then the dashboard step it names |
-| Custom metrics | `ada-custom-metrics-setup` |
 | Testing | `create-verification-skill`, then `test-and-fix` |
 | Go-live review | `ada-promote-changeset` |
 | Connection trouble | `setup-adacli` or `setup-ada-mcp` |

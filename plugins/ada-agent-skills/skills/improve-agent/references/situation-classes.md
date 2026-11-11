@@ -96,7 +96,6 @@ A complaint, a distressed customer, or a high-value case.
   make the customer repeat themselves, and pass a summary.
 - Metric moved: CSAT, and human handle time. Not containment.
 - Next skill: `revise-playbook` for the handoff step and its wording.
-  `ada-custom-metrics-improve` if a metric already scores these.
 - Do not rank by containment. These are not targets. Report the size so the
   person sees the share of the human workload they represent.
 
@@ -137,9 +136,6 @@ Not every cluster is a handoff. Place these the same way.
   they could use. Usually an information gap or an agent-resolvable gap.
 - Low CSAT without a handoff: read the comments. A wrong fact is an information
   gap. A cold or looping reply is design or routing.
-- Failing custom metric: if the metric is a fair judge, the cluster is a defect
-  of one of the classes above. If the judge is wrong, the next skill is
-  `ada-custom-metrics-improve`, which decides that.
 
 ## Mixed clusters
 

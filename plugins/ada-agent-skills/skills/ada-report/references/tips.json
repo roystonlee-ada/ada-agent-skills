@@ -47,12 +47,6 @@
     "why": "You find the biggest opportunity by volume, not by guessing.",
     "try": "Sort topics by volume, then look at the ones with the lowest resolution."
   },
-  "custom-metric": {
-    "name": "Your own quality measures",
-    "what": "A custom metric scores each conversation against a standard you set, such as whether the agent confirmed the refund amount.",
-    "why": "You track what matters to your business, not only generic scores.",
-    "try": "Add one measure for the outcome you most want to improve."
-  },
   "code-tool": {
     "name": "Small pieces of logic",
     "what": "A code tool is a short routine Ada runs mid-chat to work something out, such as a date, a total, or a reshaped answer from your system.",

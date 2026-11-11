@@ -28,8 +28,6 @@ needs dates.
 | Channels | `list_entities` with `entity_type: channels` | Name, `type` (native or custom), `modality`. There is no enabled flag |
 | Channel traffic | `get_ada_metric` with `metric_type: conversation_volume_opened` and a `CHANNEL IS <value>` filter | Real conversations on that channel. Values come from `get_available_filters` (for example chat, email, voice, sms, whatsapp). Test chats are excluded by default |
 | Languages seen | `get_ada_metric` with `conversation_volume_opened` and a `LANGUAGE IS <code>` filter | Traffic per language. It shows use, not what is enabled |
-| Custom metrics | `list_entities` with `entity_type: custom_metrics`, `detail: full`, then `scorecards` | `total_count`, and each metric's state if the record carries one |
-| Metric results | `get_ada_metric` with `metric_type: custom_metric_pass_rate` | A pass rate means the metric graded chats |
 | Test cases | `get_test_cases` with `group_by_last_run: true` | `total_count`, `last_run_at` per case. Page with `next_cursor` before you quote a total |
 | Test results | `get_test_runs` (latest per case by default), with `status_filter` if needed | Status and pass or fail for each case's latest run |
 | Test quota | `get_test_run_quota` | `runs_remaining` today |

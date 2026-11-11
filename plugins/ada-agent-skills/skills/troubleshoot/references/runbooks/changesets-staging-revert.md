@@ -15,7 +15,7 @@ promoted change. Promote and rollout stay with `ada-promote-changeset` and
 1. Staged on a changeset: knowledge articles, custom instructions, playbooks,
    API tools, code tools, MCP tools, MCP server connections, coaching and
    processes.
-2. Live at once, no changeset: topics, intents, custom metrics, scorecards,
+2. Live at once, no changeset: topics, intents,
    glossary terms, knowledge sources, variables and test cases. Channels,
    team, SSO, session limits, API keys, webhooks, allowed websites and email
    are dashboard or API settings with no changeset.

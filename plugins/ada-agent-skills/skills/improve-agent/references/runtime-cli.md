@@ -36,8 +36,6 @@ Contents:
 | Per topic: volume, automated resolution, containment, CSAT | `analytics topics --since 28d --json` | Per topic: `count`, `resolution_rate`, `resolution_rate_opportunity`, `containment_rate`, `csat_rate`, `csat_count`. Containment here is the share of the topic's conversations with no handoff. Whether the denominator is engaged conversations, as on the MCP, is ASSUMED, so confirm it with the counts below |
 | Population N | `conversations search --start <date> --end <date> --size 1 --json` | `total` is every non-test conversation. Test users are left out unless you pass `--test-users`. Do not use `--filter ENGAGED:IS:<value>` to split engaged from not: it returned the same count for true and false (observed). So N here is not engaged-only. Say so, and quote the dashboard's engaged count if the person has it. OPEN: a CLI route to the engaged count |
 | Handoff volume | `conversations search --handoff --start <date> --end <date> --size 1 --json` | Conversations escalated. Divide by N for the rate. Containment is then 1 minus that |
-| Custom metric results | `custom-metrics conversations <metric_id> --result fail --start YYYY-MM-DD --end YYYY-MM-DD --json` | Conversations by result. It includes test conversations, because the pass rate counts them. No command returns a pass rate, so count `pass` and `fail` and divide. Read `direction` in `custom-metrics get <id> --json` first: on a higher-is-worse metric a pass is the bad behaviour |
-| Scorecard results | `scorecards conversations <scorecard_id> --result fail --metric <metric_id> --json` | Conversations by scorecard result |
 
 Containment and automated resolution differ. Containment is not escalated.
 Automated resolution also needs the conversation to be relevant, accurate and
@@ -53,7 +51,6 @@ safe.
 | Count a cluster (step 5) | `conversations search --handoff --handoff-reason <code> --topic <topic> --start <date> --end <date> --size 1 --json` and read `total`. One conversation with two reasons counts under both |
 | Contained but not resolved | `conversations search --resolution not-resolved --filter HANDOFF:ISNOT:true --json` |
 | Low CSAT | `conversations search --csat 1 2 --json` |
-| Custom metric failures | `conversations search --custom-metric <id> --metric-result fail --json` |
 | Ids for sampling | `conversations search ... --all --limit 200 --json` |
 | Read a sample (step 6) | `conversations details <id> --json` for the summary, resolution and handoffs. `conversations log <id>` for messages and reasoning together. `conversations handoffs <id> --json` for each attempt's target, outcome, reason code and reasoning. `conversations diagnose <id> --json` names the failure surface |
 | Topics and intents | `topics list --json`, and `topics class --help` for intents. `analytics topics` ranks topics by volume. Use the values in `--topic` and `--intent` |
@@ -81,14 +78,8 @@ action block with Count as Handoff (`is_handoff`) off is invisible to the
 
 - `analytics summary` returns no containment, no handoff rate and no CSAT split.
   Derive them from counts.
-- No command returns a custom metric pass rate. Count the results. When the
-  read fails with FORBIDDEN or 403 "Feature not available", report the baseline
-  as not readable and point to the dashboard (Analytics > Metrics). Do not
-  report it as zero.
 - No command returns post-handoff handle time. Take it from the first and last
   agent message timestamps in the log.
-- `custom-metrics conversations` includes test conversations. Say the numbers
-  include them.
 
 The dashboard has the Reports pages for these. Give the person the page and the
 filter to open.

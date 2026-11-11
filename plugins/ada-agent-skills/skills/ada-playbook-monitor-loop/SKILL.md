@@ -35,7 +35,7 @@ Ada judges first. You judge only what Ada cannot see.
 | Check | Judge |
 |---|---|
 | Test case pass or fail | The test run's `criteria_results` |
-| Quality per chat (repeats, re-asks, false handoff claims, privacy) | Ada custom metrics, if the instance has active ones. A refusal or an empty list means judge from the transcript. |
+| Quality per chat (repeats, re-asks, false handoff claims, privacy) | Judge from the transcript. |
 | Anything outside the transcript (tool calls, KB facts, handoff summaries) | Read the reasoning log, then judge |
 
 ## 1. Discover
@@ -111,7 +111,7 @@ Each stage removes noise, so keep the order.
    - a funnel step drops against baseline. A silent drop-off sets off no bad-turn
      flag, so track completion as well as bad turns.
 7. **Rank** by affected chats times the gap. Drop what would not move
-   resolution, containment, CSAT or a custom metric.
+   resolution, containment or CSAT.
 
 A pass with nothing to raise says "no findings" in one line and stops.
 

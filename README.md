@@ -7,10 +7,10 @@ The guide picks the right skill, so you do not need to remember the skills.
 
 | Stage | Skills the guide sends you to |
 |---|---|
-| Set up | `onboard-agent`, `configure-handoff`, `ada-custom-metrics-setup`, `setup-adacli`, `setup-ada-mcp` |
+| Set up | `onboard-agent`, `configure-handoff`, `setup-adacli`, `setup-ada-mcp` |
 | Build | `design-conversation`, `author-playbook`, `voice-playbook-builder`, `help-center-to-kb-playbooks`, `ada-image-cards`, `create-verification-skill` |
 | Fix | `diagnose-conversation`, `test-and-fix`, `revise-playbook` |
-| Improve | `improve-agent`, `mine-human-agent-conversations`, `review-handoffs`, `ada-custom-metrics-improve`, `ada-custom-metrics-loop` |
+| Improve | `improve-agent`, `mine-human-agent-conversations`, `review-handoffs` |
 | Operate | `ada-promote-changeset`, `ada-rollout-changeset`, `ada-playbook-monitor-loop`, `ada-report`, `troubleshoot`, `ada-tune-reasoning-level` |
 
 If your request already names a stage or a skill, the guide steps aside and
@@ -49,7 +49,7 @@ instance.
 | `onboard-agent` | Set up a new agent stage by stage. It reads what is done and resumes where you stopped |
 | `configure-handoff` | Set up or fix handoff to Zendesk, Salesforce, Gladly, email and other platforms, one link of the chain at a time |
 | `test-and-fix` | Run a use case's tests, fix each failure on a changeset, and retest until all pass |
-| `improve-agent` | Rank improvements across the agent by how much each moves handoffs, containment, CSAT and custom metrics |
+| `improve-agent` | Rank improvements across the agent by how much each moves handoffs, containment and CSAT |
 | `troubleshoot` | Answer an Ada platform or account question with steps, downtime risk, rollback and a source |
 | `ada-tune-reasoning-level` | Choose which SET and ASK steps run at Reasoning level High, test each on its own inputs, and stage the change |
 | `design-conversation` | Design a new use case as sample conversations you approve before anything is built |
@@ -63,9 +63,6 @@ instance.
 | `ada-rollout-changeset` | Ramp a change onto live traffic in steps or at one percent you choose, and judge it against the baseline |
 | `ada-playbook-monitor-loop` | Test a playbook, watch real chats for verified problems, and stage tested fixes |
 | `create-verification-skill` | Write a `verify-<subject>` skill that defines "works" for one use case, code tool or number, and re-runs the proof after every change |
-| `ada-custom-metrics-setup` | For an agent with no custom metrics: read its chats and topics, use your industry as a guide, interview you where the evidence is thin, and propose a scorecard |
-| `ada-custom-metrics-improve` | Review the custom metrics on an agent, separate real defects from a bad judge, rank them by impact, and fix them as a changeset |
-| `ada-custom-metrics-loop` | Run the improvement loop on one metric or all of them: measure, fix, ramp, re-measure against a target, and repeat |
 | `ada-agent-guide` | Pick the right skill when a request about your agent names no stage, such as "fix this chat" or "get this live" |
 | `help-center-to-kb-playbooks` | Turn a help center into KB articles and playbooks, and show screenshots in playbook steps |
 | `ada-image-cards` | Show a picture built from live data, such as a status card, in a playbook step |
@@ -129,3 +126,8 @@ Built from Ada's internal Architect skills by `local/build_plugin.py`. Bump
 get, because Claude Code updates a plugin only when its version changes. Every
 skill must run over adacli or the Ada MCP without Architect. The build fails if
 a customer name, an id or an email is left in a skill.
+
+Only generally available features go in a skill. Leave out anything that
+docs.ada.cx marks as Early Access, beta, preview or limited availability, or
+that a customer must ask their CSM to turn on. Check the live page before you
+add a feature, and add it once the docs show it as generally available.

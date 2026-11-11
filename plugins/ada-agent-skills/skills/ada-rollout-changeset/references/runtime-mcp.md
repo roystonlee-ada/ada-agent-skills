@@ -13,7 +13,6 @@ the tool names.
 | One chat | `get_conversation` for the transcript, and the reasoning entries for step and playbook ownership |
 | Settled check | `get_conversation`: last update 60+ minutes old, and the last playbook has an end event |
 | Metrics for the changeset arm | `get_ada_metric` with a `CHANGESETID` filter, or `compare_changeset_metrics` for both arms with intervals and a verdict per metric |
-| Custom metric verdicts | `get_ada_metric` with `metric_type: custom_metric_pass_rate`. Read each metric's direction before you read a pass rate |
 | Judge the whole rollout | `compare_changeset_metrics` with `start_date` on the first full day after the rollout began |
 
 ## Rollout calls change what customers meet

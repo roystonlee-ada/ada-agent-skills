@@ -20,7 +20,6 @@ judge whether it made things worse.
 | Containment, automated resolution, CSAT | Context only. Never a stop signal alone. |
 | Loop rate | The same 60+ character bot line re-sent after a customer reply, AI part only. |
 | Bad rate | Trapped (one bot line sent 3+ times), a false connect claim (bot says it is connecting, asks nothing that turn, no handoff ran), or unreached (customer asked for an agent 2+ times, no handoff, chat ends waiting). |
-| Custom metrics | Ada's per-chat verdicts. Use them first, before writing your own check. |
 | Stop check | Bad-rate gap whose 95% interval lower bound clears a set margin (2 points unless the person sets another), with 100+ chats per arm. |
 
 A transfer that is asking for the customer's details ("I'm arranging a

@@ -9,8 +9,6 @@ the tool names.
 | Platform detail before any edit | `get_improvement_guide`, once per session |
 | Recent real chats | `get_conversations` with the playbook filter (read filters from `get_available_filters`), leaving test chats out. Page through every `next_cursor` before you quote a total |
 | Transcript and reasoning | `get_conversation` for the chat. The reasoning entries carry the playbook and step that sent each line |
-| Custom metrics on the instance | `list_entities` with `entity_type: custom_metrics`. None means judge from the transcript |
-| Ada's verdicts over a window | `get_ada_metric` with `metric_type: custom_metric_pass_rate`, and with `scorecard_score`. Read each metric's direction before you read a rate |
 | Create test cases | `edit_agent_config` with `entity_type: test_case`, `operation: create`. Call it with no `fields` first to read the schema |
 | A case from a failing chat | `draft_test_case_from_conversation` with `conversation_id` returns a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8 |
 | Run them | `get_test_run_quota`, then `edit_agent_config` with `entity_type: test_run`, `operation: create`, `test_case_ids`, and `changeset_id` for a draft. Poll `get_test_runs` until each run is `completed`, `failed` or `timeout` |

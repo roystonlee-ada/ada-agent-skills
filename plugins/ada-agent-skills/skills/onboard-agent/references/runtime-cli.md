@@ -30,8 +30,6 @@ Make every call read-only.
 | Playbooks | `adacli <instance> playbooks list --json` | Name and enabled state |
 | Channels (extra detail) | `adacli <instance> channels list --json`, then `channels get <id-or-name> --json` | The enabled flag per channel (the table view shows an Enabled column). Use it when `platforms` in `client show` does not show the enabled state |
 | Channel traffic | `adacli <instance> conversations search --since 30d --channel <id> --json` | `total` of real conversations. Test users are excluded unless you pass `--test-users` |
-| Custom metrics | `adacli <instance> custom-metrics list --json`, `scorecards list --json` | State and count of each |
-| Metric results | `adacli <instance> custom-metrics conversations <metric-id> --start <date> --end <date> --json` | Whether any conversation has a verdict. The list includes test conversations |
 | Test cases | `adacli <instance> testing cases list --json` | Count and channel per case |
 | Test results | `adacli <instance> testing runs list --json` | Latest run per case and its status. Add `--status` to narrow |
 | Test quota | `adacli <instance> testing quota --json` | Runs left today |
@@ -56,12 +54,6 @@ Make every call read-only.
   name, emoji): look under `bot_persona` in `client show --json`. If a field is
   absent, it is Unknown. Dashboard: Config > AI AGENT > Settings, Preferences
   tab.
-- Custom metrics and scorecards on an instance without the feature: the read
-  fails with FORBIDDEN (403) "Feature not available". Grade Custom metrics
-  Unknown, not Not started. Dashboard: Analytics > Metrics. The error text can
-  say adacli is out of date. Observed on 0.13.0, that is misleading: the adacli
-  source ties the same error to instance flags (`custom-metrics-mvp`,
-  `custom-metrics-v2`), so the feature is off for the instance, not the CLI.
 
 ## Writes
 
@@ -89,7 +81,7 @@ person can reverse it.
   get approval first.
 - `knowledge list` pages 25 at a time. Quote `meta.total_items`, not the
   length of one page.
-- `custom-metrics conversations` and `testing runs list` can include test
+- `testing runs list` can include test
   conversations and old runs. Say which window and which changeset you read.
 
 ## If the instance is read-only

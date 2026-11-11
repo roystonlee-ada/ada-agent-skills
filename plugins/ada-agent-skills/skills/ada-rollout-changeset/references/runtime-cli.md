@@ -13,7 +13,6 @@ instance comes first in every command, and there is no `--instance` flag.
 | Settled check | `adacli <instance> conversations get <id>`, then `conversations reasoning <id>` |
 | Transcript | `adacli <instance> conversations transcript <id> --json` |
 | Playbook ownership of a line | `adacli <instance> conversations reasoning <id> --json` (see the attribution steps in `rollout-metrics.md`) |
-| Custom metric verdicts per chat | `adacli <instance> custom-metrics conversations` |
 | Judge the whole rollout | `adacli <instance> changesets compare <id> --start <date> --end <date>` |
 
 `set-rollout` and `stop-rollout` change what live customers meet. Run them only

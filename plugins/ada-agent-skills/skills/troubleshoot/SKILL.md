@@ -139,7 +139,7 @@ The skill never makes a change on its own. Before any change:
 | Where the setting lives | Staged on a changeset? | Backup before changing |
 |---|---|---|
 | Playbooks, knowledge articles, custom instructions, coaching, processes, actions, MCP tools and connections | Yes | The changeset itself, reverted from the Change sets page |
-| Topics, intents, custom metrics, scorecards, glossary, variables, knowledge sources, test cases | No, live at once | Snapshot export, or note the old value |
+| Topics, intents, glossary, variables, knowledge sources, test cases | No, live at once | Snapshot export, or note the old value |
 | Channels and email, team and roles, SSO, session limits, API keys, webhooks, allowed websites, retention | No, live at once, dashboard or API only | Record the old values by hand |
 
 A direct edit in the dashboard (Knowledge, Playbooks pages) does not appear

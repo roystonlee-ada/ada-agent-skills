@@ -11,7 +11,6 @@ Contents:
 - Lift on containment
 - Lift on automated resolution
 - Lift on CSAT
-- Lift on a custom metric
 - Lift on human handle time
 - Choose the fix rate
 - Overlap and ranking
@@ -102,17 +101,6 @@ Only surveyed conversations count, so size CSAT on the surveyed part.
    conversations in the window and gap is a fraction.
 
 Report it as an estimate with the gap and s shown.
-
-## Lift on a custom metric
-
-Read the metric's direction first. On a lower-is-better metric, a "pass" is the
-bad behaviour.
-
-- fails in cluster = f, conversations the metric applied to = M
-- Pass rate lift in points = 100 x f x r / M, in the good direction
-
-Custom metric counts include test conversations on some routes. The runtime file
-says which. Exclude them or say they are in.
 
 ## Lift on human handle time
 

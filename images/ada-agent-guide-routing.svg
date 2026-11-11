@@ -33,11 +33,9 @@
 <rect class="pill" x="12" y="300" width="212" height="26" rx="13"/>
 <text class="mono" x="118" y="317" text-anchor="middle">configure-handoff</text>
 <rect class="pill" x="12" y="334" width="212" height="26" rx="13"/>
-<text class="mono" x="118" y="351" text-anchor="middle">ada-custom-metrics-setup</text>
+<text class="mono" x="118" y="351" text-anchor="middle">setup-adacli</text>
 <rect class="pill" x="12" y="368" width="212" height="26" rx="13"/>
-<text class="mono" x="118" y="385" text-anchor="middle">setup-adacli</text>
-<rect class="pill" x="12" y="402" width="212" height="26" rx="13"/>
-<text class="mono" x="118" y="419" text-anchor="middle">setup-ada-mcp</text>
+<text class="mono" x="118" y="385" text-anchor="middle">setup-ada-mcp</text>
 <path class="line" d="M346,186 L346,214" marker-end="url(#a)"/>
 <rect class="head" x="240" y="216" width="212" height="36" rx="8"/>
 <text class="t" x="346" y="239" text-anchor="middle" font-size="14" font-weight="700">Build</text>
@@ -71,10 +69,6 @@
 <text class="mono" x="802" y="317" text-anchor="middle">mine-human-agent-conversations</text>
 <rect class="pill" x="696" y="334" width="212" height="26" rx="13"/>
 <text class="mono" x="802" y="351" text-anchor="middle">review-handoffs</text>
-<rect class="pill" x="696" y="368" width="212" height="26" rx="13"/>
-<text class="mono" x="802" y="385" text-anchor="middle">ada-custom-metrics-improve</text>
-<rect class="pill" x="696" y="402" width="212" height="26" rx="13"/>
-<text class="mono" x="802" y="419" text-anchor="middle">ada-custom-metrics-loop</text>
 <path class="line" d="M1030,186 L1030,214" marker-end="url(#a)"/>
 <rect class="head" x="924" y="216" width="212" height="36" rx="8"/>
 <text class="t" x="1030" y="239" text-anchor="middle" font-size="14" font-weight="700">Operate</text>

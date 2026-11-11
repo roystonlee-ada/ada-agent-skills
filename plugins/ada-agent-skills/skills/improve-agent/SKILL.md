@@ -2,8 +2,7 @@
 name: improve-agent
 description: >
   Rank what to improve on an Ada AI Agent across the whole population, using
-  handoff reasons, custom metrics, containment, CSAT and the conversations
-  behind them, and name the next skill for each fix. Use it whenever someone
+  handoff reasons, containment, CSAT and the conversations behind them, and name the next skill for each fix. Use it whenever someone
   asks "what should we improve", "what do we fix first", "where is the agent
   losing conversations", "how do we raise containment", "how do we raise
   automated resolution or CSAT", "what are humans handling that the agent
@@ -11,8 +10,7 @@ description: >
   conversation in mind, even if they never say "improve". Each recommendation
   carries a size, the metric it moves, a mechanism and two or more conversation
   links. For one conversation use diagnose-conversation. For handoff counts by
-  reason alone use review-handoffs. For the custom metric scorecard alone use
-  ada-custom-metrics-improve.
+  reason alone use review-handoffs.
 ---
 
 # Improve an agent, ranked by what moves the metrics
@@ -39,7 +37,6 @@ reasons start on that date). Pull, for that window, with test users excluded:
 - engaged conversations: this is the population N, and the denominator for
   every share below
 - containment, automated resolution, CSAT, and handoff volume
-- the custom metrics and their pass rates, when the agent has them
 
 Before you quote containment, compare the handoff steps in a sample of logs
 with the handoff count for each channel. On one real instance email handoffs
@@ -62,7 +59,6 @@ from every signal, not handoffs alone:
   reason holds many tasks
 - contained but not resolved conversations
 - low CSAT conversations
-- failing custom metrics, direction-aware
 - repeat contacts and tool errors, when the counts are high
 
 One conversation can sit in several clusters. Assign each to one cluster, the
@@ -116,7 +112,7 @@ id alone is not a link.
 
 Use this order:
 1. The window, the population N, and the baseline: containment, automated
-   resolution, CSAT, and the custom metric pass rates.
+   resolution and CSAT.
 2. Ranked recommendations, largest expected lift first. Each has: the plain
    name of the fix, situation class, cluster size in conversations and share of
    the population, metric moved, lift range with the arithmetic, mechanism, two
@@ -146,7 +142,6 @@ After a fix is promoted and has run for a window of the same length, rerun steps
 - `diagnose-conversation`: the surface that owns the problem is unclear
 - `configure-handoff`: the handoff does not carry the fields or summary to the
   helpdesk
-- `ada-custom-metrics-improve`: the cluster is a failing custom metric
 - `test-and-fix`: after any change, to run the cases and fix what fails
 - knowledge edit: for an information gap, draft or correct the article as a
   changeset edit, then test it

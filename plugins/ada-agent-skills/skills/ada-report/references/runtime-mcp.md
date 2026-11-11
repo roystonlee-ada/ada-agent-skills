@@ -8,7 +8,7 @@ here only reads.
 |---|---|
 | Headline metrics | `get_ada_metric` with `start_date` and `end_date`, one call per `metric_type`: `resolution_rate`, `containment_rate`, `csat_rate_ai`, `conversation_volume_opened`, `conversation_volume_engaged`, `avg_handle_time`. Run the same calls for the equal period before. Call `get_available_filters` first when you filter |
 | Topic volumes and how each resolves | `list_entities` with `entity_type: topics` for ids, then `get_ada_metric` with `conversation_volume_engaged` and `resolution_rate`, each with a `TOPIC` filter, one topic per call. Rank by volume |
-| Tool and quality measures (optional) | `get_ada_metric` with `api_tool_performance` for lookups that error or run slow. `custom_metric_pass_rate` and `scorecard_score` when the agent has them: read each metric's direction before you describe a rise as good |
+| Tool and quality measures (optional) | `get_ada_metric` with `api_tool_performance` for lookups that error or run slow |
 | Conversations to quote | `get_conversations` with `detail_level: SUMMARY`, both dates, and a filter for the outcome you want (resolved, handed off, low or high satisfaction). The summary gives the inquiry, resolution status and satisfaction, so you can choose before you read |
 | Read a conversation in full | `get_conversation` for the transcript with playbook events, actions, knowledge searches, handoffs and coaching. Those events are the signals `ada-in-action.md` maps to notes. Transcripts are long: read three to five |
 | What the agent has (to name playbooks, actions) | `get_ada_configuration`, then `list_entities` with `entity_type: playbooks` or `tools` for one item |

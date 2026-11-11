@@ -4,6 +4,15 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.5
+
+Early Access features are out of the plugin until they are generally available. Each item was checked against the live docs.ada.cx page on 11/11/2026.
+
+- Removed `ada-custom-metrics-setup`, `ada-custom-metrics-improve` and `ada-custom-metrics-loop`. Custom Metrics v2 is in an Early Access Program (docs.ada.cx/docs/optimization/performance/custom-metrics).
+- `ada-agent-guide`, `onboard-agent`, `improve-agent`, `ada-playbook-monitor-loop`, `ada-rollout-changeset`, `ada-report` and `troubleshoot` no longer read or route to custom metrics or scorecards. `onboard-agent` now has seven stages: the Custom metrics stage is gone, and Testing and Go-live review are stages 6 and 7.
+- `configure-handoff` no longer calls the Salesforce SMTP Connector early access. Its live docs page is in the docs menu and has no Early Access label.
+- The README has a new rule for contributors: only generally available features go in a skill.
+
 ## 2026.11.07.1
 
 From a customer's review of the skills (07/11/2026). Each change was checked against the adacli 1.4.0 source or the platform code first.

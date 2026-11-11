@@ -34,7 +34,7 @@ code_tool, mcp_tool, mcp_server_connection, coaching, process.
   This skill never promotes.
 
 `edit_agent_config` covers test_case, test_run, topic, intent,
-custom_metric, scorecard, glossary_term, knowledge_source and variable. Those
+glossary_term, knowledge_source and variable. Those
 apply live with no changeset. Preview each one and get a yes first.
 
 ## What the MCP does not reach

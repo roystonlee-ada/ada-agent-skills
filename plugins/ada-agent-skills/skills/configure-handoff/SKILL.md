@@ -59,7 +59,7 @@ for example a chat block and an email block behind a channel rule.
 | Zendesk SMTP Connector (email replies) | `references/zendesk-smtp-connector.md` |
 | Salesforce Messaging (MIAW) | `references/salesforce-messaging.md` |
 | Salesforce Chat (and the Salesforce Action block) | `references/salesforce-chat.md` |
-| Salesforce SMTP Connector (email, early access) | `references/salesforce-smtp-connector.md` |
+| Salesforce SMTP Connector (email) | `references/salesforce-smtp-connector.md` |
 | Gladly | `references/gladly.md` |
 | Amazon Connect (chat) | `references/amazon-connect.md` |
 | Genesys Cloud (chat) | `references/genesys-cloud.md` |

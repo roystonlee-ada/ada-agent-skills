@@ -11,8 +11,6 @@ instance comes first in every command, and there is no `--instance` flag.
 | Transcript (for judging) | `adacli <instance> conversations transcript <id> --json` |
 | Reasoning log (for ownership) | `adacli <instance> conversations reasoning <id> --json` |
 | Why a chat went the way it did | `adacli <instance> conversations diagnose <id>` names the failing surface |
-| Custom metrics on the instance | `adacli <instance> custom-metrics list --json`. A 403 or an empty list means judge from the transcript |
-| Ada's verdicts on live chats | `adacli <instance> custom-metrics conversations` |
 | Create and run test cases | `adacli <instance> testing cases create --from-json <file>`, then `testing runs create --cases <ids>`, and `testing runs get <id> --json` for `did_pass` and `criteria_results` |
 | A case from a failing chat | `adacli <instance> testing cases from-conversation <conversation id> --json` prints a screened draft and saves nothing. Follow its `instructions`, and `author-playbook/references/test-cases.md` section 8. Needs adacli 1.1.7 or later |
 | Compare two runs | `adacli <instance> testing runs compare` |
