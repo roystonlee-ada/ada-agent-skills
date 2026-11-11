@@ -5,14 +5,14 @@ Each row is a feature that changes what a sample conversation should look
 like, with the published docs.ada.cx page it comes from. Design to the row,
 not to memory: a feature that is not in this table is not on the board.
 
-Last checked against docs.ada.cx release notes: 07/11/2026.
+Last checked against docs.ada.cx release notes: 11/11/2026.
 
 ## What each channel can show
 
 | Feature | Web Chat and Messaging SDK | Social and SMS (WhatsApp, Messenger, Instagram, LINE, Telegram, Viber, X, SMS) | Email | Source |
 |---|---|---|---|---|
-| ASK step shows accepted values as quick replies ("Map the answer using reasoning", one variable, 2 or more values) | Yes, in list order | Yes: WhatsApp, Messenger, Instagram, LINE, Telegram, Viber and X through Sunshine Conversations, native Instagram, and Twilio WhatsApp and Messenger. SMS and Apple Messages get a plain list of the values to type back | No buttons: a plain list of the values to type back | [Step reference: quick replies for accepted values](https://docs.ada.cx/docs/automation/playbooks/step-reference#quick-replies-for-accepted-values) for Web Chat. Social channels: on for every account since 03/11/2026; the step reference still says Web Chat only (checked 11/11/2026) |
-| Quick-reply limits | Up to 10 options. A value or label can be up to 256 characters | Up to 10 options (Instagram 13). Labels up to 20 characters (X 36). WhatsApp shows 3 or fewer as buttons and 4 to 10 as a menu with labels up to 24 characters. A label over the limit, two labels alike, or too many options sends the whole set as a plain list | n/a | Step reference for Web Chat; social limits as above |
+| ASK step shows accepted values as quick replies ("Map the answer using reasoning", one variable, 2 or more values) | Yes, in list order | Not supported yet. The agent asks the question and the customer types the answer | Not supported yet: same as social | [Step reference: quick replies for accepted values](https://docs.ada.cx/docs/automation/playbooks/step-reference#quick-replies-for-accepted-values) |
+| Quick-reply limits | Up to 10 options. A value or label can be up to 256 characters | n/a | n/a | Same step reference |
 | Hide keyboard input on an ASK with quick replies (the customer must tap) | Yes, off by default. The message box returns after a tap | No: the message box stays | No | [Step reference: Ask](https://docs.ada.cx/docs/automation/playbooks/step-reference#ask), [Release note](https://docs.ada.cx/2026-11-05-playbooks-ask-hide-keyboard-input) |
 | Progress messages while a tool runs (a short line after 10 seconds, then every 20) | Yes, one AI Agent setting, off by default | No | No | [Step reference: progress messages](https://docs.ada.cx/docs/automation/playbooks/step-reference#progress-messages-while-a-tool-runs), [Release note](https://docs.ada.cx/2026-11-06-progress-messages-while-a-tool-runs) |
 | Customer writes first, and the playbook reads that first message | Only when a conversation start event is set | Yes | Yes | [Conversation start events for Playbooks](https://docs.ada.cx/2026-08-04-conversation-start-events) |
@@ -37,13 +37,13 @@ Last checked against docs.ada.cx release notes: 07/11/2026.
 
 ## What this means on the board
 
-- Quick replies: write `options` once. Web Chat, the Messaging SDK and the
-  social channels draw them as buttons. SMS, Apple Messages and Email get a
-  plain list of the values, with no numbers, and the customer types one
-  back: a typed "1" matches nothing. Keep every label at 20 characters or
-  less and unlike the others, so the set stays buttons on every channel.
-  A typed answer always has to work on every channel except Web Chat with
-  hidden keyboard input.
+- Quick replies: write `options` once. Web Chat and the Messaging SDK draw
+  them as buttons. Every other channel gets the question with a plain list
+  of the values, with no numbers, and the customer types one back: a typed
+  "1" matches nothing. The docs do not support quick replies on those
+  channels yet. Keep labels at 20 characters or less so they read as short
+  buttons (a design rule; the platform allows 256). A typed answer always
+  has to work on every channel except Web Chat with hidden keyboard input.
 - Hidden keyboard input: set `"hide_keyboard": true` on a bot turn only when
   every answer is one of its `options` and the board's channels are Web Chat
   or the Messaging SDK alone. Give the customer an option for "something
@@ -73,11 +73,12 @@ not designed for in a while:
    loses a feature; a new start event; a new variable a step can read.
 3. Add each as a table row or bullet with its docs.ada.cx link, and add or
    change the "What this means on the board" line it needs. When a feature
-   reaches a new channel, change that cell, and update `BUTTONS` or `TEXT_LIST` in
+   reaches a new channel, change that cell, and update `BUTTONS` in
    `scripts/board.py` if the board should draw buttons or a list there.
 4. Update the "Last checked" date.
 
-Add only what is on a published docs.ada.cx page or is on for every
-account. An early-access feature, a pull request or an announcement is not
-enough. When a feature is on for every account but the docs lag, say so in
-the Source cell with the date you checked, as the quick-replies row does.
+Add only what is on a published docs.ada.cx page and is generally
+available. Leave out anything the docs mark as Early Access, beta, preview,
+limited availability or "contact your CSM to enable", and anything the docs
+say is not supported yet. A pull request, an announcement or a feature you
+saw working is not enough.

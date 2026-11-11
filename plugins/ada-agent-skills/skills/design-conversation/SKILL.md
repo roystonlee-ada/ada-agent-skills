@@ -110,9 +110,8 @@ Design rules. Each one prevents a failure you would otherwise patch later:
   instead.
 - Constrain the input before you handle bad input. Give choices as `options`
   when there are 2 to 5 fixed answers, or a format hint ("DD/MM/YYYY") for
-  free text. Write `options` once, with labels of 20 characters or less:
-  on social channels one longer label turns the whole set into a plain
-  text list. A typed answer that names
+  free text. Write `options` once, with labels of 20 characters or less
+  so they read as short buttons. A typed answer that names
   an option, or carries the detail itself (an email at "Use my email", a
   code at "Enter OTP"), picks that option, so buttons never block typing.
   Which channels draw buttons, which get a plain list to type back, and when

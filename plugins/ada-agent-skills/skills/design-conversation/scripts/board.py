@@ -26,8 +26,7 @@ HOME = pathlib.Path.home() / ".ada-architect"
 # Keep these in step with references/channel-features.md.
 # Web Chat and the Messaging SDK: buttons, hidden keyboard input, progress messages.
 BUTTONS = ("web", "messaging sdk", "sdk")
-# Channels that get ASK options as a plain list of values to type back.
-TEXT_LIST = ("sms", "email", "apple messages")
+# Every other channel gets ASK options as a plain list of values to type back.
 SOCIAL = ("messenger", "whatsapp", "instagram", "line", "telegram", "viber", "x (twitter)", "twitter", "apple messages", "sms")
 EMAIL = ("email",)
 e = html.escape
@@ -85,15 +84,7 @@ def channel_card(channels: list[str]) -> str:
     for name in channels:
         c = name.lower()
         rich = c.startswith(BUTTONS)
-        listed = c.startswith(TEXT_LIST)
-        if listed:
-            quick = "plain list of the values to type back"
-        elif c.startswith("whatsapp"):
-            quick = "3 or fewer: buttons, 4 to 10: a menu; labels 20 characters"
-        elif rich:
-            quick = "buttons"
-        else:
-            quick = "buttons, labels 20 characters or the set becomes a plain list"
+        quick = "buttons" if rich else "plain list of the values to type back"
         chips = [
             ("Quick replies", quick),
             ("Typing", "can be hidden on an ask" if rich else "always open"),
@@ -237,7 +228,7 @@ def js(value) -> str:
 
 def render(design: dict, warnings: list[str]) -> str:
     channels = design.get("channels") or ["Web chat"]
-    listed = any(c.lower().startswith(TEXT_LIST) for c in channels[:1])
+    listed = not any(c.lower().startswith(BUTTONS) for c in channels[:1])
     email = str(channels[0]).lower().startswith(EMAIL)
     notes = "".join(f"<li>{e(n)}</li>" for n in design.get("notes") or [])
     scenarios = design.get("scenarios") or []
