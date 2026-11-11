@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.5
+
+- The README has a new rule for contributors: only generally available features go in a skill. Leave out anything docs.ada.cx marks as Early Access, beta, preview or limited availability. Custom Metrics is an approved exception while it moves to general availability.
+- `author-playbook` no longer says Messenger, Instagram, LINE and WhatsApp draw quick-reply buttons. The docs.ada.cx step reference supports quick replies on Web Chat and the Messaging SDK only, and says other channels are not supported yet. The label rules stay as design rules: 20 characters or less, all different, 10 values or fewer.
+- `configure-handoff` no longer calls the Salesforce SMTP Connector early access. Its live docs page is in the docs menu and has no Early Access label.
+
 ## 2026.11.07.2
 
 - `design-conversation` designs to what each channel can show today. New `references/channel-features.md` lists the published features that change a sample conversation, per channel, each with its docs.ada.cx source: quick replies on ASK steps, hidden keyboard input, progress messages while a tool runs, who writes first, greetings, images, and email variables and trusted senders. It also has the steps to refresh it from the release notes, so a new feature changes one file.
