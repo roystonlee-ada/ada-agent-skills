@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.11.3
+
+- `design-conversation` designs use cases that start from a button on the customer's own page or app through the Messaging SDK (`triggerPlaybook`, Early Access). Scenarios open with the bot, use the details the page passes instead of asking for them, keep a typed path, and note what the build needs (usable on its own, startable from the SDK). Source: docs.ada.cx, Messaging Web SDK reference.
+
 ## 2026.11.07.1
 
 From a customer's review of the skills (07/11/2026). Each change was checked against the adacli 1.4.0 source or the platform code first.

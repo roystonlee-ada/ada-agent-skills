@@ -213,3 +213,26 @@ and design the check in.
 
 Always give a typed path too, for the customer who cannot send a photo, and
 for channels that do not read images.
+
+## 5. Use cases started from a button
+
+On the Messaging SDK (web, iOS, Android, React Native), the customer's own
+page or app can start one playbook from a button, such as "Track this order"
+on an order page (`triggerPlaybook`, Early Access). The page can pass details
+with it as meta fields. Design for this when the person names a button or a
+page as the entry point:
+- Start each scenario with the bot's first turn, and note the button in
+  `notes`. The customer has typed nothing yet.
+- Use what the page passed. Never ask for an order number the order page
+  already sent. Design a turn for the value arriving empty.
+- Keep a typed path too. A customer who opens chat on their own reaches the
+  same playbook through its description.
+- The start can be refused while another playbook runs or during a live
+  handoff. Say in `notes` that the page should leave the customer a way on
+  (open the chat, or show the details) rather than a dead button.
+
+Say in `notes` what the build needs: the playbook must be usable on its own
+(not "Only available within other Playbooks"), pass its availability rules for
+the customer, and be marked startable from the SDK (off by default; the Ada
+team or the dashboard API sets it). The page's developer adds the call.
+Source: docs.ada.cx, Messaging Web SDK reference, `triggerPlaybook`.
