@@ -9,6 +9,19 @@ each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 - `configure-handoff` checks that every Conditional block in a handoff has an Else. With no Else, a customer who matches no condition gets no handoff and no message. Source: docs.ada.cx, handoff Conditional block.
 - `configure-handoff` checks the Human Agent CSAT survey on the return path. It rates the human agent apart from the AI Agent survey, and a suppression rule keeps it from showing when the handoff never reached a person. Source: docs.ada.cx, CSAT survey configuration.
 
+## 2026.11.11.1
+
+- `design-conversation` designs flows where a code tool emails the customer mid-chat (a one-time code, a confirmation, a receipt). The bot turn says the email went out and names the address in part, every such flow gets a "didn't get it" scenario, and a failed send never reads as sent.
+- `author-playbook` has a new `references/code-tool-email.md` for `send_email` in a code tool: branch on `sent`, keep a one-time code in a variable the agent cannot read, the per-conversation, per-address and per-agent limits, and how a test run treats a send. Source: docs.ada.cx, code tools, "send_email".
+
+## 2026.11.07.2
+
+- `design-conversation` designs to what each channel can show today. New `references/channel-features.md` lists the published features that change a sample conversation, per channel, each with its docs.ada.cx source: quick replies on ASK steps, hidden keyboard input, progress messages while a tool runs, who writes first, greetings, images, and email variables and trusted senders. It also has the steps to refresh it from the release notes, so a new feature changes one file.
+- New design rules: on Email and social channels, and on Web Chat with a conversation start event, every scenario starts with the customer's message, with no greeting. A bot turn can set `hide_keyboard` only on Web Chat and the Messaging SDK. A slow API or code tool shows a progress line when progress messages are on.
+- Quick replies on an ASK step show as buttons on Web Chat and the Messaging SDK, the only channels the docs.ada.cx step reference supports. Every other channel gets a plain list of the values to type back, with no numbers. Labels stay at 20 characters or less.
+- The board script draws options as buttons on Web Chat and the Messaging SDK, and as a plain list everywhere else. It warns when an email or social scenario starts with the bot, when an `options` list has fewer than 2 or more than 5 labels or a label over 20 characters, and when `hide_keyboard` is on a channel that keeps the message box.
+- Boards now show each channel's features: the overview has a "What these channels show" card (quick replies, typing, who starts, progress messages, and one email per reply on Email). A bot turn with `"progress": true` draws as a progress message, Email turns are labelled as emails, and a plain list no longer runs into the question text.
+
 ## 2026.11.07.1
 
 From a customer's review of the skills (07/11/2026). Each change was checked against the adacli 1.4.0 source or the platform code first.
