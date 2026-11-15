@@ -129,9 +129,9 @@ def bubble(turn: dict, listed: bool, index: str, translation_language: str, emai
     options = turn.get("options") or []
     if who != "system" and options and turn.get("hide_keyboard") and not listed:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div><div class='img'>Typing off: tap an option</div>")
-    elif who != "system" and options and listed:
+    elif options and listed:
         parts.append("<div class='list'>" + "<br>".join(e(str(o)) for o in options) + "</div>")
-    elif who != "system" and options:
+    elif options:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div>")
     translation = e(turn.get("translation") or "").replace("\n", "<br>")
     translated_options = "".join(f"<li>{e(label)}</li>" for label in turn.get("options_translation") or [])
