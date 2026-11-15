@@ -54,3 +54,19 @@ path from the runbook.
 For each of these the person works in the dashboard, or uses adacli where it
 has a command (`references/runtime-cli.md`). Record the current values by hand
 before any change, because no changeset or snapshot covers them.
+
+## Exclude web page elements
+
+The web import docs describe `exclude_selectors` on `edit_agent_config` for
+a knowledge source, restricted to Owner and Admin. Request the current
+knowledge-source edit schema first. Use its exact field shape and preview
+the proposed selectors before confirming a live source update. If the host
+does not expose that field or the role is refused, use the Knowledge Sources
+dashboard. Do not invent a raw API call or JSON body from the field label.
+
+## Code tool history
+
+Version history comparison and restore are documented dashboard workflows.
+No dedicated history/restore operation was verified on this runtime for this
+update. Use the code tool dashboard's version history, rather than treating
+a normal code-tool update or a changeset revert as a version restore.

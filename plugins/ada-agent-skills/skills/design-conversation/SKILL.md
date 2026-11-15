@@ -35,7 +35,22 @@ file says what replaces the board, Approve and the memory notes.
 Before you ask anything, read what already exists, in one batch. This is
 read-only: change nothing while you learn.
 - The playbooks, actions, code tools and knowledge that touch the topic.
-  Check every kind of tool, because each lives in its own list.
+  Read the target playbook's steps, routing and availability, including the
+  playbooks it calls. Check every kind of tool, because each lives in its own list.
+- The target instance and channel's start and end settings, greeting and
+  supported languages. Read any assigned start or end playbooks. Check the
+  actual greeting and ending in a matching transcript, including any survey,
+  handoff or exit. Mark settings or behavior you cannot verify as OPEN and
+  name the dashboard or transcript check that would settle it.
+- The variables that can change the experience, such as language, market
+  and country. Check where they come from, what values they carry and when
+  they are available. Distinguish an inferred location from a confirmed
+  country and a playbook-local value from one shared across the chat.
+- The full text of each relevant help article and policy, including sources
+  the customer shared, the playbook links to or recent chats used. Check the
+  applicable market, language, dates, eligibility, exceptions and boundaries.
+  Record each source and which outcomes it supports. Mark conflicting or
+  missing rules OPEN and any proposed behavior ASSUMED.
 - How often the topic comes up, and how it goes today (a few real
   transcripts). Use real counts.
 - A record of a use case already designed for this agent. If one matches,
@@ -75,10 +90,26 @@ Write 3 to 6 scenarios in one ADA-DESIGN block:
   a fixed list.
 - `image` where a photo or screenshot helps (section 4).
 
-Each scenario is a full conversation, written from the real config: the
-greeting style, the action's real fields, the knowledge as it reads today.
-Say in `expect` what a pass looks like in one line. That line becomes the
-test case's "good".
+Before drafting, map each distinct policy outcome and meaningful edge to a
+scenario or a named alternate path. Check policy exceptions and exact
+boundaries, missing or conflicting inputs, changes of mind, unavailable
+tools, handoffs and repeat entry wherever they can change the outcome. Keep
+the coverage map in the board notes. Give every relevant case a path or an
+OPEN item that says what is needed to finish it. Group branches that share
+an opening under one scenario.
+
+Start each scenario at the real entry point. Show the configured greeting
+on a fresh chat where it appears. On mid-chat or repeat entry, start with
+the context the customer already has. Show each path through its final
+visible outcome. Say in `expect` what a pass looks like in one line. That
+line becomes the test case's "good".
+
+Write dialogue and choices in the language the customer sees. Add English
+translations for all non-English customer and agent turns, greetings,
+choices and visible survey labels, unless the reviewer specifies a different
+review language. Put the translation directly below the original as review
+copy within the same turn. Keep the meaning, policy details and tone aligned.
+See [board format](references/board-format.md) for a complete example.
 
 Design rules. Each one prevents a failure you would otherwise patch later:
 - One question mark per bot turn. By default ask one fact per turn. The
@@ -91,20 +122,33 @@ Design rules. Each one prevents a failure you would otherwise patch later:
 - Ask a follow-up only once the condition that makes it relevant is
   confirmed. If the customer's case type is unclear, ask which one first
   (as `options`), then ask the questions that type needs.
-- A side question mid-flow gets answered, then the flow resumes: acknowledge
-  it, answer it, name the earlier issue again, and ask the next step of that
-  flow. Give each flow one scenario for this. Read the whole conversation
-  before returning, so the bot does not restart or drop the first issue.
+- If a side question is likely, show how the agent answers it and resumes
+  the earlier issue at its next step. Read the whole conversation before
+  returning so the bot keeps what it already learned.
 - Answer from the article that matches the question. A fact from a
   neighbouring policy that sounds related (a refund window next to a
   reactivation) belongs in a different answer. Put the source in `expect`.
 - Say sorry or show care once when the customer shows an inconvenience, and
   again on any later turn that adds more. Reword it each time. A repeated
   stock sentence reads as a script.
-- Keep a closing line true for every outcome: no "your issue is solved" or
-  "happy to have helped" when it may not be. Do not word something the
-  business owes the customer as a wish ("hope you hear back soon"). Put a
-  satisfaction question on its own line or message.
+- Close at the point the use case calls for. For a complete informational
+  answer with a planned exit, give the answer and exit directly. Reserve
+  follow-up questions for a decision or fact the customer still needs.
+  Show configured CSAT as a separate system event with its visible choices
+  and the relevant submit, skip or unavailable outcomes. Distinguish a
+  playbook exit, a handoff, and the end of the chat. Use the actual ordering
+  and channel behavior where verified, and label proposed or unknown endings.
+- When the playbook can be entered twice in one chat, show a repeat path.
+  Vary the wording while keeping the same facts and policy. Reuse valid
+  confirmed details, check anything that changed or may be stale, and avoid
+  repeating actions or surveys unless the design and configuration call
+  for them. A new chat follows its own entry rules.
+- If market matters, prefer the customer's confirmed country for the
+  relevant order or request. Use a verified region signal as a suggestion
+  and let the customer confirm or correct it. List supported countries,
+  with Other last when needed. Use a typed list or a follow-up when button
+  limits prevent showing all supported choices. Show what happens for a
+  missing, conflicting or unsupported country when it affects the outcome.
 - When a system needs a field some customers do not have (an email, an ID),
   design the step for the customer who lacks it, and say what to enter
   instead.
@@ -145,33 +189,14 @@ Design rules. Each one prevents a failure you would otherwise patch later:
   show the code in chat. It needs the agent's Email channel set up; if the
   agent has none, say so in `notes`.
 
-```
-<<<ADA-DESIGN>>>
-{"work": "damaged-item-refund",
- "use_case": "damaged-item-refund",
- "title": "Damaged item refund",
- "goal": "A customer with a damaged delivery gets a refund or replacement in chat, without waiting for an agent.",
- "round": 1,
- "channels": ["Web chat", "Messenger"],
- "notes": ["I kept the order number and the photo as two questions, so each reply is easy to read."],
- "scenarios": [
-   {"id": "main", "title": "Main path", "kind": "main",
-    "expect": "Order found, photo read, refund offered in under five turns, no handoff",
-    "turns": [{"who": "customer", "text": "My blender arrived cracked"},
-              {"who": "bot", "text": "Sorry about that. What's your order number?"},
-              {"who": "customer", "text": "48213"},
-              {"who": "bot", "text": "Thanks. Could you send a photo of the damage?", "options": ["Send a photo", "I can't take one"]},
-              {"who": "customer", "text": "", "image": "Photo of a blender jug with a crack along the base"},
-              {"who": "bot", "text": "I can see a crack along the jug's base. Would you like a refund or a replacement?", "options": ["Refund", "Replacement"]}]},
-   {"id": "no-order", "title": "Order not found", "kind": "edge",
-    "expect": "Asks once more, then offers a person, never loops",
-    "turns": [{"who": "customer", "text": "my order came damaged"}, {"who": "bot", "text": "Sorry about that. What's your order number?"}]}]}
-<<<END-ADA-DESIGN>>>
-```
-
 Before you show the board, check it. A board that fails any line is not ready:
 fix it first, and never show one with a known failure.
 - 3 to 6 scenarios, each with `id`, `title`, `kind`, `expect` and `turns`.
+- Every policy outcome and material edge is mapped to a full path or an
+  OPEN item. Each path shows the entry point and final visible outcome.
+- Customer-facing copy and options have aligned review translations where
+  needed. The survey and exit are shown with their verified behavior or
+  clearly marked assumptions.
 - No bot turn asks more than one question. A list of facts inside one
   question is allowed when the person chose it.
 - Every `options` list has 2 to 5 labels of 20 characters or less.
@@ -181,7 +206,8 @@ fix it first, and never show one with a known failure.
 - Every route to a person says why in its scenario's `expect`.
 - `work` and `title` are set, and the block is valid JSON.
 The runtime file says how to run these checks where a tool does it for you.
-A design that is never drawn as a board is not ready for review.
+Check the rendered board or the runtime’s readable transcript fallback.
+Keep alternate endings and translations visible to the reviewer.
 
 `work` keys the board. Keep it the same on every round. Keep the chat reply
 to two lines: what the board shows and what you need from them.

@@ -42,7 +42,7 @@ def is_social(channel: str) -> bool:
 
 
 def problems(design: dict) -> list[str]:
-    """Architect's board limits, plus the channel checks in references/channel-features.md."""
+    """Check basic board limits and the shape of review translations."""
     out = []
     scenarios = design.get("scenarios") or []
     if not design.get("work") or not design.get("title"):
@@ -53,28 +53,44 @@ def problems(design: dict) -> list[str]:
     writes_first = any(is_social(c) or c.startswith(EMAIL) for c in channels)
     can_hide = all(c.startswith(BUTTONS) for c in channels)
     for s in scenarios:
-        sid = s.get("id")
-        turns = s.get("turns") or []
-        if writes_first and turns and turns[0].get("who") != "customer":
-            out.append(f"scenario {sid}: on email and social channels the customer writes first; start with the customer")
-        for t in turns:
-            if t.get("who") != "bot":
-                continue
-            if t.get("text", "").count("?") > 1:
-                out.append(f"scenario {sid}: a bot turn asks more than one question")
-            options = t.get("options") or []
-            if options and not 2 <= len(options) <= 5:
-                out.append(f"scenario {sid}: {len(options)} options; use 2 to 5")
-            long = [o for o in options if len(str(o)) > 20]
-            if long:
-                out.append(f"scenario {sid}: option labels over 20 characters: {', '.join(map(str, long))}")
-            if t.get("progress") and not can_hide:
-                out.append(f"scenario {sid}: progress messages show on Web Chat and the Messaging SDK only")
-            if t.get("hide_keyboard"):
-                if not options:
-                    out.append(f"scenario {sid}: hide_keyboard needs options to tap")
-                elif not can_hide:
-                    out.append(f"scenario {sid}: hide_keyboard works on Web Chat and the Messaging SDK only; other channels keep the message box")
+        alternates = s.get("paths") or []
+        ids = set()
+        for path in alternates:
+            path_id = path.get("id")
+            if not path_id or path_id in ids:
+                out.append(f"scenario {s.get('id')}: each alternate needs a unique id")
+            ids.add(path_id)
+            if not all(path.get(field) for field in ("title", "entry", "expect", "turns")):
+                out.append(f"path {path_id}: needs a title, entry, expect and turns")
+        for path in [s, *alternates]:
+            for t in path.get("turns") or []:
+                if t.get("who") == "bot" and t.get("text", "").count("?") > 1:
+                    out.append(f"path {path.get('id')}: a bot turn asks more than one question")
+                if "options_translation" in t and len(t["options_translation"] or []) != len(t.get("options") or []):
+                    out.append(f"path {path.get('id')}: translate each option in order")
+        for path in [s, *alternates]:
+            sid = path.get("id")
+            turns = path.get("turns") or []
+            if writes_first and turns and turns[0].get("who") != "customer":
+                out.append(f"scenario {sid}: on email and social channels the customer writes first; start with the customer")
+            for t in turns:
+                if t.get("who") != "bot":
+                    continue
+                if t.get("text", "").count("?") > 1:
+                    out.append(f"scenario {sid}: a bot turn asks more than one question")
+                options = t.get("options") or []
+                if options and not 2 <= len(options) <= 5:
+                    out.append(f"scenario {sid}: {len(options)} options; use 2 to 5")
+                long = [o for o in options if len(str(o)) > 20]
+                if long:
+                    out.append(f"scenario {sid}: option labels over 20 characters: {', '.join(map(str, long))}")
+                if t.get("progress") and not can_hide:
+                    out.append(f"scenario {sid}: progress messages show on Web Chat and the Messaging SDK only")
+                if t.get("hide_keyboard"):
+                    if not options:
+                        out.append(f"scenario {sid}: hide_keyboard needs options to tap")
+                    elif not can_hide:
+                        out.append(f"scenario {sid}: hide_keyboard works on Web Chat and the Messaging SDK only; other channels keep the message box")
     return out
 
 
@@ -98,30 +114,33 @@ def channel_card(channels: list[str]) -> str:
     return "<h2>What these channels show</h2><div class='card'>" + "".join(rows) + "</div>"
 
 
-def bubble(turn: dict, listed: bool, index: int, email: bool = False) -> str:
+def bubble(turn: dict, listed: bool, index: str, translation_language: str, email: bool = False) -> str:
     who = turn.get("who")
+    speaker = {"customer": "Customer email" if email else "Customer", "system": "System"}.get(who, "Reply email" if email else "Agent")
     if who == "bot" and turn.get("progress"):
-        return (f"<div class='t bot prog' data-turn='{index}'><div class='col'><div class='who'>Progress message</div>"
-                f"<div class='bub'>{e(turn.get('text', ''))}</div>"
-                f"<input class='tc' data-k='turn-{index}' placeholder='Comment on this turn'></div></div>")
+        speaker = "Progress message"
+    turn_class = (who or "") + (" prog" if turn.get("progress") else "")
     parts = []
     if turn.get("text"):
-        parts.append(e(turn["text"]).replace("\n", "<br>"))
+        original = e(turn["text"]).replace("\n", "<br>")
+        parts.append(f"<div class='original'>{original}</div>")
     if turn.get("image"):
         parts.append(f"<div class='img'>Photo: {e(turn['image'])}</div>")
     options = turn.get("options") or []
-    if options and turn.get("hide_keyboard") and not listed:
+    if who != "system" and options and turn.get("hide_keyboard") and not listed:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div><div class='img'>Typing off: tap an option</div>")
-    elif options and listed:
+    elif who != "system" and options and listed:
         parts.append("<div class='list'>" + "<br>".join(e(str(o)) for o in options) + "</div>")
-    elif options:
+    elif who != "system" and options:
         parts.append("<div class='opts'>" + "".join(f"<span>{e(o)}</span>" for o in options) + "</div>")
-    if email:
-        label = "Customer email" if who == "customer" else "Reply email"
-    else:
-        label = "Customer" if who == "customer" else "Agent"
-    return (f"<div class='t {e(who or '')}' data-turn='{index}'><div class='col'><div class='who'>{label}</div><div class='bub'>{''.join(parts)}</div>"
-            f"<input class='tc' data-k='turn-{index}' placeholder='Comment on this turn'></div></div>")
+    translation = e(turn.get("translation") or "").replace("\n", "<br>")
+    translated_options = "".join(f"<li>{e(label)}</li>" for label in turn.get("options_translation") or [])
+    if translated_options:
+        translation += f"<ol>{translated_options}</ol>"
+    review_copy = f"<div class='translation'><span class='who'>{e(translation_language)}</span><div>{translation}</div></div>" if translation else ""
+    return (f"<div class='t {e(turn_class)}' data-turn='{e(index)}'><div class='col'><div class='who'>{speaker}</div>"
+            f"<div class='bub'>{''.join(parts)}{review_copy}</div>"
+            f"<input class='tc' data-k='turn-{e(index)}' placeholder='Comment on this turn'></div></div>")
 
 
 CSS = """
@@ -159,6 +178,11 @@ h2{font-size:18px;font-weight:500;letter-spacing:-.01em;margin:28px 0 12px}
 .col{max-width:78%;display:flex;flex-direction:column;gap:4px} .customer .col{align-items:flex-end}
 .who{font-size:12px;color:var(--mute)}
 .bub{padding:9px 13px;border-radius:14px;background:var(--chip)} .customer .bub{background:var(--ink);color:var(--bg)}
+.t.system{justify-content:center} .system .bub{background:var(--card);border:1px solid var(--line)}
+.translation{border-top:1px solid var(--line);margin-top:8px;padding-top:4px;font-size:13px}
+.translation ol{margin:2px 0;padding-left:20px} .customer .translation .who{color:inherit}
+.alternate{margin:20px 0;padding:12px 16px;border:1px solid var(--line);border-radius:12px}
+.alternate summary{cursor:pointer;font-weight:500}
 .opts{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px} .opts span{border:1px solid var(--line);border-radius:999px;padding:2px 12px;font-size:13px;background:var(--card);color:var(--ink)}
 .img{font-style:italic;font-size:13px}
 .list{margin-top:8px}
@@ -202,8 +226,8 @@ function build(){
     if(o)lines.push('  Overall: '+o);
     sec.querySelectorAll('[data-turn]').forEach(t=>{
       const c=t.querySelector('.tc').value.trim();
-      if(c){const who=t.classList.contains('customer')?'customer':'agent';
-        const b=t.querySelector('.bub').cloneNode(true);b.querySelectorAll('.opts').forEach(x=>x.remove());const txt=b.textContent.trim().slice(0,70);
+      if(c){const who=t.querySelector('.who').textContent.toLowerCase();
+        const txt=(t.querySelector('.original,.img')?.textContent||'').trim().slice(0,70);
         lines.push('  Turn '+t.dataset.turn+' ('+who+': "'+txt+'"): '+c)}});
     if(lines.length)out.push(sec.dataset.title+':',...lines,'')});
   if(out.length<=2)out.push('No comments.');
@@ -230,6 +254,7 @@ def render(design: dict, warnings: list[str]) -> str:
     channels = design.get("channels") or ["Web chat"]
     listed = not any(c.lower().startswith(BUTTONS) for c in channels[:1])
     email = str(channels[0]).lower().startswith(EMAIL)
+    translation_language = design.get("translation_language") or "English"
     notes = "".join(f"<li>{e(n)}</li>" for n in design.get("notes") or [])
     scenarios = design.get("scenarios") or []
     tabs = ["<button class='on' data-tab='overview'>Overview</button>"]
@@ -237,7 +262,18 @@ def render(design: dict, warnings: list[str]) -> str:
     for s in scenarios:
         sid = str(s.get("id", ""))
         tabs.append(f"<button data-tab='{e(sid)}'>{e(s.get('title', ''))}</button>")
-        turns = "".join(bubble(t, listed, i, email) for i, t in enumerate(s.get("turns") or [], 1))
+        turns = "".join(bubble(t, listed, str(i), translation_language, email) for i, t in enumerate(s.get("turns") or [], 1))
+        alternates = []
+        for path in s.get("paths") or []:
+            path_turns = "".join(
+                bubble(t, listed, f"{path.get('id', '')}/{i}", translation_language, email)
+                for i, t in enumerate(path.get("turns") or [], 1)
+            )
+            alternates.append(
+                f"<details class='alternate'><summary>{e(path.get('title', ''))}</summary>"
+                f"<p>{e(path.get('entry', ''))}</p><div class='chat'>{path_turns}</div>"
+                f"<div class='ex'><b>Pass looks like:</b> {e(path.get('expect', ''))}</div></details>"
+            )
         kind = s.get("kind", "edge")
         badge = {"main": "ok", "edge": "now"}.get(kind, "mute")
         changed = f"<div class='chg'><b>Changed:</b> {e(s['changed'])}</div>" if s.get("changed") else ""
@@ -246,9 +282,10 @@ def render(design: dict, warnings: list[str]) -> str:
             f"<div class='sh'><h2>{e(s.get('title', ''))}</h2><span class='b {badge}'>{e(kind)}</span></div>{changed}"
             f"<div class='chat'>{turns}</div>"
             f"<div class='ex'><b>Pass looks like:</b> {e(s.get('expect', ''))}</div>"
+            f"{''.join(alternates)}"
             f"<div class='card'><div class='label'>Comment on this whole scenario</div>"
             f"<textarea class='sc' data-k='scenario' placeholder='Write a comment'></textarea></div></div></section>")
-    warn = ("<div class='warn'><b>Architect would reject or flag this board:</b><ul class='nl'>"
+    warn = ("<div class='warn'><b>Check these board fields:</b><ul class='nl'>"
             + "".join(f"<li>{e(w)}</li>" for w in warnings) + "</ul></div>") if warnings else ""
     work, title = design.get("work", ""), design.get("title", "Design board")
     rnd = design["round"] if isinstance(design.get("round"), int) else 1

@@ -117,3 +117,21 @@ exits with code 7 means the same. Stop, name the change, and leave
 Skip this section outside Ada Architect. Architect sessions run on a
 gateway that holds the promote token. A promote still goes through
 `ada-promote-changeset`, and this skill never runs one.
+
+## Exclude web page elements
+
+The current web import docs list `--exclude-selectors` for
+`adacli <handle> knowledge scrape` and `knowledge sources update`, plus
+`--clear-exclude-selectors` for `knowledge sources update`. Read each
+command's installed `--help` for its argument format before use. Do not
+guess array quoting or combine clear with a replacement list. These source
+updates apply live, not on a changeset. Record the previous selectors and
+verify the next imported article text. If installed help lacks these flags,
+use the Knowledge Sources dashboard.
+
+## Code tool history
+
+Version history comparison and restore are documented dashboard workflows.
+No dedicated history/restore operation was verified on this runtime for this
+update. Use the code tool dashboard's version history, rather than treating
+a normal code-tool update or a changeset revert as a version restore.

@@ -42,3 +42,12 @@ many runs you are about to use. Do not start a test run, a rollout or a
 promote on your own after staging. Offer them and let the person choose.
 
 Say plainly in the report which steps you could not run on this host.
+
+## Knowledge SET controls
+
+Use `edit_agent_behavior` with `operation: describe_entity` and
+`entity_type: playbook` to read the current step schema. Only set Knowledge
+search and article-reference fields that schema exposes. If the current
+host's schema omits them, have the person configure them in the dashboard's
+reasoning SET editor. Do not guess field names. See `references/knowledge-set.md`
+for the single-variable, shared-search-budget and fallback rules.

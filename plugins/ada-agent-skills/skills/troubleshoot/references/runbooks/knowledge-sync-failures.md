@@ -81,3 +81,50 @@ for the first sync.
 - ASSUMED: the legacy index status values (idle, ongoing, pending, fetch
   failed, upload failed, remove failed) are the ones the source status
   shows. Not confirmed on the live tools.
+
+## Web import excludes page elements
+
+If navigation, cookie banners, repeated footers or other page elements pollute
+imported articles, use the website source's excluded CSS selectors in the
+Knowledge Sources dashboard. Preview the selectors against representative
+pages before saving. They remove matching elements, not whole source URLs.
+
+There may be at most 20 selectors, each at most 75 characters. Supported
+forms include tags, classes, IDs, attributes, descendant and child selectors,
+the general sibling combinator, `:not()` with a simple selector, `:empty`,
+`:link` and `:any-link`. Positional pseudo-classes, adjacent sibling `+`,
+leading `*`, `!=`, pseudo-elements, comments and namespaces are unsupported.
+Keep selectors narrow and confirm they retain the policy answer.
+
+Changes apply at the next sync and cannot be saved during a running sync.
+If the selectors remove all page content, Ada retains the last imported
+version. An old article remaining visible is therefore not proof the new
+exclusions worked. After sync, inspect the actual article text and the last
+sync time. Roll back by restoring the recorded selector list and syncing
+again. Runtime files give verified CLI flags and MCP discovery steps.
+
+Source: https://docs.ada.cx/docs/knowledge/content-ingestion/web-import#exclude-page-elements
+
+## SharePoint folder sources
+
+Use the SharePoint connection to select a folder and include its subfolders.
+Authorize read access for the selected site through Microsoft Entra, following
+the SharePoint integration guide. Record the site and selected folder before
+changing the connection. Do not request tenant-wide access for this setup.
+
+The source syncs every 15 minutes. Select the option to import new articles
+as inactive when a review is needed, then activate the intended articles
+before expecting the agent to use them. Text is extracted, with no OCR for scanned images. Missing text in an
+image-only file needs a text source, rather than another sync. SharePoint
+columns can map to tags; choose them before connecting, because the selected
+columns cannot change afterward. Check those mappings when tags are missing.
+
+Verify an expected file from a subfolder, its readable article text, active
+state and mapped tags after sync. Record the existing connection configuration before making a change. Column
+mappings cannot be edited afterward, so replacing a connection needs a new
+review and verification. Deleting a connection removes its
+articles, so do not delete it as a retry. Use the dashboard for authorization,
+folder selection and column mappings unless the current runtime schema
+explicitly exposes them.
+
+Source: https://docs.ada.cx/docs/knowledge/content-ingestion/knowledge-integration#import-articles-from-sharepoint

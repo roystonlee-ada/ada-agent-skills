@@ -38,3 +38,22 @@ Run `adacli <instance> status --json` once at the start. If `read_only` is
 refused. Offer a writable instance, or the steps that only read. A write that
 exits with code 7 means the same. Stop, name the change, and leave
 `~/.adacli/config` alone. `setup-adacli` has the full rule.
+
+## Knowledge SET controls
+
+Export the existing playbook steps and inspect the installed authoring guide
+and command help before setting Knowledge-search or article-reference fields.
+Do not infer a JSON field name from its dashboard label. Use the dashboard's
+reasoning SET editor if those controls are absent from the verified schema.
+The search and fallback design rules are in `references/knowledge-set.md`.
+
+## Current CLI behavior to verify
+
+CLI 1.8 creates a playbook inactive unless explicitly activated. Keep a new
+playbook inactive while building and testing. CLI 1.6 added a stage override
+for the reasoning level of all SET and ASK steps; do not apply that broad
+override when preserving selected High steps. CLI 1.7 quota warnings still
+start the test run, so check quota before invoking a run rather than treating
+the warning as a preview. Verify the installed command help and version.
+
+Source: https://docs.ada.cx/release-notes

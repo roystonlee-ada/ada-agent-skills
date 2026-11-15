@@ -7,7 +7,7 @@ description: >
   without downtime", "set up SSO for our Ada dashboard", "rotate our Ada API
   key", "who can use our Ada MCP server", "our Ada webhook stopped firing",
   "our Ada knowledge source will not sync", "which websites can embed our Ada
-  chat", "export or delete end-user data in Ada", "find the Ada audit log",
+  chat", "compare or restore a code tool version", "export or delete end-user data in Ada", "find the Ada audit log",
   "which Ada region is this instance in", or "what can I stage on a changeset
   and what goes live at once". Every answer states the downtime risk and the
   rollback, and cites a doc or code source. Not for one conversation (use
@@ -79,10 +79,11 @@ Open only the matching runbook. Do not read the whole library.
 | Session timeout and session limits | `references/runbooks/session-timeout.md` |
 | Rotate an API key | `references/runbooks/api-key-rotation.md` |
 | Webhooks stop, add, rotate secret, replay | `references/runbooks/webhooks.md` |
-| Knowledge source will not sync (integration or web import) | `references/runbooks/knowledge-sync-failures.md` |
+| Knowledge source will not sync, web import CSS exclusions, or SharePoint folder sync | `references/runbooks/knowledge-sync-failures.md` |
 | Embed script, allowed websites, widget will not load | `references/runbooks/embed-allowed-websites.md` |
 | Data retention, deletion of end-user data | `references/runbooks/data-retention-deletion.md` |
 | Export conversations or messages | `references/runbooks/data-export.md` |
+| Code tool version comparison or restore | `references/runbooks/code-tool-version-history.md` |
 | Audit log: who changed what | `references/runbooks/audit-log.md` |
 | Find the instance and region | `references/runbooks/instance-and-region.md` |
 | Changesets: what can be staged, revert | `references/runbooks/changesets-staging-revert.md` |

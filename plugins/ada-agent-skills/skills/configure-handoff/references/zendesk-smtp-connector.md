@@ -37,3 +37,15 @@ The docs list no troubleshooting table. Use these chain checks.
   MCP lists channels only.
 - Change: the toggle and domain in the dashboard. Address and domain
   deletion and the default support address are Zendesk-side.
+
+
+## Verify both directions
+
+After configuring both Ada and Zendesk, verify Inbound and Outbound have
+green checks. Then test a complete email handoff: a customer message creates
+the intended Zendesk ticket and a human reply reaches the customer in the
+same thread with the intended support address. Also verify the documented
+proactive reply flow when it is part of this connection. Record the observed
+result without copying credentials.
+
+Source: https://docs.ada.cx/docs/handoffs/zendesk/zendesk-smtp-connector

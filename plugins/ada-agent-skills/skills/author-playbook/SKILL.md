@@ -172,3 +172,11 @@ two things at once. I've made the time its own question instead."
    on the step only when the recorded reason is wrong, because Ada never
    overwrites a reason you set.
 6. Only then say what the evidence supports. The person decides on Promote.
+
+## Knowledge in a reasoning SET
+
+For a reasoning SET that needs a fact from Knowledge, read
+`references/knowledge-set.md` before authoring or revising it. This includes
+extracting a policy value into a variable, not only writing a customer reply.
+For code tool comparisons or restoring an earlier version, use
+`troubleshoot` and its code tool version history runbook.

@@ -4,6 +4,19 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.15.1
+
+- Reconcile the published plugin with the committed 13/11 conversation design improvements, preserving channel support, email code tools, handoff checks, SMS opt-outs and prevent-handoffs.
+- Add reasoning SET Knowledge guidance, shared search limits and safe missing-answer branches.
+- Add web import excluded selectors and SharePoint folder sync checks, including activation, permissions, text extraction and tags.
+- Add code tool version comparison and restore guidance, with permissions and restore boundaries.
+- Strengthen documented Zendesk SMTP end-to-end verification. The announced Test connection button is held pending public documentation.
+
+## 2026.11.13.1
+
+- `design-conversation` checks the instance greeting, channel settings, variables and applicable policy articles before drafting. It maps policy outcomes and edge cases to sample paths and shows each path through its final visible outcome, including configured surveys and repeat entry.
+- Local design boards support review translations, separate system events and alternate paths with turn comments. Ada Architect and MCP review instructions include a readable transcript for the same detail.
+
 ## 2026.11.11.6
 
 - New skill `prevent-handoffs`. It gives every handed-off conversation in a window a verdict: preventable, or not because the customer asked for a person, policy needs a person, or the agent lacks system access. Each verdict carries the reason and evidence. It groups the preventable ones by root cause, ranks them by conversations, drafts a knowledge, playbook or action fix for the top causes on a changeset, seeds test cases from the real handed-off conversations, and replays them with `test-and-fix`. A fix stays only when most of its targets now end without a handoff and the controls hold. The report is a ranked list: fix, cause, conversations affected, contained x of y, projected containment gain and links. It never promotes. On a read-only instance it stops at the proposed fix list.
