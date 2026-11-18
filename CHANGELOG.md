@@ -4,6 +4,12 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.18.6
+
+- Add intent-specific state health review across playbook graphs, guidance, coaching, knowledge and actions. Compare required business states with implemented transitions, including scope, freshness, invalidation and uncertain operation outcomes.
+- Connect focused improve-agent reviews, conversation diagnosis, custom metric improvement and the shared author/revise/test graph workflow. Recommendations cover user, agent and developer experience, preserving evidence, acceptance and authorization boundaries.
+- Separate configured coverage from exercised behavior and structural findings from population-ranked metric claims. The graph converter remains a structural extractor, not an automatic semantic state detector.
+
 ## 2026.11.18.3
 
 - `check_ask_instructions.py` A3 no longer fails an instruction that says *not* to repeat the question, such as "Never repeat this question".

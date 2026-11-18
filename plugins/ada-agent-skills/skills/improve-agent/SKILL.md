@@ -8,7 +8,9 @@ description: >
   losing conversations", "how do we raise containment", "how do we raise
   automated resolution or CSAT", "what are humans handling that the agent
   could", "build the improvement backlog", or "review this agent" with no single
-  conversation in mind, even if they never say "improve". Each recommendation
+  conversation in mind, even if they never say "improve". Also use for an
+  intent-specific playbook health check or hidden-state coverage review.
+  Each population-ranked recommendation
   carries a size, the metric it moves, a mechanism and two or more conversation
   links. For one conversation use diagnose-conversation. For handoff counts by
   reason alone use review-handoffs. For the custom metric scorecard alone use
@@ -22,6 +24,18 @@ trustworthy: the size comes from the whole population, the mechanism comes from
 real conversations, and every recommendation ends at a next skill, not at "add
 an API". Build the list in that order.
 
+## Focused intent health check
+
+When the request names one intent or asks which hidden states a playbook misses,
+use `../author-playbook/references/intent-state-health.md` with the runtime below.
+Start from the intent's required outcome, reconstruct state across its graph,
+guidance, coaching, knowledge and actions, then compare required and implemented
+transitions. Report coverage, evidence-labelled gaps and recommendations for
+user, agent and developer experience. This focused structural review can proceed
+without population metrics; it does not qualify for ranked lift claims without
+the sizing and opened conversation links required below. This skill still stages
+and promotes nothing.
+
 ## 0. Pick the runtime
 
 Each step below names what to do, not a command. Read one file for how:
@@ -30,7 +44,9 @@ Each step below names what to do, not a command. Read one file for how:
 - `adacli` on the path → `references/runtime-cli.md`
 
 If both are present, use the MCP for counts and rates, and adacli for exports.
-Neither route is connected: use `setup-ada-mcp` or `setup-adacli`.
+For a focused review of supplied artifacts, proceed without a connected route
+and state the source and runtime evidence limits. When live retrieval is needed
+and neither route is connected, use `setup-ada-mcp` or `setup-adacli`.
 
 ## 1. Fix the window and the population
 
@@ -94,6 +110,11 @@ sample. A sample of a few conversations confirms the mechanism and nothing else.
 
 ## 6. Confirm the mechanism, then write the recommendation
 
+When a cluster depends on prior events, retained values, retries, re-entry or
+rules spread across surfaces, run the shared intent-state health check above.
+Record the missing state or transition and its owner as the mechanism. Keep
+structural maintenance opportunities separate from evidenced population defects.
+
 For each cluster in the top ten by size, read at least two conversations
 (three if the cluster is large). Name the step, rule, gap or missing system
 that stopped the agent. A recommendation needs all four of:
@@ -103,7 +124,7 @@ that stopped the agent. A recommendation needs all four of:
 - the next skill
 
 A cluster that lacks two conversations you can link, or a mechanism you can
-name, is not a recommendation. List it under data gaps with its count and what
+name, is not a population-ranked recommendation. List it under data gaps with its count and what
 is missing. Hold this line when the person asks for a one-line answer: a short
 answer is still a ranked line with its size and two links. If you cannot supply
 them, say what is missing, never a bare suggestion. A bare suggestion is the

@@ -106,6 +106,12 @@ work goes to what moves containment, resolution, CSAT or a custom metric most.
 
 ## 5. Run the improvement loop
 
+For real defects that depend on prior events or state spread across surfaces,
+read `../author-playbook/references/intent-state-health.md`. Compare the intent's
+required states with its implemented transitions and attach the uncovered state,
+evidence and owner to the cluster. Judge errors remain metric findings. Structural
+risks alone do not establish affected-chat counts or metric lift.
+
 Ask the person which path, with a recommendation and a reason.
 
 | Path | Use when | How |

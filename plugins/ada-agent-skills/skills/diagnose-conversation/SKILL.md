@@ -85,6 +85,12 @@ confidence. The runtime file gives the format.
 
 ## 3. Hand off to the right fix
 
+For behavior that depends on prior turns, changed inputs, retained flags,
+re-entry, retries or conflicting rules, read
+`../author-playbook/references/intent-state-health.md`. Reconstruct the affected
+intent's state transitions across the owning surfaces before naming the fix.
+Keep a configuration gap distinct from the path demonstrated by this trace.
+
 | Surface | Next |
 |---|---|
 | Playbook steps or flow | revise-playbook |

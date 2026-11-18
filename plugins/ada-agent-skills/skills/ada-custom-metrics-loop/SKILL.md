@@ -101,6 +101,12 @@ metric does not cost resolution, say so and rank it low.
 For one chat per cluster, run `diagnose-conversation` to name the surface that owns
 the problem (playbook, knowledge, coaching, trigger, action, handoff, persona).
 
+For state-dependent clusters, use
+`../author-playbook/references/intent-state-health.md` during diagnosis. Carry
+the intent coverage gaps, state ownership and linked acceptance checks into
+the fix and re-measurement. Do not treat an inferred missing state as a measured
+metric defect or expand the cycle beyond its approved scope.
+
 ## 6. Fix, test, ramp
 
 Ask the person which path, with a recommendation and a reason.

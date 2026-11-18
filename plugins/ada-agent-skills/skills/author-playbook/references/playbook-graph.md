@@ -5,6 +5,13 @@ helps find paths a happy-path transcript misses. It does not prove how the
 runtime will interpret an answer. Use the chosen runtime reference to read
 configuration and traces; do not infer platform semantics from a diagram.
 
+For each intent in the approved scope, also read
+`references/intent-state-health.md` in author-playbook. Compare the intent's
+required business states and transitions with the implemented graph, including
+state hidden in guidance, knowledge, flags and prior turns. Save that coverage
+overlay beside the graph. Apply the same check when entering from revise-playbook
+or test-and-fix; inferred states do not become generated or exercised edges.
+
 ## 1. Save a graph with its source
 
 Before authoring, map the approved design as a proposed graph. Before revising
