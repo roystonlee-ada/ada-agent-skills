@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.18.7
+
+- Add `playbook-health` as a directly callable, read-only skill for intent coverage, hidden states, prose lint and SEND/ASK/SET prompt review. It reuses the shared health review and requires no population metrics or improve-agent invocation.
+
 ## 2026.11.18.6
 
 - Include playbook prose and ASK lint checks plus semantic SEND/ASK/SET prompt review in focused health checks. Report lint execution status separately from state coverage and runtime evidence.

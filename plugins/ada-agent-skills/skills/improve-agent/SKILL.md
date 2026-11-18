@@ -27,7 +27,8 @@ an API". Build the list in that order.
 ## Focused intent health check
 
 When the request names one intent or asks which hidden states a playbook misses,
-use `../author-playbook/references/intent-state-health.md` with the runtime below.
+use `playbook-health` directly, or follow
+`../author-playbook/references/intent-state-health.md` with the runtime below.
 Start from the intent's required outcome, reconstruct state across its graph,
 guidance, coaching, knowledge and actions, then compare required and implemented
 transitions. Report coverage, evidence-labelled gaps and recommendations for
