@@ -81,7 +81,8 @@ python3 evals/check_cli_commands.py /tmp/ctx.json --baseline evals/adacli-comman
   they show as REMOVED in the diff. `--save` writes a new baseline.
 - `test_check_ask_instructions.py` tests the author-playbook ask checker,
   including rule A4 (zero re-asks, no fallback, and an action with no
-  `is null` check). Run `python3 evals/test_check_ask_instructions.py`.
+  `is null` check, including on an ASK that stores any reply) and A9 (the
+  bare word true or false). Run `python3 evals/test_check_ask_instructions.py`.
 
 ## Add a case
 

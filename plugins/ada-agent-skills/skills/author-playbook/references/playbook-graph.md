@@ -21,6 +21,46 @@ channel, and whether it represents design, live configuration or a draft.
 Keep design and runtime graphs separate. Use real step identifiers from the
 export; for a proposed step use a clearly marked temporary identifier.
 
+For persisted V2 configuration, use `scripts/playbook_graph.py` from this
+skill rather than rebuilding its configured structure by hand. Read the
+"Convert persisted configuration to a graph" section in this skill's
+`references/runtime-cli.md` or `references/runtime-mcp.md`, matching the chosen
+runtime, including when entering from revise-playbook or test-and-fix. It writes
+`graph.json` and `graph.md`, containing Mermaid, node and edge tables and
+structural findings. It preserves section identity, branch conditions, raw
+step settings and supplied playbook deviation settings. Absent fields remain
+unset. Enrich these generated tables with the purpose, variable dependencies,
+ASK contract and runtime evidence required below.
+
+The converter follows ordered sections, binary branches and their rejoins,
+explicit GO_TO targets and child call/conditional-return boundaries. Notes
+are retained as annotations, never execution steps. Handoff and explicit
+exit have no automatic continuation; exit does not mean closing the chat.
+Missing targets, structural cycles and possible unreachable steps are
+suspected configuration risks, not demonstrated runtime failures.
+
+Supply one complete playbook, a sections export, or a flat steps export with
+its playbook identity. A single-entity `data`, `playbook`, `playbooks`,
+`fields` or `entities` wrapper is supported. Multiple playbooks, missing or
+duplicate step IDs, paged items and header-only sections are rejected. Finish
+pagination and assemble the complete persisted object first. A syntactically
+complete export cannot establish that the upstream retrieval was complete;
+verify its source and revision separately.
+
+Unknown types stop extraction at an OPEN boundary. ASK retry, fallback,
+existing-value skip and off-script behavior, dynamically chosen actions and
+external outcomes remain OPEN. No retry edge or business outcome is invented
+from a setting or instruction. Child internals require their own graph and
+return evidence. Every generated edge starts UNTESTED. Review these boundaries
+before treating apparent unreachable steps as a runtime defect.
+
+For an approved design without persisted steps, make the proposed graph using
+the design and temporary IDs. The converter does not turn conversation prose
+into an implementation or authorize a change. After staging, regenerate from
+the persisted draft in a separate output directory and compare its node IDs,
+edges and settings with the intended graph. Keep human evidence annotations
+separate so regeneration does not overwrite them.
+
 Save a readable Mermaid flowchart and the node and edge tables beside the
 use case's existing work artifacts, in its approved storage location. The
 diagram can group sections for readability, but the tables retain every step

@@ -30,6 +30,27 @@ it does not discover semantic states from prose or prove runtime coverage.
 Add a separate state overlay with source references, preserving generated edges
 and their evidence labels. Proposed transitions are never observed graph edges.
 
+## Check playbook text and step prompts
+
+Include a prose and prompt health pass on the same persisted playbooks, using
+author-playbook's `scripts/check_playbook_text.py` and
+`scripts/check_ask_instructions.py` when local script execution is available.
+For a focused intent, limit lint input to the reviewed parent/child flows.
+Report rule ID, severity, playbook and step/field, evidence and recommendation.
+If scripts cannot run, label the pass manual or NOT RUN rather than claiming
+linter coverage. A linter FAIL describes a configured rule violation, not a
+trace-confirmed customer failure. Do not change configuration during the check.
+
+Check names and routing descriptions, bloated general instructions, history
+notes, and SEND/ASK/SET instruction length. Semantically review whether GI holds
+only shared rules, a SEND words the selected answer rather than deciding a
+multi-branch workflow, an ASK clearly captures and maps its intended input with
+safe recovery, and a reasoning SET clearly defines the value to save without
+customer-facing output. Look for conflicting instructions and move branching
+to supported decision steps or tools when justified. Length warnings and ASK
+pattern checks do not prove prompt correctness. Keep lint findings, semantic
+prompt risks and hidden-state gaps distinct, cross-linking shared root causes.
+
 ## 2. Reconstruct the state model
 
 State is the minimum information that changes which action is valid next.
@@ -119,7 +140,8 @@ Confirm both the customer-visible outcome and relevant persisted/external state
 where authorized. Preserve the nearby passing path as a control. Use existing
 approved criteria; proposals for new behavior return to design-conversation.
 
-End with the intent, coverage table, evidence-labelled gaps, recommendations,
+End with the intent, coverage table, lint execution status and findings,
+semantic prompt risks, evidence-labelled state gaps, recommendations,
 and OPEN sources or untested transitions. State the reviewed boundary explicitly;
 "all hidden states" cannot be established from incomplete exports or a sample.
 The caller retains its staging, approval, test safety, spend and stop rules.

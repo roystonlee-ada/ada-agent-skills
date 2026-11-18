@@ -19,11 +19,16 @@ Rules:
             (checked only when the question asks whether something worked or was done)
   A3  FAIL  the instruction tells the model to repeat the question as it was
   A4  WARN  zero re-asks and no fallback, and a later action uses the variable with no
-            'is null' check. Skipped when the instruction stores any reply, because the
-            variable is then always filled
+            'is null' check. Also when the instruction stores any reply: a non-answer
+            ("thanks, that's all", a bare "yes") is still classed did_not_answer and
+            leaves the variable empty
   A5  WARN  contextual ASK with retries and no line on how to word a re-ask
   A6  WARN  no max re-ask attempts set (default is 3, so the customer is asked 4 times)
   A7  WARN  ASK with values and no fallback value
+  A9  WARN  the instruction tells the model to write or output the bare word true or
+            false. The model can send that word to the customer as its message. Say
+            what to save instead ("Save true if ...") and add "never say true or false
+            to the customer". (A8 was retired in 2026.11.18.3; the number is not reused.)
 """
 import json
 import re
@@ -47,6 +52,13 @@ VERBATIM = re.compile(
     r"(repeat (the|your|this|that) (same |exact |original )?(question|ask)\b|"
     r"ask (the )?same question again|re-?ask (it )?(exactly|verbatim|word for word)|"
     r"(same|exact) (words|wording) (again|as before))", re.I)
+# Capture wording that reads as an instruction to say the word, not to save it.
+BARE_WORD = re.compile(
+    r"\b(write|output|return|respond with|reply with|answer with|print)\s+"
+    r"(exactly\s+|only\s+|just\s+|the word\s+)?[\"'“‘`]?(true|false)\b", re.I)
+OUTPUT_NEGATION = re.compile(
+    r"\b(never|not|don't|do not|avoid|without)\s+"
+    r"(?:(?:ever|directly|explicitly|literally|actually)\s+)*$", re.I)
 NEGATION = re.compile(r"\b(never|not|don't|do not|avoid|without)\b[^.;:\n]*$", re.I)
 # Wording that removes the off-topic and Q&A controls for the step
 # (extraction_system.jinja, STEP-INSTRUCTION PRECEDENCE).
@@ -124,6 +136,10 @@ def asks_to_repeat(text):
     return any(not NEGATION.search(text[:m.start()]) for m in VERBATIM.finditer(text))
 
 
+def says_bare_word(text):
+    return any(not OUTPUT_NEGATION.search(text[:m.start()]) for m in BARE_WORD.finditer(text))
+
+
 def unguarded_actions(doc):
     """(ask, variable, action) for each zero-re-ask ask with no fallback whose next action
     runs with no null check on the variable in between."""
@@ -137,8 +153,6 @@ def unguarded_in(steps):
     found = []
     for i, step in enumerate(steps):
         if step.get("type") != "ask" or step.get("max_reask_attempts") != 0:
-            continue
-        if ACCEPT_ANY.search(step.get("instruction") or ""):
             continue
         inputs = step.get("inputs") or [step]
         for inp in inputs:
@@ -215,6 +229,9 @@ def problems(step):
 
     if asks_to_repeat(text):
         out.append(("FAIL", "A3", "tells the model to repeat the question as it was"))
+    if says_bare_word(text):
+        out.append(("WARN", "A9", "tells the model to write the bare word true or false; "
+                                  "say what to save and never to say it to the customer"))
 
     if not exact and step.get("max_reask_attempts") != 0:
         if not REASK_LINE.search(text):
@@ -254,10 +271,12 @@ def main(argv):
         name = doc.get("name") if isinstance(doc, dict) else None
         zero_reask = {}
         for ask, var, action in unguarded_actions(doc):
+            note = (" (storing any reply does not cover a non-answer)"
+                    if ACCEPT_ANY.search(ask.get("instruction") or "") else "")
             zero_reask.setdefault(id(ask), []).append(
                 ("WARN", "A4", f"max_reask_attempts 0 and no fallback: one non-answer leaves "
                                f"{var} empty and action {action.get('target_id')} "
-                               f"[{action.get('id')}] runs with no 'is null' check"))
+                               f"[{action.get('id')}] runs with no 'is null' check{note}"))
         for step in asks(doc):
             checked += 1
             head = " ".join((step.get("instruction") or "").split())[:70]

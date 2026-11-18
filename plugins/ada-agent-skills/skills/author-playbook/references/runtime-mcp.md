@@ -43,6 +43,29 @@ promote on your own after staging. Offer them and let the person choose.
 
 Say plainly in the report which steps you could not run on this host.
 
+## Convert persisted configuration to a graph
+
+Read the complete playbook through the connected tool's current detail
+schema. Save the decoded playbook object or a single-entity `entities`
+response as local JSON. Follow every pagination cursor first. Header-only
+sections and paged `items` are not a complete graph input. For a draft,
+read back its persisted changeset configuration and retain that identity.
+
+On a host with Python and local file execution:
+
+```bash
+python3 <author-playbook-skill>/scripts/playbook_graph.py playbook.json --identity <id> --state draft --revision <changeset-id> --channel <channel> --captured-at <ISO-8601-time> --output-dir <approved-artifact-folder>/draft-graph
+```
+
+Use the installed skill directory. For live configuration use `--state live`
+and its source revision. The helper writes `graph.json` and `graph.md` using
+Python's standard library; it does not call Ada or run tests. Exit 2 means
+invalid input or a file error, not a runtime diagnosis. On hosts without
+local file execution, state that automatic conversion was unavailable and
+make the graph and tables from the complete configuration by hand. Follow
+`references/playbook-graph.md` for evidence labels, unknown transitions and
+the semantic review. Generation alone does not complete that review.
+
 ## Knowledge SET controls
 
 Use `edit_agent_behavior` with `operation: describe_entity` and

@@ -39,6 +39,26 @@ refused. Offer a writable instance, or the steps that only read. A write that
 exits with code 7 means the same. Stop, name the change, and leave
 `~/.adacli/config` alone. `setup-adacli` has the full rule.
 
+## Convert persisted configuration to a graph
+
+Export one complete V2 playbook with section boundaries preserved:
+
+```bash
+adacli <instance> playbooks export-steps <id> --sections > playbook.json
+python3 <author-playbook-skill>/scripts/playbook_graph.py playbook.json --identity <id> --state live --revision <source-revision> --channel <channel> --captured-at <ISO-8601-time> --output-dir <approved-artifact-folder>/live-graph
+```
+
+Use the installed skill directory for `<author-playbook-skill>`. A full
+`playbooks get <id> --json` export is also accepted and normally includes the
+identity. For a draft, obtain its persisted changeset configuration through
+the installed CLI's verified read command, then use `--state draft` and the
+changeset ID as `--revision`. Do not label a live export as a draft. Use a
+separate output directory per revision; the two generated files are replaced
+on rerun. The helper reads local JSON, uses Python's standard library and
+does not call Ada or start tests. Exit 2 means invalid input or a file error;
+exit 0 means files generated, not a passed graph review. See
+`references/playbook-graph.md` for the evidence and review still required.
+
 ## Knowledge SET controls
 
 Export the existing playbook steps and inspect the installed authoring guide

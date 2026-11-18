@@ -118,9 +118,23 @@ class StoreAnyReply(unittest.TestCase):
         self.assertEqual(rules(instruction="Accept any answer and move on."), [])
         self.assertEqual(rules(instruction=STORE_ANY), [])
 
-    def test_store_any_reply_clears_a4(self):
-        self.assertEqual(a4(playbook(ask(instruction=STORE_ANY), action())), [])
-        self.assertEqual(a4(playbook(ask(instruction="Accept any answer."), action())), [])
+    def test_store_any_reply_still_gets_a4(self):
+        # A non-answer ("thanks, that's all") is classed did_not_answer and leaves the
+        # variable empty even when the instruction says to store any reply.
+        self.assertEqual(a4(playbook(ask(instruction=STORE_ANY), action())),
+                         [("ask-reason", REASON, "run-refund")])
+        self.assertEqual(a4(playbook(ask(instruction="Accept any answer."), action())),
+                         [("ask-reason", REASON, "run-refund")])
+
+    def test_store_any_reply_is_cleared_by_a_null_check(self):
+        self.assertEqual(a4(playbook(ask(instruction=STORE_ANY), null_check([action()]))), [])
+
+    def test_cli_names_store_any_in_the_a4_line(self):
+        with tempfile.NamedTemporaryFile("w", suffix=".json", delete=False) as f:
+            json.dump(playbook(ask(instruction=STORE_ANY), action()), f)
+        out = subprocess.run([sys.executable, str(SCRIPT), f.name], capture_output=True, text=True)
+        self.assertEqual(out.returncode, 0, out.stdout)
+        self.assertIn("storing any reply does not cover a non-answer", out.stdout)
 
 
 class RepeatTheQuestion(unittest.TestCase):
@@ -135,6 +149,37 @@ class RepeatTheQuestion(unittest.TestCase):
 
     def test_negation_in_an_earlier_sentence_does_not_count(self):
         self.assertIn("A3", rules(instruction="Never guess. Repeat the question."))
+
+
+class BareTrueFalse(unittest.TestCase):
+    def test_negative_condition_does_not_negate_output(self):
+        for text in ("If the customer does not confirm, write false.",
+                     "If they do not agree, output false."):
+            self.assertIn("A9", rules(instruction=text), text)
+
+    def test_unrelated_prohibition_does_not_negate_output(self):
+        for text in ("Do not ask again, write exactly true if they confirm.",
+                     "Never guess and output false if they decline."):
+            self.assertIn("A9", rules(instruction=text), text)
+
+    def test_directly_negated_output_passes(self):
+        for text in ("Do not output true or false.",
+                     "Don't ever write true in your reply.",
+                     "Never directly respond with false."):
+            self.assertNotIn("A9", rules(instruction=text), text)
+
+    def test_write_the_word_is_flagged(self):
+        for text in ("Write exactly true if they confirm the cancellation, otherwise false.",
+                     "Respond with only 'false' when they say no.",
+                     "Output true when the customer agrees."):
+            self.assertIn("A9", rules(instruction=text), text)
+
+    def test_save_wording_passes(self):
+        for text in ("Save true if they confirm the cancellation, otherwise save false. "
+                     "Never say true or false to the customer.",
+                     "Never write true or false in your reply.",
+                     STORE_ANY):
+            self.assertNotIn("A9", rules(instruction=text), text)
 
 
 class WorkedOrNot(unittest.TestCase):
