@@ -4,6 +4,10 @@ Each version has a section below. A push to `main` that changes the version
 creates a GitHub Release with that section as its notes. To get an email for
 each release, open the repo on GitHub, choose Watch, then Custom, then Releases.
 
+## 2026.11.20.1
+
+- Add `author-playbook/references/code-tool-sensitive.md`: how to check a sensitive variable in a code tool. An input can't be linked to one, so it comes in as a Sensitive Variable environment entry (the MCP/API shape is shown) and is read with `os.getenv`. Clean both sides the same way before comparing, and return a category word (`match`, `no_match`, `missing`), never the value. `run_code_tool` skips variable-backed entries, so test the logic with plain inputs, then prove the bindings with a test case that presets the sensitive variables. author-playbook links it next to the email reference.
+
 ## 2026.11.19.1
 
 - Review simulator behavior, routing, fixtures, and judge evidence before fixing failed tests. Compare proposed repairs against the same baseline and candidate, require test-owner approval for protected edits, and keep release gates in force.

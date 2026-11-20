@@ -126,6 +126,9 @@ Record selected and rejected options, evidence and acceptance checks.
 When the design emails the customer mid-chat, also read
 `references/code-tool-email.md`.
 
+When a code tool must check a sensitive variable (an ID, a date of birth, a
+code), also read `references/code-tool-sensitive.md`.
+
 ## 4. Push back on patches
 
 When asked for a change that adds a rule to a step to fix one case, look at
